@@ -4,7 +4,7 @@ class Player {
     constructor(scene) {
         this.scene=scene
         this.cameras=scene
-        this.player = this.scene.physics.add.sprite(-10, 500, 'player');
+        this.player = this.scene.physics.add.sprite(1100, 2700, 'player');
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(false);
         this.scene.physics.add.collider(this.player, this.scene.platforms);
@@ -32,6 +32,11 @@ class Player {
             repeat:-1,
 
         });
+        /**this.scene.anims.create({
+            key: 'dead',
+            frames: [{key: 'player', frame: 'robo_player_0'}],
+            frameRate: 10,
+        });*/
     }
 
     jump(){
@@ -56,8 +61,13 @@ class Player {
             this.player.play('idle',true)
         }
     }
-
-    }
+    /**dead(){
+    this.player.setVelocityX(0);
+        if (this.player.body.onFloor()) {
+            this.player.play('dead',true)
+        }
+    }*/
+}
 
 
 
