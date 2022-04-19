@@ -9,42 +9,44 @@ class scene extends Phaser.Scene {
         //Load des objets
         this.load.image('pnj','assets/images/Pnj.png');
         this.load.image('save','assets/images/Save.png');
-        this.load.image('death','assets/images/Death.png')
+        this.load.image('death','assets/images/Death.png');
+        this.load.image('platcloud','assets/images/platform_cloud.png');
+
 
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
-    }
+    }//PRELOAD END
 
 
     create() {
-        /**
-         * on initialise les valeurs de la sauvegarde
-         * @type {number}
-         */
+        // Initialisation des sauvegardes à 0
         this.currentSaveX = 0;
         this.currentSaveY = 0;
 
-
+        // Rajoute la map sur phaser + gére taille
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2, 0.8);
         const map = this.make.tilemap({key: 'map'});
-
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
         this.platforms = map.createStaticLayer('Sol', tileset);
 
+        // Rajoute la physique (collisions)
         this.platforms.setCollisionByExclusion(-1, true);
+
+        // Joueurs
         this.cursors = this.input.keyboard.createCursorKeys();
-
-
         this.player = new Player(this)
 
+        // Caméra
         this.cameras.main.startFollow(this.player.player,true);
         this.cameras.main.setDeadzone(400, 200)
+
 
         /**
          * on créer les multiple groupe des layers objets
          * @type {Phaser.Physics.Arcade.Group}
          */
+
         /** groupe des Saves **/
         this.saves = this.physics.add.group({
             allowGravity: false,
@@ -55,23 +57,43 @@ class scene extends Phaser.Scene {
         });
         this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
 
+
         /** groupe des trous,death **/
         this.trous = this.physics.add.group({
             allowGravity: false,
             immovable: true
         });
-    // ceci permet au images que vous avez placé sur Tiled d'avoir une boite de colision mais aussi d'etre invisible
         map.getObjectLayer('Trous').objects.forEach((death) => {
             //remplacez le 'death' avec le nom de l'image remplacé (le nom déclaré dans preload)
-            const trousSprite = this.trous.create(death.x, death.y + 5 - death.height, 'death').setOrigin(0).visible = true ;
+            const trousSprite = this.trous.create(death.x, death.y + 5 - death.height, 'death').setOrigin(0).visible = false ;
         });
         this.physics.add.collider(this.player.player, this.trous, this.playerHit, null, this);
 
 
-    }
+        /** groupe des Pnjs **/
+        this.pnjs = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+        map.getObjectLayer('Pnjs').objects.forEach((pnj) => {
+            const pnjSprite = this.pnjs.create(pnj.x, pnj.y + 5 - pnj.height, 'pnj').setOrigin(0);
+        });
+
+
+        /** groupe des Platform_Cloud **/
+        this.PlatformClouds = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        }); // name : 'PlatformClouds' = nom dans tiled de nos objets, "platcloud" = nom qu'on donne pour tous les identifiés, 'platcloud' nom du sprite
+        map.getObjectLayer('PlatformClouds').objects.forEach((platcloud) => {
+            const platcloudSprite = this.PlatformClouds.create(platcloud.x, platcloud.y + 5 - platcloud.height, 'platcloud').setOrigin(0);
+            this.physics.add.overlap(this.player.player, this.PlatformClouds, this.platcloudLife, null, this );
+        });
+
+    }//CREATE END
 
     /**
-     * fonction exécuter des lors que le joueur touche un objet "save" qui enregistre les variables du player au moment T + désactive la collision de l'objet pour ne pas réexécuter a chaque collision
+     * fonction exécuter des lors que le joueur touche un objet "save" qui enregistre les variables du player au moment touche
      * @param player
      * @param saves
      */
@@ -80,14 +102,15 @@ class scene extends Phaser.Scene {
         this.currentSaveX = player.x
         this.currentSaveY = player.y
         saves.body.enable = false;
-        this.currentKey = player.key
+        console.log("SAVED")
+
     }
     /** fonction trous/death **/
     playerHit(player, trous) {
+        console.log("DEAD_CHARACTER : falling")
         player.setVelocity(0, 0);
         player.x = this.currentSaveX
         player.y = this.currentSaveY;
-        player.key= this.currentKey
         player.play('idle', true); //changer a 'dead' quand asset dead finit
         player.setAlpha(0);
         let tw = this.tweens.add({
@@ -100,12 +123,24 @@ class scene extends Phaser.Scene {
     }
 
 
+    /** fonction platcloudLife **/
+    platcloudLife(player, PlatformClouds ){
+    if (this.player.player,this.PlatformClouds){
+        this.platcloudLife=-1; // faire en sorte de retirer de la "vie" a la platforme
+        console.log("vie platforme :",this.platcloudLife)
+    }
+    /**if (this.platcloudLife==0){
+        this.PlatformClouds.visible=false
+        }
+**/
+    };
+
     update() {
 
         switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
                 this.player.jump()
-                console.log("oui")
+                console.log("jump")
                 break;
             case this.cursors.left.isDown:
                 this.player.moveLeft()
@@ -115,11 +150,10 @@ class scene extends Phaser.Scene {
                 break;
             default:
                 this.player.stop();
+
         }
+    }//UPDATE END
 
 
 
-
-
-    }
-}
+}//END END
