@@ -3,14 +3,15 @@ class scene extends Phaser.Scene {
     preload() {
         this.load.image('background', 'assets/images/background.png');
         // At last image must be loaded with its JSON
-        this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
-        this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
+        this.load.atlas('player', 'assets/images/player.png', 'assets/images/player.json');
+        this.load.image('tiles', ['assets/tilesets/platformPack_tilesheet.png', 'assets/tilesets/platformPack_tilesheet_n.png']);
 
         //Load des objets
         this.load.image('pnj','assets/images/Pnj.png');
         this.load.image('save','assets/images/Save.png');
         this.load.image('death','assets/images/Death.png');
-        this.load.image('platcloud','assets/images/platform_cloud.png');
+        this.load.image('cloud','assets/images/clood.png');
+        this.load.image('fire', 'assets/images/muzzleflash3.png');
 
 
         // Load the export Tiled JSON
@@ -20,75 +21,98 @@ class scene extends Phaser.Scene {
 
     create() {
         // Initialisation des sauvegardes à 0
-        this.currentSaveX = 0;
-        this.currentSaveY = 0;
+
 
         // Rajoute la map sur phaser + gére taille
-        const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
+        const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0)
         backgroundImage.setScale(2, 0.8);
+        backgroundImage.setPipeline('light2D');
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
-        this.platforms = map.createStaticLayer('Sol', tileset);
+        this.platforms = map.createLayer('Sol', tileset).setPipeline('light2D')
 
         // Rajoute la physique (collisions)
         this.platforms.setCollisionByExclusion(-1, true);
 
         // Joueurs
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.player = new Player(this)
-
-        // Caméra
-        this.cameras.main.startFollow(this.player.player,true);
-        this.cameras.main.setDeadzone(400, 200)
 
 
-        /**
-         * on créer les multiple groupe des layers objets
-         * @type {Phaser.Physics.Arcade.Group}
-         */
 
-        /** groupe des Saves **/
+        this.colliders = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+        const colliderLayer = map.getObjectLayer('colliders')
+        colliderLayer.objects.forEach(objData=> {
+            const {x = 0, y = 0, width = 0, height = 0} = objData
+            let colliders = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
+            colliders = this.physics.add.existing(colliders)
+            this.colliders.add(colliders)
+        })
+
+
         this.saves = this.physics.add.group({
             allowGravity: false,
             immovable: true
         });
-        map.getObjectLayer('Saves').objects.forEach((save) => {
-            const saveSprite = this.saves.create(save.x, save.y + 5 - save.height, 'save').setOrigin(0);
+        this.cloud = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
         });
-        this.physics.add.overlap(this.player.player, this.saves, this.sauvegarde, null, this)
-
-
-        /** groupe des trous,death **/
         this.trous = this.physics.add.group({
             allowGravity: false,
             immovable: true
         });
-        map.getObjectLayer('Trous').objects.forEach((death) => {
-            //remplacez le 'death' avec le nom de l'image remplacé (le nom déclaré dans preload)
-            const trousSprite = this.trous.create(death.x, death.y + 5 - death.height, 'death').setOrigin(0).visible = false ;
-        });
-        this.physics.add.collider(this.player.player, this.trous, this.playerHit, null, this);
 
+        const objectsLayer = map.getObjectLayer('objects')
+        objectsLayer.objects.forEach(objData=> {
+            const {x = 0, y = 0, name, width = 0, height = 0} = objData
+            switch (name) {
+                case 'Save': {
+                    let save = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
+                    save = this.physics.add.existing(save)
+                    this.saves.add(save)
+                    break;
+                }
+                case 'CloudP':
+                {
 
-        /** groupe des Pnjs **/
-        this.pnjs = this.physics.add.group({
-            allowGravity: false,
-            immovable: true
-        });
-        map.getObjectLayer('Pnjs').objects.forEach((pnj) => {
-            const pnjSprite = this.pnjs.create(pnj.x, pnj.y + 5 - pnj.height, 'pnj').setOrigin(0);
+                    let cloud = this.add.sprite(x,y,"cloud").setOrigin(0,0)
+                    this.cloud.add(cloud)
+                    break;
+
+                }
+                case 'Trous':
+                {
+                    let trous = this.add.rectangle(x,y,width,height).setOrigin(0,0)
+                    trous = this.physics.add.existing(trous)
+                    this.trous.add(trous)
+                    break;
+                }
+            }
+        })
+        this.player = new Player(this)
+        this.currentSaveX = this.player.player.x;
+        this.currentSaveY = this.player.player.y;
+        this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this)
+        this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
+        // Caméra
+        this.cameras.main.startFollow(this.player.player,true);
+        this.cameras.main.setDeadzone(400, 200)
+
+        this.lights.enable();
+        this.lights.setAmbientColor(0x808080);
+
+        let spotlight = this.lights.addLight(400, 300, 280).setIntensity(7)
+
+        this.input.on('pointermove', function (pointer) {
+
+            spotlight.x = pointer.x;
+            spotlight.y = pointer.y;
+
         });
 
-
-        /** groupe des Platform_Cloud **/
-        this.PlatformClouds = this.physics.add.group({
-            allowGravity: false,
-            immovable: true
-        }); // name : 'PlatformClouds' = nom dans tiled de nos objets, "platcloud" = nom qu'on donne pour tous les identifiés, 'platcloud' nom du sprite
-        map.getObjectLayer('PlatformClouds').objects.forEach((platcloud) => {
-            const platcloudSprite = this.PlatformClouds.create(platcloud.x, platcloud.y + 5 - platcloud.height, 'platcloud').setOrigin(0);
-            this.physics.add.overlap(this.player.player, this.PlatformClouds, this.platcloudLife, null, this );
-        });
 
     }//CREATE END
 
@@ -107,6 +131,7 @@ class scene extends Phaser.Scene {
     }
     /** fonction trous/death **/
     playerHit(player, trous) {
+        console.log('true')
         console.log("DEAD_CHARACTER : falling")
         player.setVelocity(0, 0);
         player.x = this.currentSaveX
@@ -121,21 +146,23 @@ class scene extends Phaser.Scene {
             repeat: 5,
         });
     }
-
-
-    /** fonction platcloudLife **/
-    platcloudLife(player, PlatformClouds ){
-    if (this.player.player,this.PlatformClouds){
-        this.platcloudLife=-1; // faire en sorte de retirer de la "vie" a la platforme
-        console.log("vie platforme :",this.platcloudLife)
+    cloudLife(player,cloud){
+        this.time.delayedCall(3000, ()=> {
+            cloud.visible=false
+            cloud.body.enable=false
+        })
     }
+
+
+
     /**if (this.platcloudLife==0){
         this.PlatformClouds.visible=false
         }
 **/
-    };
+
 
     update() {
+
 
         switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
