@@ -12,6 +12,8 @@ class scene extends Phaser.Scene {
         this.load.image('death','assets/images/Death.png');
         this.load.image('cloud','assets/images/clood.png');
         this.load.image('fire', 'assets/images/muzzleflash3.png');
+        this.load.image('moved', 'assets/images/move.png');
+
 
 
         // Load the export Tiled JSON
@@ -34,7 +36,7 @@ class scene extends Phaser.Scene {
         // Rajoute la physique (collisions)
         this.platforms.setCollisionByExclusion(-1, true);
 
-        // Joueurs
+
         this.cursors = this.input.keyboard.createCursorKeys();
 
 
@@ -64,10 +66,15 @@ class scene extends Phaser.Scene {
             allowGravity: false,
             immovable: true
         });
+        this.moved = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
 
         const objectsLayer = map.getObjectLayer('objects')
         objectsLayer.objects.forEach(objData=> {
             const {x = 0, y = 0, name, width = 0, height = 0} = objData
+
             switch (name) {
                 case 'Save': {
                     let save = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
@@ -90,13 +97,50 @@ class scene extends Phaser.Scene {
                     this.trous.add(trous)
                     break;
                 }
+                case 'MoveP':
+                {
+                    let moved = this.physics.add.sprite(x,y,"moved").setOrigin(0,0)
+                    const finalgoal =objData.properties[0].value+moved.y
+                    this.moved.add(moved)
+                    let velocity = 100
+                    let active = true
+                    let tw = this.tweens.addCounter({
+                        from: 0,
+                        to: 100,
+                        duration: 100,
+                        repeat: -1,
+                        yoyo: true,
+                        onUpdate: tween=>{
+                            if(active) {
+                                moved.setVelocityY(velocity)
+                                if(moved.y>=finalgoal)
+                                {
+                                    active=false
+                                }
+                            }
+                            else if(!active)
+                                moved.setVelocityY(-velocity)
+                            if(moved.y<y)
+                            {
+                                active=true
+                            }
+
+                        },
+
+                    });
+                    break;
+
+                }
             }
         })
+        // Player
         this.player = new Player(this)
         this.currentSaveX = this.player.player.x;
         this.currentSaveY = this.player.player.y;
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this)
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
+        this.physics.add.collider(this.player.player, this.moved);
+
         // Caméra
         this.cameras.main.startFollow(this.player.player,true);
         this.cameras.main.setDeadzone(400, 200)
@@ -112,6 +156,8 @@ class scene extends Phaser.Scene {
             spotlight.y = pointer.y;
 
         });
+
+
 
 
     }//CREATE END
