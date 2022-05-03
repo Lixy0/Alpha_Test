@@ -26,8 +26,15 @@ class Player {
         });
         this.scene.anims.create({
             key: 'idle',
-            frames: [{key: 'player', frame: 'Test_AnimRUN (1)02.png'}],
+            frames: this.scene.anims.generateFrameNames('idle', {
+                prefix: 'Idle_Anim_0000s_0011_',
+                suffix:'.png',
+                start: 0,
+                end: 10,
+                zeroPad:1,
+            }),
             frameRate: 10,
+            repeat: -1
 
         });
 

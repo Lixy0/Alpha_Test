@@ -1,9 +1,12 @@
 class scene extends Phaser.Scene {
 
     preload() {
+        // Background
         this.load.image('background', 'assets/images/background.png');
-        // At last image must be loaded with its JSON
+
+        // Images load avec JSON animation/sheet
         this.load.atlas('player', 'assets/images/player.png', 'assets/images/player.json');
+        this.load.atlas('idle', 'assets/images/idle.png', 'assets/images/idle.json');
         this.load.image('tiles', ['assets/tilesets/platformPack_tilesheet.png', 'assets/tilesets/platformPack_tilesheet_n.png']);
 
         //Load des objets
@@ -14,17 +17,12 @@ class scene extends Phaser.Scene {
         this.load.image('fire', 'assets/images/muzzleflash3.png');
         this.load.image('moved', 'assets/images/move.png');
 
-
-
-        // Load the export Tiled JSON
+        // Load Tiled MAP en JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
     }//PRELOAD END
 
 
     create() {
-        // Initialisation des sauvegardes à 0
-
-
         // Rajoute la map sur phaser + gére taille
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0)
         backgroundImage.setScale(2, 0.8);
@@ -33,18 +31,17 @@ class scene extends Phaser.Scene {
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
         this.platforms = map.createLayer('Sol', tileset).setPipeline('light2D')
 
-        // Rajoute la physique (collisions)
-        this.platforms.setCollisionByExclusion(-1, true);
-
-
+        // curseur
         this.cursors = this.input.keyboard.createCursorKeys();
 
-
+        // Rajoute la physique (collisions)
+        this.platforms.setCollisionByExclusion(-1, true);
 
         this.colliders = this.physics.add.group({
             allowGravity: false,
             immovable: true
         });
+
         const colliderLayer = map.getObjectLayer('colliders')
         colliderLayer.objects.forEach(objData=> {
             const {x = 0, y = 0, width = 0, height = 0} = objData
@@ -53,6 +50,7 @@ class scene extends Phaser.Scene {
             this.colliders.add(colliders)
         })
 
+        // On ajoute tous les OBJECTS de Tiled
 
         this.saves = this.physics.add.group({
             allowGravity: false,
@@ -133,10 +131,13 @@ class scene extends Phaser.Scene {
                 }
             }
         })
+
         // Player
         this.player = new Player(this)
         this.currentSaveX = this.player.player.x;
         this.currentSaveY = this.player.player.y;
+
+        // Interaction du joueur avec les objects
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this)
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
         this.physics.add.collider(this.player.player, this.moved);
@@ -145,19 +146,16 @@ class scene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player.player,true);
         this.cameras.main.setDeadzone(400, 200)
 
+        // Test LIGHTS
         this.lights.enable();
         this.lights.setAmbientColor(0x808080);
-
         let spotlight = this.lights.addLight(400, 300, 280).setIntensity(7)
-
         this.input.on('pointermove', function (pointer) {
 
             spotlight.x = pointer.x;
             spotlight.y = pointer.y;
 
         });
-
-
 
 
     }//CREATE END
@@ -198,14 +196,6 @@ class scene extends Phaser.Scene {
             cloud.body.enable=false
         })
     }
-
-
-
-    /**if (this.platcloudLife==0){
-        this.PlatformClouds.visible=false
-        }
-**/
-
 
     update() {
 
