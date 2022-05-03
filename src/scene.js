@@ -14,7 +14,9 @@ class scene extends Phaser.Scene {
         this.load.image('save','assets/images/Save.png');
         this.load.image('death','assets/images/Death.png');
         this.load.image('cloud','assets/images/clood.png');
-        this.load.image('fire', 'assets/images/muzzleflash3.png');
+        //this.load.image('fire', 'assets/images/muzzleflash3.png');
+        //this.load.image('fire', 'assets/images/flame2.png');
+        this.load.image('fire', 'assets/images/muzzleflash7.png');
         this.load.image('moved', 'assets/images/move.png');
 
         // Load Tiled MAP en JSON
@@ -31,8 +33,10 @@ class scene extends Phaser.Scene {
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
         this.platforms = map.createLayer('Sol', tileset).setPipeline('light2D')
 
+
         // curseur
         this.cursors = this.input.keyboard.createCursorKeys();
+
 
         // Rajoute la physique (collisions)
         this.platforms.setCollisionByExclusion(-1, true);
@@ -41,7 +45,6 @@ class scene extends Phaser.Scene {
             allowGravity: false,
             immovable: true
         });
-
         const colliderLayer = map.getObjectLayer('colliders')
         colliderLayer.objects.forEach(objData=> {
             const {x = 0, y = 0, width = 0, height = 0} = objData
@@ -50,8 +53,8 @@ class scene extends Phaser.Scene {
             this.colliders.add(colliders)
         })
 
-        // On ajoute tous les OBJECTS de Tiled
 
+        // On ajoute tous les OBJECTS de Tiled
         this.saves = this.physics.add.group({
             allowGravity: false,
             immovable: true
@@ -132,6 +135,7 @@ class scene extends Phaser.Scene {
             }
         })
 
+
         // Player
         this.player = new Player(this)
         this.currentSaveX = this.player.player.x;
@@ -142,20 +146,11 @@ class scene extends Phaser.Scene {
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
         this.physics.add.collider(this.player.player, this.moved);
 
+
         // Caméra
-        this.cameras.main.startFollow(this.player.player,true);
-        this.cameras.main.setDeadzone(400, 200)
+        this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
+        this.cameras.main.setDeadzone(400, 200) // on crée une deadzone à la façon mario sur la caméra
 
-        // Test LIGHTS
-        this.lights.enable();
-        this.lights.setAmbientColor(0x808080);
-        let spotlight = this.lights.addLight(400, 300, 280).setIntensity(7)
-        this.input.on('pointermove', function (pointer) {
-
-            spotlight.x = pointer.x;
-            spotlight.y = pointer.y;
-
-        });
 
 
     }//CREATE END
@@ -190,6 +185,7 @@ class scene extends Phaser.Scene {
             repeat: 5,
         });
     }
+    // pour que la plateforme disparaisse au bout d'un certain délais
     cloudLife(player,cloud){
         this.time.delayedCall(3000, ()=> {
             cloud.visible=false
@@ -199,7 +195,7 @@ class scene extends Phaser.Scene {
 
     update() {
 
-
+        // déplacement du joueur on les check
         switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
                 this.player.jump()

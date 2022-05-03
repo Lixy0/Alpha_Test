@@ -4,240 +4,471 @@
 			"image": "player.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1472,
-				"h": 948
+				"w": 1864,
+				"h": 669
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Test_AnimRUN (1)00.png",
+					"filename": "Run_10.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 280,
+						"h": 300
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 366,
-						"h": 314
+						"w": 280,
+						"h": 300
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 366,
-						"h": 314
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 300
 					}
 				},
 				{
-					"filename": "Test_AnimRUN (1)01.png",
+					"filename": "Run_05.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 277,
+						"h": 309
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 366,
-						"h": 314
+						"w": 277,
+						"h": 309
 					},
 					"frame": {
-						"x": 1,
-						"y": 317,
-						"w": 366,
-						"h": 314
+						"x": 280,
+						"y": 0,
+						"w": 277,
+						"h": 309
 					}
 				},
 				{
-					"filename": "Test_AnimRUN (1)02.png",
+					"filename": "Run_02.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 246,
+						"h": 317
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 366,
-						"h": 314
+						"w": 246,
+						"h": 317
 					},
 					"frame": {
-						"x": 369,
-						"y": 1,
-						"w": 366,
-						"h": 314
+						"x": 557,
+						"y": 0,
+						"w": 246,
+						"h": 317
 					}
 				},
 				{
-					"filename": "Test_AnimRUN (1)03.png",
+					"filename": "Run_09.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 191,
+						"h": 317
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 366,
-						"h": 314
+						"w": 191,
+						"h": 317
 					},
 					"frame": {
-						"x": 1,
-						"y": 633,
-						"w": 366,
-						"h": 314
+						"x": 803,
+						"y": 0,
+						"w": 191,
+						"h": 317
 					}
 				},
 				{
-					"filename": "Test_AnimRUN (1)04.png",
+					"filename": "Run_03.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 128,
+						"h": 318
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 366,
-						"h": 314
+						"w": 128,
+						"h": 318
 					},
 					"frame": {
-						"x": 369,
-						"y": 317,
-						"w": 366,
-						"h": 314
+						"x": 994,
+						"y": 0,
+						"w": 128,
+						"h": 318
 					}
 				},
 				{
-					"filename": "Test_AnimRUN (1)05.png",
+					"filename": "Run_07.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 251,
+						"h": 318
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 366,
-						"h": 314
+						"w": 251,
+						"h": 318
 					},
 					"frame": {
-						"x": 737,
-						"y": 1,
-						"w": 366,
-						"h": 314
+						"x": 1122,
+						"y": 0,
+						"w": 251,
+						"h": 318
 					}
 				},
 				{
-					"filename": "Test_AnimRUN (1)06.png",
+					"filename": "Run_08.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 130,
+						"h": 320
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 366,
-						"h": 314
+						"w": 130,
+						"h": 320
 					},
 					"frame": {
-						"x": 369,
-						"y": 633,
-						"w": 366,
-						"h": 314
+						"x": 1373,
+						"y": 0,
+						"w": 130,
+						"h": 320
 					}
 				},
 				{
-					"filename": "Test_AnimRUN (1)07.png",
+					"filename": "Run_04.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 190,
+						"h": 321
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 366,
-						"h": 314
+						"w": 190,
+						"h": 321
 					},
 					"frame": {
-						"x": 737,
-						"y": 317,
-						"w": 366,
-						"h": 314
+						"x": 1503,
+						"y": 0,
+						"w": 190,
+						"h": 321
 					}
 				},
 				{
-					"filename": "Test_AnimRUN (1)08.png",
+					"filename": "Idle_01.png",
 					"rotated": false,
-					"trimmed": false,
+					"trimmed": true,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 280,
+						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 366,
-						"h": 314
+						"x": 73,
+						"y": 3,
+						"w": 130,
+						"h": 333
 					},
 					"frame": {
-						"x": 1105,
-						"y": 1,
-						"w": 366,
-						"h": 314
+						"x": 1693,
+						"y": 0,
+						"w": 130,
+						"h": 333
 					}
 				},
 				{
-					"filename": "Test_AnimRUN (1)09.png",
+					"filename": "Idle_02.png",
 					"rotated": false,
-					"trimmed": false,
+					"trimmed": true,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 280,
+						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 366,
-						"h": 314
+						"x": 78,
+						"y": 3,
+						"w": 125,
+						"h": 333
 					},
 					"frame": {
-						"x": 737,
-						"y": 633,
-						"w": 366,
-						"h": 314
+						"x": 0,
+						"y": 333,
+						"w": 125,
+						"h": 333
 					}
 				},
 				{
-					"filename": "Test_AnimRUN (1)10.png",
+					"filename": "Idle_04.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 3,
+						"w": 125,
+						"h": 333
+					},
+					"frame": {
+						"x": 125,
+						"y": 333,
+						"w": 125,
+						"h": 333
+					}
+				},
+				{
+					"filename": "Idle_05.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 73,
+						"y": 3,
+						"w": 130,
+						"h": 333
+					},
+					"frame": {
+						"x": 250,
+						"y": 333,
+						"w": 130,
+						"h": 333
+					}
+				},
+				{
+					"filename": "Idle_06.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 3,
+						"w": 125,
+						"h": 333
+					},
+					"frame": {
+						"x": 380,
+						"y": 333,
+						"w": 125,
+						"h": 333
+					}
+				},
+				{
+					"filename": "Idle_08.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 3,
+						"w": 125,
+						"h": 333
+					},
+					"frame": {
+						"x": 505,
+						"y": 333,
+						"w": 125,
+						"h": 333
+					}
+				},
+				{
+					"filename": "Idle_09.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 73,
+						"y": 3,
+						"w": 130,
+						"h": 333
+					},
+					"frame": {
+						"x": 630,
+						"y": 333,
+						"w": 130,
+						"h": 333
+					}
+				},
+				{
+					"filename": "Idle_10.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 3,
+						"w": 125,
+						"h": 333
+					},
+					"frame": {
+						"x": 760,
+						"y": 333,
+						"w": 125,
+						"h": 333
+					}
+				},
+				{
+					"filename": "Idle_12.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 3,
+						"w": 125,
+						"h": 333
+					},
+					"frame": {
+						"x": 885,
+						"y": 333,
+						"w": 125,
+						"h": 333
+					}
+				},
+				{
+					"filename": "Run_01.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 366,
-						"h": 314
+						"w": 245,
+						"h": 335
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 366,
-						"h": 314
+						"w": 245,
+						"h": 335
 					},
 					"frame": {
-						"x": 1105,
-						"y": 317,
-						"w": 366,
-						"h": 314
+						"x": 1010,
+						"y": 333,
+						"w": 245,
+						"h": 335
+					}
+				},
+				{
+					"filename": "Idle_03.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 85,
+						"y": 0,
+						"w": 118,
+						"h": 336
+					},
+					"frame": {
+						"x": 1255,
+						"y": 333,
+						"w": 118,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Idle_07.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 85,
+						"y": 0,
+						"w": 118,
+						"h": 336
+					},
+					"frame": {
+						"x": 1373,
+						"y": 333,
+						"w": 118,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Idle_11.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 85,
+						"y": 0,
+						"w": 118,
+						"h": 336
+					},
+					"frame": {
+						"x": 1491,
+						"y": 333,
+						"w": 118,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Run_06.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 255,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 255,
+						"h": 336
+					},
+					"frame": {
+						"x": 1609,
+						"y": 333,
+						"w": 255,
+						"h": 336
 					}
 				}
 			]
@@ -246,6 +477,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:a5b386a23f01b1090f32f851d54510cd:17d95035b6d5fed506ea132f8270dbee:86d5339b780aedd87b35e2b7c0a7e11b$"
+		"smartupdate": "$TexturePacker:SmartUpdate:562455e3803485976c775a05400eed5a:7b5c55a69e457cf3f93ba0abf0a93539:86d5339b780aedd87b35e2b7c0a7e11b$"
 	}
 }
