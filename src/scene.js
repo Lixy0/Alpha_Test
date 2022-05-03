@@ -81,6 +81,7 @@ class scene extends Phaser.Scene {
                     let save = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
                     save = this.physics.add.existing(save)
                     this.saves.add(save)
+
                     break;
                 }
                 case 'CloudP':
@@ -99,6 +100,40 @@ class scene extends Phaser.Scene {
                     break;
                 }
                 case 'MoveP':
+                {
+                    let moved = this.physics.add.sprite(x,y,"moved").setOrigin(0,0)
+                    const finalgoal =objData.properties[0].value+moved.y
+                    this.moved.add(moved)
+                    let velocity = 100
+                    let active = true
+                    let tw = this.tweens.addCounter({
+                        from: 0,
+                        to: 100,
+                        duration: 100,
+                        repeat: -1,
+                        yoyo: true,
+                        onUpdate: tween=>{
+                            if(active) {
+                                moved.setVelocityY(velocity)
+                                if(moved.y>=finalgoal)
+                                {
+                                    active=false
+                                }
+                            }
+                            else if(!active)
+                                moved.setVelocityY(-velocity)
+                            if(moved.y<y)
+                            {
+                                active=true
+                            }
+
+                        },
+
+                    });
+                    break;
+
+                }
+                case 'MovePU':
                 {
                     let moved = this.physics.add.sprite(x,y,"moved").setOrigin(0,0)
                     const finalgoal =objData.properties[0].value+moved.y
