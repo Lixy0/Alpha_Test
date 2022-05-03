@@ -4,366 +4,324 @@
 			"image": "player.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1864,
-				"h": 669
+				"w": 1400,
+				"h": 1680
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "Run_10.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 280,
-						"h": 300
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 280,
-						"h": 300
-					},
-					"frame": {
-						"x": 0,
-						"y": 0,
-						"w": 280,
-						"h": 300
-					}
-				},
-				{
-					"filename": "Run_05.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 277,
-						"h": 309
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 277,
-						"h": 309
-					},
-					"frame": {
-						"x": 280,
-						"y": 0,
-						"w": 277,
-						"h": 309
-					}
-				},
-				{
-					"filename": "Run_02.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 246,
-						"h": 317
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 246,
-						"h": 317
-					},
-					"frame": {
-						"x": 557,
-						"y": 0,
-						"w": 246,
-						"h": 317
-					}
-				},
-				{
-					"filename": "Run_09.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 191,
-						"h": 317
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 191,
-						"h": 317
-					},
-					"frame": {
-						"x": 803,
-						"y": 0,
-						"w": 191,
-						"h": 317
-					}
-				},
-				{
-					"filename": "Run_03.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 128,
-						"h": 318
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 128,
-						"h": 318
-					},
-					"frame": {
-						"x": 994,
-						"y": 0,
-						"w": 128,
-						"h": 318
-					}
-				},
-				{
-					"filename": "Run_07.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 251,
-						"h": 318
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 251,
-						"h": 318
-					},
-					"frame": {
-						"x": 1122,
-						"y": 0,
-						"w": 251,
-						"h": 318
-					}
-				},
-				{
-					"filename": "Run_08.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 130,
-						"h": 320
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 130,
-						"h": 320
-					},
-					"frame": {
-						"x": 1373,
-						"y": 0,
-						"w": 130,
-						"h": 320
-					}
-				},
-				{
-					"filename": "Run_04.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 190,
-						"h": 321
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 190,
-						"h": 321
-					},
-					"frame": {
-						"x": 1503,
-						"y": 0,
-						"w": 190,
-						"h": 321
-					}
-				},
-				{
 					"filename": "Idle_01.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 73,
-						"y": 3,
-						"w": 130,
-						"h": 333
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					},
 					"frame": {
-						"x": 1693,
+						"x": 0,
 						"y": 0,
-						"w": 130,
-						"h": 333
+						"w": 280,
+						"h": 336
 					}
 				},
 				{
 					"filename": "Idle_02.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 78,
-						"y": 3,
-						"w": 125,
-						"h": 333
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					},
 					"frame": {
+						"x": 280,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Idle_03.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
 						"x": 0,
-						"y": 333,
-						"w": 125,
-						"h": 333
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 560,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					}
 				},
 				{
 					"filename": "Idle_04.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 78,
-						"y": 3,
-						"w": 125,
-						"h": 333
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					},
 					"frame": {
-						"x": 125,
-						"y": 333,
-						"w": 125,
-						"h": 333
+						"x": 840,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					}
 				},
 				{
 					"filename": "Idle_05.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 73,
-						"y": 3,
-						"w": 130,
-						"h": 333
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					},
 					"frame": {
-						"x": 250,
-						"y": 333,
-						"w": 130,
-						"h": 333
+						"x": 1120,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					}
 				},
 				{
 					"filename": "Idle_06.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 78,
-						"y": 3,
-						"w": 125,
-						"h": 333
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					},
 					"frame": {
-						"x": 380,
-						"y": 333,
-						"w": 125,
-						"h": 333
+						"x": 0,
+						"y": 336,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Idle_07.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 280,
+						"y": 336,
+						"w": 280,
+						"h": 336
 					}
 				},
 				{
 					"filename": "Idle_08.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 78,
-						"y": 3,
-						"w": 125,
-						"h": 333
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					},
 					"frame": {
-						"x": 505,
-						"y": 333,
-						"w": 125,
-						"h": 333
+						"x": 560,
+						"y": 336,
+						"w": 280,
+						"h": 336
 					}
 				},
 				{
 					"filename": "Idle_09.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 73,
-						"y": 3,
-						"w": 130,
-						"h": 333
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					},
 					"frame": {
-						"x": 630,
-						"y": 333,
-						"w": 130,
-						"h": 333
+						"x": 840,
+						"y": 336,
+						"w": 280,
+						"h": 336
 					}
 				},
 				{
 					"filename": "Idle_10.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 78,
-						"y": 3,
-						"w": 125,
-						"h": 333
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					},
 					"frame": {
-						"x": 760,
-						"y": 333,
-						"w": 125,
-						"h": 333
+						"x": 1120,
+						"y": 336,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Idle_11.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 0,
+						"y": 672,
+						"w": 280,
+						"h": 336
 					}
 				},
 				{
 					"filename": "Idle_12.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 78,
-						"y": 3,
-						"w": 125,
-						"h": 333
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
 					},
 					"frame": {
-						"x": 885,
-						"y": 333,
-						"w": 125,
-						"h": 333
+						"x": 280,
+						"y": 672,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Jump_01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 560,
+						"y": 672,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Jump_02.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 840,
+						"y": 672,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Jump_03.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 1120,
+						"y": 672,
+						"w": 280,
+						"h": 336
 					}
 				},
 				{
@@ -371,82 +329,103 @@
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 245,
-						"h": 335
+						"w": 280,
+						"h": 336
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 245,
-						"h": 335
+						"w": 280,
+						"h": 336
 					},
 					"frame": {
-						"x": 1010,
-						"y": 333,
-						"w": 245,
-						"h": 335
+						"x": 0,
+						"y": 1008,
+						"w": 280,
+						"h": 336
 					}
 				},
 				{
-					"filename": "Idle_03.png",
+					"filename": "Run_02.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 85,
+						"x": 0,
 						"y": 0,
-						"w": 118,
+						"w": 280,
 						"h": 336
 					},
 					"frame": {
-						"x": 1255,
-						"y": 333,
-						"w": 118,
+						"x": 280,
+						"y": 1008,
+						"w": 280,
 						"h": 336
 					}
 				},
 				{
-					"filename": "Idle_07.png",
+					"filename": "Run_03.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 85,
+						"x": 0,
 						"y": 0,
-						"w": 118,
+						"w": 280,
 						"h": 336
 					},
 					"frame": {
-						"x": 1373,
-						"y": 333,
-						"w": 118,
+						"x": 560,
+						"y": 1008,
+						"w": 280,
 						"h": 336
 					}
 				},
 				{
-					"filename": "Idle_11.png",
+					"filename": "Run_04.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
 						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
-						"x": 85,
+						"x": 0,
 						"y": 0,
-						"w": 118,
+						"w": 280,
 						"h": 336
 					},
 					"frame": {
-						"x": 1491,
-						"y": 333,
-						"w": 118,
+						"x": 840,
+						"y": 1008,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Run_05.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 1120,
+						"y": 1008,
+						"w": 280,
 						"h": 336
 					}
 				},
@@ -455,19 +434,103 @@
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 255,
+						"w": 280,
 						"h": 336
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 255,
+						"w": 280,
 						"h": 336
 					},
 					"frame": {
-						"x": 1609,
-						"y": 333,
-						"w": 255,
+						"x": 0,
+						"y": 1344,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Run_07.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 280,
+						"y": 1344,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Run_08.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 560,
+						"y": 1344,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Run_09.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 840,
+						"y": 1344,
+						"w": 280,
+						"h": 336
+					}
+				},
+				{
+					"filename": "Run_10.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 280,
+						"h": 336
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 280,
+						"h": 336
+					},
+					"frame": {
+						"x": 1120,
+						"y": 1344,
+						"w": 280,
 						"h": 336
 					}
 				}
@@ -477,6 +540,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:562455e3803485976c775a05400eed5a:7b5c55a69e457cf3f93ba0abf0a93539:86d5339b780aedd87b35e2b7c0a7e11b$"
+		"smartupdate": "$TexturePacker:SmartUpdate:697f17d59ab62f21498e5170a827359f:a46aad9dce1eacdcfcc261f74a54a77f:86d5339b780aedd87b35e2b7c0a7e11b$"
 	}
 }

@@ -42,8 +42,19 @@ class Player {
 
         });
 
-        // JUMP
+        this.scene.anims.create({
+            key: 'jump',
+            frames: this.scene.anims.generateFrameNames('player', {
+                prefix: 'Jump_',
+                suffix:'.png',
+                start: 0,
+                end: 3,
+                zeroPad:2,
+            }),
+            frameRate: 6,
+            repeat: 0
 
+        });
         /**this.scene.anims.create({
             key: 'dead',
             frames: [{key: 'player', frame: 'robo_player_0'}],
