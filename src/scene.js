@@ -31,6 +31,9 @@ class scene extends Phaser.Scene {
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
         this.platforms = map.createLayer('Sol', tileset).setPipeline('light2D')
+        this.platforms = map.createLayer('Fond', tileset).setPipeline('light2D').setDepth(0)
+        this.platforms = map.createLayer('Devant', tileset).setPipeline('light2D').setDepth(1)
+
 
 
         // curseur
