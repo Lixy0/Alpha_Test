@@ -6,7 +6,6 @@ class scene extends Phaser.Scene {
 
         // Images load avec JSON animation/sheet
         this.load.atlas('player', 'assets/images/player.png', 'assets/images/player.json');
-        this.load.atlas('idle', 'assets/images/idle.png', 'assets/images/idle.json');
         this.load.image('tiles', ['assets/tilesets/platformPack_tilesheet.png', 'assets/tilesets/platformPack_tilesheet_n.png']);
 
         //Load des objets
