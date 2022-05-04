@@ -142,7 +142,7 @@
     <property name="finalgoal" type="int" value="448"/>
    </properties>
   </object>
-  <object id="210" name="MoveP" x="5760" y="2816" width="192" height="64">
+  <object id="210" name="MoveP" x="5760" y="1984" width="192" height="64">
    <properties>
     <property name="finalgoal" type="int" value="832"/>
    </properties>

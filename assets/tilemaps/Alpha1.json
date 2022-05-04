@@ -561,7 +561,7 @@
                  "y":3120
                 }, 
                 {
-                 "height":644.192771084337,
+                 "height":644.193,
                  "id":206,
                  "name":"Trous",
                  "rotation":0,
@@ -569,7 +569,7 @@
                  "visible":true,
                  "width":768,
                  "x":4800,
-                 "y":3455.90361445783
+                 "y":3455.9
                 }, 
                 {
                  "height":64,
@@ -591,7 +591,7 @@
                 {
                  "height":64,
                  "id":210,
-                 "name":"MoveP",
+                 "name":"MovePU",
                  "properties":[
                         {
                          "name":"finalgoal",
@@ -603,7 +603,7 @@
                  "visible":true,
                  "width":192,
                  "x":5760,
-                 "y":2816
+                 "y":1984
                 }, 
                 {
                  "height":64,

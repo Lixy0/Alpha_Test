@@ -133,40 +133,6 @@ class scene extends Phaser.Scene {
                     break;
 
                 }
-                case 'MovePU':
-                {
-                    let moved = this.physics.add.sprite(x,y,"moved").setOrigin(0,0)
-                    const finalgoal =objData.properties[0].value+moved.y
-                    this.moved.add(moved)
-                    let velocity = 100
-                    let active = true
-                    let tw = this.tweens.addCounter({
-                        from: 0,
-                        to: 100,
-                        duration: 100,
-                        repeat: -1,
-                        yoyo: true,
-                        onUpdate: tween=>{
-                            if(active) {
-                                moved.setVelocityY(velocity)
-                                if(moved.y>=finalgoal)
-                                {
-                                    active=false
-                                }
-                            }
-                            else if(!active)
-                                moved.setVelocityY(-velocity)
-                            if(moved.y<y)
-                            {
-                                active=true
-                            }
-
-                        },
-
-                    });
-                    break;
-
-                }
             }
         })
 
@@ -221,10 +187,15 @@ class scene extends Phaser.Scene {
         });
     }
     // pour que la plateforme disparaisse au bout d'un certain délais
-    cloudLife(player,cloud){
-        this.time.delayedCall(3000, ()=> {
-            cloud.visible=false
-            cloud.body.enable=false
+    cloudLife(player,cloud) {
+        this.time.delayedCall(2000, () => {
+            cloud.visible = false
+            cloud.body.enable = false
+
+            this.time.delayedCall(5000, () => {
+                cloud.visible = true
+                cloud.body.enable = true
+            })
         })
     }
 
