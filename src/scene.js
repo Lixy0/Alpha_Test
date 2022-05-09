@@ -6,7 +6,8 @@ class scene extends Phaser.Scene {
 
         // Images load avec JSON animation/sheet
         this.load.atlas('player', 'assets/images/player.png', 'assets/images/player.json');
-        this.load.image('tiles', ['assets/tilesets/platformPack_tilesheet.png', 'assets/tilesets/platformPack_tilesheet_n.png']);
+        this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
+        this.load.image('tiles2', 'assets/tilesets/platformesPack_tilesheet.png');
 
         //Load des objets
         this.load.image('pnj','assets/images/Pnj.png');
@@ -20,23 +21,20 @@ class scene extends Phaser.Scene {
 
         // Load Tiled MAP en JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
+
     }//PRELOAD END
 
 
     create() {
         // Rajoute la map sur phaser + gére taille
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0)
-        backgroundImage.setScale(2, 0.8);
-        backgroundImage.setPipeline('light2D');
+        backgroundImage.setScale(3, 3); console.log('background')
         const map = this.make.tilemap({key: 'map'});
-        const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
-        this.platforms = map.createLayer('Sol', tileset).setPipeline('light2D')
-        this.platforms = map.createLayer('Fond', tileset).setPipeline('light2D').setDepth(0)
-        this.platforms = map.createLayer('Devant', tileset).setPipeline('light2D').setDepth(1)
-
-
-
-        // curseur
+        const tileset = map.addTilesetImage('Alpha_test1', 'tiles',);
+        this.platforms = map.createLayer('Sol', tileset)
+        this.platforms = map.createLayer('Herbe', tileset)
+        this.platforms = map.createLayer('Arbres', tileset)
+        // Curseur
         this.cursors = this.input.keyboard.createCursorKeys();
 
 
@@ -139,20 +137,21 @@ class scene extends Phaser.Scene {
         })
 
 
-        // Player
+        // Player (création de celui si et on reset ça position de saves)
         this.player = new Player(this)
         this.currentSaveX = this.player.player.x;
         this.currentSaveY = this.player.player.y;
 
         // Interaction du joueur avec les objects
-        this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this)
+        this.physics.add.overlap(this.player.player, this.saves,this.sauvegarde,null ,this);
+        this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this);
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
         this.physics.add.collider(this.player.player, this.moved);
 
 
         // Caméra
         this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
-        this.cameras.main.setDeadzone(400, 200) // on crée une deadzone à la façon mario sur la caméra
+        this.cameras.main.setDeadzone(80, 80) // on crée une deadzone à la façon mario sur la caméra
 
 
 
@@ -163,15 +162,19 @@ class scene extends Phaser.Scene {
      * @param player
      * @param saves
      */
-    sauvegarde(player, saves) {
+        sauvegarde(player, saves) {
         console.log("current", this.currentSaveX, this.currentSaveY)
         this.currentSaveX = player.x
-        this.currentSaveY = player.y
+        this.currentSaveY = player.y - 50
         saves.body.enable = false;
         console.log("SAVED")
-
     }
-    /** fonction trous/death **/
+
+    /**
+     * fonction exécuter des lors que le joueur touche un objet "trous"
+     * @param player
+     * @param trous
+     */
     playerHit(player, trous) {
         console.log('true')
         console.log("DEAD_CHARACTER : falling")
@@ -188,7 +191,13 @@ class scene extends Phaser.Scene {
             repeat: 5,
         });
     }
-    // pour que la plateforme disparaisse au bout d'un certain délais
+    /**
+     * fonction exécuter des lors que le joueur touche un objet "cloud",
+     * celui si à un delay de temps avant d'être invisible et  de ne plus avoir de collision/body
+     * il a aussi un delay de temps pour re apparaitre lorsqu'il detecte qu'il est invisible
+     * @param player
+     * @param cloud
+     */
     cloudLife(player,cloud) {
         this.time.delayedCall(2000, () => {
             cloud.visible = false
@@ -202,7 +211,6 @@ class scene extends Phaser.Scene {
     }
 
     update() {
-
         // déplacement du joueur on les check
         switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
@@ -223,4 +231,4 @@ class scene extends Phaser.Scene {
 
 
 
-}//END END
+}//END SCENE.JS

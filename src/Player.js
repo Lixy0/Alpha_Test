@@ -21,7 +21,7 @@ class Player {
             frames: this.scene.anims.generateFrameNames('player', {
                 prefix: 'Run_',
                 suffix:'.png',
-                start: 0,
+                start: 1,
                 end: 10,
                 zeroPad:2,
             }),
@@ -33,7 +33,7 @@ class Player {
             frames: this.scene.anims.generateFrameNames('player', {
                 prefix: 'Idle_',
                 suffix:'.png',
-                start: 0,
+                start: 1,
                 end: 12,
                 zeroPad:2,
             }),
@@ -47,7 +47,7 @@ class Player {
             frames: this.scene.anims.generateFrameNames('player', {
                 prefix: 'Jump_',
                 suffix:'.png',
-                start: 0,
+                start: 1,
                 end: 3,
                 zeroPad:2,
             }),
@@ -68,16 +68,19 @@ class Player {
 
         this.particlesEmit= particles.createEmitter({
             alpha: { start: 1, end: 0 },
-            scale: { start: 0.3, end: 0.1},
+            scale: { start: 0.35, end: 0.05},
             tint: { start: 0xff945e, end: 0xff945e },
-            speed: 30,
-            accelerationY: -300,
-            angle: { min: 85, max: -95 },
+            //speed: 50,
+            //accelerationY: -300,
             rotate: { min: 180, max: -180 },
-            lifespan: { min: 600, max: 400 },
-            blendMode: 'ADD',
+            lifespan: { min: 600, max: 400*2 },
+            blendMode: Phaser.BlendModes.ADD,
+            angle:{min:0,max:360},
             frequency: 0.5,
-
+            speedY: { min: -30, max: -80 },
+            speedX: { min: -10, max: 10 },
+            gravityY:0,
+            radial:false,
 
         });
         this.particlesEmit.startFollow(this.player,5,-65)
@@ -86,18 +89,18 @@ class Player {
 
     // DEPLACEMENTS DU JOUEUR
     jump(){
-        this.player.setVelocityY(-300);
+        this.player.setVelocityY(-320);
         this.player.play('jump', true);
     }
     moveRight(){
-        this.player.setVelocityX(390);
+        this.player.setVelocityX(280);
         this.player.setFlipX(false);
         this.particlesEmit.startFollow(this.player,20,-50)
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
     }
     moveLeft(){
-        this.player.setVelocityX(-300);
+        this.player.setVelocityX(-280);
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
         this.player.setFlipX(true);
