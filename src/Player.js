@@ -10,7 +10,7 @@ class Player {
         this.player.setDisplaySize(130,160) // crop la taille du joueur
         this.scene.physics.add.collider(this.player, this.scene.colliders); // collisions entre le joueur et dans la scene les colliders créer dans TILED
         this.particles() // on appel les particules
-
+        this.player.setDepth(2)
         // pour regler la box de colision du joueur (taille etc..)
         this.player.body.setSize(100,320);
         this.player.setOffset(100,10)
@@ -68,17 +68,17 @@ class Player {
         // let particles1 = this.scene.add.particles('flame1');
 
         this.particlesEmit= particles.createEmitter({
-            alpha: { start: 1, end: 2 },
-            scale: { start: 0.35, end: 0.05},
+            alpha: { start: 0.75, end: 0.01 },
+            scale: { start: 0.40, end: 0.1},
             tint: { start: 0xff945e, end: 0xff945e },
-            //accelerationY: -300,
+            accelerationY: -90,
             rotate: { min: 180, max: -180 },
             lifespan: { min: 600, max: 400*2 },
             blendMode: Phaser.BlendModes.ADD,
             angle:{min:0,max:360},
-            frequency: 20,
+            frequency: 11,
             speedY: { min: -30, max: -80 },
-            speedX: { min: -10, max: 10 },
+            speedX: { min: -3, max: 8 },
             gravityY:0,
             radial:false,
 
@@ -98,8 +98,8 @@ class Player {
         //     // tint: { start: 0xff945e, end: 0xff945e },
         //     blendMode:'ADD',
         // });
-        this.particlesEmit.startFollow(this.player,5,-65)
-        particles.setDepth(-1);
+       // this.particlesEmit.startFollow(this.player,5,-65)
+        particles.setDepth(1);
 
 
         // this.particlesEmit1.startFollow(this.player,5,-65)
@@ -109,23 +109,30 @@ class Player {
     jump(){
         this.player.setVelocityY(-320);
         this.player.play('jump', true);
+        this.particlesEmit.startFollow(this.player,5,-65)
+
     }
     moveRight(){
         this.player.setVelocityX(280);
         this.player.setFlipX(false);
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
+        this.particlesEmit.startFollow(this.player,20,-65)
     }
     moveLeft(){
         this.player.setVelocityX(-280);
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
         this.player.setFlipX(true);
+        this.particlesEmit.startFollow(this.player,-20,-65)
+
     }
     stop(){
         this.player.setVelocityX(0);
         if (this.player.body.onFloor()) {
             this.player.play('idle',true)
+            this.particlesEmit.startFollow(this.player,5,-65)
+
         }
     }
     /**dead(){
