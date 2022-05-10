@@ -13,11 +13,17 @@ class scene extends Phaser.Scene {
         this.load.image('pnj','assets/images/Pnj.png');
         this.load.image('save','assets/images/Save.png');
         this.load.image('death','assets/images/Death.png');
-        this.load.image('cloud','assets/images/clood.png');
+
+        // Load PARTICULES/FX
         //this.load.image('fire', 'assets/images/muzzleflash3.png');
         //this.load.image('fire', 'assets/images/flame2.png');
         this.load.image('fire', 'assets/images/muzzleflash7.png');
+        this.load.image('firelight','assets/images/yellow.png');
+        this.load.image('flame1', 'assets/images/flame1.png');
+
+        // Load objets platformes
         this.load.image('moved', 'assets/images/move.png');
+        this.load.image('cloud','assets/images/clood.png');
 
         // Load Tiled MAP en JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');

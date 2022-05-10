@@ -7,7 +7,7 @@ class Player {
         this.player = this.scene.physics.add.sprite(1100, 2700, 'player'); // on créer le joueur et il apparait à cet endroit particulier en x et y
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(false);
-        this.player.setDisplaySize(130,130) // crop la taille du joueur
+        this.player.setDisplaySize(130,160) // crop la taille du joueur
         this.scene.physics.add.collider(this.player, this.scene.colliders); // collisions entre le joueur et dans la scene les colliders créer dans TILED
         this.particles() // on appel les particules
 
@@ -64,28 +64,46 @@ class Player {
 
     // PARTICULES de feux qui suis le joueur à un endroit fixe
     particles(){
-        let particles = this.scene.add.particles('fire');
+        let particles = this.scene.add.particles('flame1');
+        // let particles1 = this.scene.add.particles('flame1');
 
         this.particlesEmit= particles.createEmitter({
-            alpha: { start: 1, end: 0 },
+            alpha: { start: 1, end: 2 },
             scale: { start: 0.35, end: 0.05},
             tint: { start: 0xff945e, end: 0xff945e },
-            //speed: 50,
             //accelerationY: -300,
             rotate: { min: 180, max: -180 },
             lifespan: { min: 600, max: 400*2 },
             blendMode: Phaser.BlendModes.ADD,
             angle:{min:0,max:360},
-            frequency: 0.5,
+            frequency: 20,
             speedY: { min: -30, max: -80 },
             speedX: { min: -10, max: 10 },
             gravityY:0,
             radial:false,
 
-        });
-        this.particlesEmit.startFollow(this.player,5,-65)
-    }
+        })
 
+
+        // this.particlesEmit1= particles1.createEmitter({
+        //     scale: { start: 1, end: 2},
+        //     maxParticles : 1000,
+        //     frequency:100,
+        //     lifespan: { min: 5*10, max: 5*20 },
+        //     gravityY:0,
+        //     radial : false,
+        //     speed: {start : 1},
+        //     angle : 5,
+        //     // rotate: { min: 180, max: -180 },
+        //     // tint: { start: 0xff945e, end: 0xff945e },
+        //     blendMode:'ADD',
+        // });
+        this.particlesEmit.startFollow(this.player,5,-65)
+        particles.setDepth(-1);
+
+
+        // this.particlesEmit1.startFollow(this.player,5,-65)
+    }
 
     // DEPLACEMENTS DU JOUEUR
     jump(){
@@ -95,7 +113,6 @@ class Player {
     moveRight(){
         this.player.setVelocityX(280);
         this.player.setFlipX(false);
-        this.particlesEmit.startFollow(this.player,20,-50)
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
     }
@@ -104,7 +121,6 @@ class Player {
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
         this.player.setFlipX(true);
-        this.particlesEmit.startFollow(this.player,-20,-50)
     }
     stop(){
         this.player.setVelocityX(0);
