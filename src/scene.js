@@ -32,13 +32,15 @@ class scene extends Phaser.Scene {
         // Load Tiled MAP en JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
 
-        this.load.audio('step', 'assets/sound/sound_ex_machina_Button_Click.mp3');
+        this.load.audio('Theme2', 'assets/sound/audio_hero_Undiscovered-Land_SIPML_T-0314.mp3');
 
 
     }//PRELOAD END
 
 
     create() {
+
+        this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
 
         // Rajoute la map sur phaser + gére taille
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0)
@@ -169,7 +171,7 @@ class scene extends Phaser.Scene {
 
         //SOUNDS
         //this.theme = this.sound.add('Theme',{volume: 0.3}).play();
-        this.stepsound = this.sound.add('step');
+        // this.stepsound = this.sound.add('step');
 
     }//CREATE END
 
@@ -232,7 +234,7 @@ class scene extends Phaser.Scene {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
                 this.player.jump()
                 console.log("jump")
-                this.stepsound.play
+                // this.stepsound.play
                 break;
             case this.cursors.left.isDown:
                 this.player.moveLeft()
