@@ -1,5 +1,9 @@
 class scene extends Phaser.Scene {
 
+    constructor (){
+        super("playGame")
+    }
+
     preload() {
         // Background
         this.load.image('background', 'assets/images/background.png');
@@ -28,10 +32,14 @@ class scene extends Phaser.Scene {
         // Load Tiled MAP en JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
 
+        this.load.audio('step', 'assets/sound/sound_ex_machina_Button_Click.mp3');
+
+
     }//PRELOAD END
 
 
     create() {
+
         // Rajoute la map sur phaser + gére taille
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0)
         backgroundImage.setScale(3, 3); console.log('background')
@@ -159,7 +167,9 @@ class scene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
         this.cameras.main.setDeadzone(80, 80) // on crée une deadzone à la façon mario sur la caméra
 
-
+        //SOUNDS
+        //this.theme = this.sound.add('Theme',{volume: 0.3}).play();
+        this.stepsound = this.sound.add('step');
 
     }//CREATE END
 
@@ -205,11 +215,11 @@ class scene extends Phaser.Scene {
      * @param cloud
      */
     cloudLife(player,cloud) {
-        this.time.delayedCall(2000, () => {
+        this.time.delayedCall(800, () => {
             cloud.visible = false
             cloud.body.enable = false
 
-            this.time.delayedCall(5000, () => {
+            this.time.delayedCall(3000, () => {
                 cloud.visible = true
                 cloud.body.enable = true
             })
@@ -222,6 +232,7 @@ class scene extends Phaser.Scene {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
                 this.player.jump()
                 console.log("jump")
+                this.stepsound.play
                 break;
             case this.cursors.left.isDown:
                 this.player.moveLeft()

@@ -1,8 +1,8 @@
 const config = {
     type: Phaser.AUTO,
     parent: 'game',
-    width: 600,
-    height: 600,
+    width: 1280,
+    height: 720,
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -23,7 +23,7 @@ const config = {
             fps:140,
         },
     },
-    scene: new scene(),
+    scene: [sceneMenu,scene]
 };
 
 const game = new Phaser.Game(config);
