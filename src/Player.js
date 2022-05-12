@@ -107,20 +107,20 @@ class Player {
 
     // DEPLACEMENTS DU JOUEUR
     jump(){
-        this.player.setVelocityY(-320);
+        this.player.setVelocityY(-350);
         this.player.play('jump', true);
         this.particlesEmit.startFollow(this.player,5,-65)
 
     }
     moveRight(){
-        this.player.setVelocityX(280);
+        this.player.setVelocityX(295);
         this.player.setFlipX(false);
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
         this.particlesEmit.startFollow(this.player,20,-65)
     }
     moveLeft(){
-        this.player.setVelocityX(-280);
+        this.player.setVelocityX(-295);
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
         this.player.setFlipX(true);

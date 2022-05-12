@@ -47,15 +47,20 @@ class scene extends Phaser.Scene {
         backgroundImage.setScale(3, 3); console.log('background')
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles',);
+        this.platformsM = map.createLayer('money', tileset,)
         this.platforms = map.createLayer('Sol', tileset)
-        this.platforms = map.createLayer('Herbe', tileset)
-        this.platforms = map.createLayer('Arbres', tileset)
+        this.platformsH = map.createLayer('Herbe', tileset)
+        this.platformsR = map.createLayer('rock', tileset)
         // Curseur
         this.cursors = this.input.keyboard.createCursorKeys();
 
 
         // Rajoute la physique (collisions)
         this.platforms.setCollisionByExclusion(-1, true);
+        this.platforms.setDepth(2);
+        this.platformsH.setDepth(3);
+        this.platformsM.setDepth(4);
+        this.platformsR.setDepth(0);
 
         this.colliders = this.physics.add.group({
             allowGravity: false,
@@ -87,6 +92,7 @@ class scene extends Phaser.Scene {
             allowGravity: false,
             immovable: true
         });
+
 
         const objectsLayer = map.getObjectLayer('objects')
         objectsLayer.objects.forEach(objData=> {
