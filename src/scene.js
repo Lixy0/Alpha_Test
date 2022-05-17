@@ -6,6 +6,7 @@ class scene extends Phaser.Scene {
 
     preload() {
         // Background
+
         this.load.image('background', 'assets/images/background.png');
 
         // Images load avec JSON animation/sheet
@@ -39,6 +40,7 @@ class scene extends Phaser.Scene {
 
 
     create() {
+
 
         this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
 
@@ -175,8 +177,25 @@ class scene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
         this.cameras.main.setDeadzone(80, 80) // on crée une deadzone à la façon mario sur la caméra
 
+        //TEST LIGHT
+
+        // let light2 = this.lights.addLight(1100, 2700, 200);
+        // let ellipse2 = new Phaser.Geom.Ellipse(light2.x, light2.y, 30, 40);
+        // this.time.addEvent({
+        //     delay: 50,
+        //     callback: function ()
+        //     {
+        //         Phaser.Geom.Ellipse.Random(ellipse2, light2);
+        //     },
+        //     callbackScope: this,
+        //     repeat: -1
+        // });
+        // this.lights.enable();
+        // console.log(light2);
+
+
         //SOUNDS
-        //this.theme = this.sound.add('Theme',{volume: 0.3}).play();
+        this.theme = this.sound.add('Theme',{volume: 0.3}).play();
         // this.stepsound = this.sound.add('step');
 
     }//CREATE END
@@ -192,7 +211,10 @@ class scene extends Phaser.Scene {
         this.currentSaveY = player.y - 50
         saves.body.enable = false;
         console.log("SAVED")
+        this.add.particles('flame1');
+        console.log(this.particles);
     }
+
 
     /**
      * fonction exécuter des lors que le joueur touche un objet "trous"

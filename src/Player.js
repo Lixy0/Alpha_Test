@@ -13,7 +13,7 @@ class Player {
         this.player.setDepth(2)
         // pour regler la box de colision du joueur (taille etc..)
         this.player.body.setSize(100,320);
-        this.player.setOffset(100,10)
+        this.player.setOffset(90,10)
 
         // ON LOAD LES ANIMATIONS (walk; idle; jump; mort; bouclier; tire)
         this.scene.anims.create({
@@ -27,6 +27,7 @@ class Player {
             }),
             frameRate: 16,
             repeat: -1
+
         });
         this.scene.anims.create({
             key: 'idle',
@@ -109,7 +110,8 @@ class Player {
     jump(){
         this.player.setVelocityY(-350);
         this.player.play('jump', true);
-        this.particlesEmit.startFollow(this.player,5,-65)
+        this.particlesEmit.startFollow(this.player,3.5,-65)
+
 
     }
     moveRight(){
@@ -117,23 +119,27 @@ class Player {
         this.player.setFlipX(false);
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
-        this.particlesEmit.startFollow(this.player,20,-65)
+        this.particlesEmit.startFollow(this.player,33,-65)
     }
     moveLeft(){
         this.player.setVelocityX(-295);
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
         this.player.setFlipX(true);
-        this.particlesEmit.startFollow(this.player,-20,-65)
+        this.particlesEmit.startFollow(this.player,-33,-65)
 
     }
     stop(){
         this.player.setVelocityX(0);
         if (this.player.body.onFloor()) {
             this.player.play('idle',true)
-            this.particlesEmit.startFollow(this.player,5,-65)
+            this.particlesEmit.startFollow(this.player,3.5,-69)
+        }
+        if(this.player.flipX===true){
+            this.particlesEmit.startFollow(this.player,-3.5,-69)
 
         }
+
     }
     /**dead(){
     this.player.setVelocityX(0);
