@@ -23,7 +23,7 @@ class scene extends Phaser.Scene {
         // Load PARTICULES/FX
         this.load.image('firelight','assets/images/yellow.png');
         this.load.image('flame1', 'assets/images/flame1.png');
-        this.load.image('saveSpark', 'assets/images/blue.png');
+        this.load.image('saveSpark', 'assets/images/pngegg.png');
 
 
 
@@ -42,6 +42,12 @@ class scene extends Phaser.Scene {
 
     create() {
 
+        // We must enable the light system. By default is disabled
+
+        this.lights.enable().setAmbientColor(0x555555);
+
+        // this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y).setColor(0xF0AF2F).setIntensity(7);
+
 
         this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
 
@@ -52,7 +58,8 @@ class scene extends Phaser.Scene {
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles',);
         const tileset2 = map.addTilesetImage('HERBES', 'tilesHerbe',);
 
-        this.platformsM = map.createLayer('money', tileset,)
+        this.platformsS = map.createLayer('Saves',tileset)
+        this.platformsM = map.createLayer('money', tileset)
         this.platforms = map.createLayer('Sol', tileset)
         this.platformsA = map.createLayer('arbre', tileset)
         this.platformsH = map.createLayer('Herbe', tileset2)
@@ -73,6 +80,8 @@ class scene extends Phaser.Scene {
         this.platformsHF.setDepth(0);
         this.platformsM.setDepth(5);
         this.platformsR.setDepth(0);
+        this.platformsS.setDepth(9);
+
 
         this.colliders = this.physics.add.group({
             allowGravity: false,
@@ -222,9 +231,8 @@ class scene extends Phaser.Scene {
         this.currentSaveY = player.y - 50
         saves.body.enable = false;
         console.log("SAVED")
-        this.player.particlesEmit1.startFollow(saves)
+        this.player.particlesEmit1.startFollow(saves, 32, 32)
         console.log('particles');
-
     }
 
 

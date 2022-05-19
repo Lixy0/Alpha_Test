@@ -15,6 +15,7 @@ class Player {
         this.player.body.setSize(100,320);
         this.player.setOffset(90,10)
 
+
         // ON LOAD LES ANIMATIONS (walk; idle; jump; mort; bouclier; tire)
         this.scene.anims.create({
             key: 'walk',
@@ -87,17 +88,18 @@ class Player {
 
 
         this.particlesEmit1= particles1.createEmitter({
-            scale: { start: 0.80, end: 0.2},
+            scale: { start: 1, end: 0.4},
             rotate: { min: 360, max: -180 },
+            frequency:50,
             // lifespan: { min: 0.1, max: 10  },
             blendMode: Phaser.BlendModes.ADD,
             // radial:true,
-            speed:1,
+            speed:25,
 
         });
 
        this.particlesEmit.startFollow(this.player,5,-65)
-        particles1.setDepth(9);
+        particles1.setDepth(8);
         particles.setDepth(1);
     }
 
