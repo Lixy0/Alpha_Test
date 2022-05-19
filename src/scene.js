@@ -54,8 +54,10 @@ class scene extends Phaser.Scene {
 
         this.platformsM = map.createLayer('money', tileset,)
         this.platforms = map.createLayer('Sol', tileset)
-        this.platformsH = map.createLayer('Herbe', tileset)
+        this.platformsA = map.createLayer('arbre', tileset)
+        this.platformsH = map.createLayer('Herbe', tileset2)
         this.platformsHH = map.createLayer('Herbes', tileset2)
+        this.platformsHF = map.createLayer('HerbesF', tileset2)
         this.platformsR = map.createLayer('rock', tileset)
 
         // Curseur
@@ -65,8 +67,10 @@ class scene extends Phaser.Scene {
         // Rajoute la physique (collisions)
         this.platforms.setCollisionByExclusion(-1, true);
         this.platforms.setDepth(2);
-        this.platformsH.setDepth(3);
-        this.platformsHH.setDepth(1);
+        this.platformsA.setDepth(6);
+        this.platformsH.setDepth(4);
+        this.platformsHH.setDepth(3);
+        this.platformsHF.setDepth(0);
         this.platformsM.setDepth(5);
         this.platformsR.setDepth(0);
 
