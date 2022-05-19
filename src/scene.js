@@ -21,11 +21,11 @@ class scene extends Phaser.Scene {
         this.load.image('death','assets/images/Death.png');
 
         // Load PARTICULES/FX
-        //this.load.image('fire', 'assets/images/muzzleflash3.png');
-        //this.load.image('fire', 'assets/images/flame2.png');
-        this.load.image('fire', 'assets/images/muzzleflash7.png');
         this.load.image('firelight','assets/images/yellow.png');
         this.load.image('flame1', 'assets/images/flame1.png');
+        this.load.image('saveSpark', 'assets/images/blue.png');
+
+
 
         // Load objets platformes
         this.load.image('moved', 'assets/images/move.png');
@@ -171,6 +171,7 @@ class scene extends Phaser.Scene {
         })
 
 
+
         // Player (création de celui si et on reset ça position de saves)
         this.player = new Player(this)
         this.currentSaveX = this.player.player.x;
@@ -221,8 +222,9 @@ class scene extends Phaser.Scene {
         this.currentSaveY = player.y - 50
         saves.body.enable = false;
         console.log("SAVED")
-        this.add.particles('flame1');
-        console.log(this.particles);
+        this.player.particlesEmit1.startFollow(saves)
+        console.log('particles');
+
     }
 
 
