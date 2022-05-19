@@ -13,6 +13,7 @@ class scene extends Phaser.Scene {
         this.load.atlas('player', 'assets/images/player.png', 'assets/images/player.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('tiles2', 'assets/tilesets/platformesPack_tilesheet.png');
+        this.load.image('tilesHerbe', 'assets/tilesets/HERBES.png');
 
         //Load des objets
         this.load.image('pnj','assets/images/Pnj.png');
@@ -49,10 +50,14 @@ class scene extends Phaser.Scene {
         backgroundImage.setScale(3, 3); console.log('background')
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles',);
+        const tileset2 = map.addTilesetImage('HERBES', 'tilesHerbe',);
+
         this.platformsM = map.createLayer('money', tileset,)
         this.platforms = map.createLayer('Sol', tileset)
         this.platformsH = map.createLayer('Herbe', tileset)
+        this.platformsHH = map.createLayer('Herbes', tileset2)
         this.platformsR = map.createLayer('rock', tileset)
+
         // Curseur
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -61,7 +66,8 @@ class scene extends Phaser.Scene {
         this.platforms.setCollisionByExclusion(-1, true);
         this.platforms.setDepth(2);
         this.platformsH.setDepth(3);
-        this.platformsM.setDepth(4);
+        this.platformsHH.setDepth(1);
+        this.platformsM.setDepth(5);
         this.platformsR.setDepth(0);
 
         this.colliders = this.physics.add.group({
