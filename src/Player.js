@@ -26,7 +26,7 @@ class Player {
                 end: 10,
                 zeroPad:2,
             }),
-            frameRate: 16,
+            frameRate: 18,
             repeat: -1
 
         });
@@ -53,7 +53,7 @@ class Player {
                 end: 3,
                 zeroPad:2,
             }),
-            frameRate: 6,
+            frameRate: 8,
             repeat: 0
 
         });
@@ -68,6 +68,8 @@ class Player {
     particles(){
         let particles = this.scene.add.particles('flame1');
         let particles1 = this.scene.add.particles('saveSpark');
+        let particles2 = this.scene.add.particles('smoke');
+        let particles3 = this.scene.add.particles('smoke');
 
         this.particlesEmit= particles.createEmitter({
             alpha: { start: 0.75, end: 0.01 },
@@ -98,7 +100,35 @@ class Player {
 
         });
 
+        this.particlesEmit2= particles2.createEmitter({
+            alpha: { start: 1, end: 5 },
+            scale: { start: 0.2, end: 0.05},
+            rotate: { min: 180, max: -180 },
+            tint: { start: 0xaaaaaa, end: 0xaaaaaa},
+            frequency:50,
+            lifespan: { min: 1, max: 1000  },
+            // radial:false,
+            speedY: { min: -30, max: -80 },
+            speedX: { min: -3, max: 8 },
+            gravityY:0,
+            accelerationY: -90,
+        });
+
+        this.particlesEmit3= particles3.createEmitter({
+            alpha: { start: 0.75, end: 0.01 },
+            scale: { start: 0.40, end: 0.1},
+            rotate: { min: 180, max: -180 },
+            lifespan: { min: 600, max: 400*2 },
+            blendMode: Phaser.BlendModes.ADD,
+            angle:{min:0,max:360},
+            frequency: 11,
+            gravityY:0,
+            radial:false,
+
+        })
+
        this.particlesEmit.startFollow(this.player,5,-65)
+
         particles1.setDepth(8);
         particles.setDepth(1);
     }
@@ -109,7 +139,6 @@ class Player {
         this.player.play('jump', true);
         this.particlesEmit.startFollow(this.player,3.5,-65)
 
-
     }
     moveRight(){
         this.player.setVelocityX(295);
@@ -117,6 +146,7 @@ class Player {
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
         this.particlesEmit.startFollow(this.player,33,-65)
+
     }
     moveLeft(){
         this.player.setVelocityX(-295);
@@ -131,9 +161,12 @@ class Player {
         if (this.player.body.onFloor()) {
             this.player.play('idle',true)
             this.particlesEmit.startFollow(this.player,3.5,-69)
+            this.particlesEmit2.startFollow(this.player,3.5,-65)
+
         }
         if(this.player.flipX===true){
             this.particlesEmit.startFollow(this.player,-3.5,-69)
+            this.particlesEmit2.startFollow(this.player,-3.5,-65)
 
         }
 

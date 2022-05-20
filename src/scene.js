@@ -24,6 +24,7 @@ class scene extends Phaser.Scene {
         this.load.image('firelight','assets/images/yellow.png');
         this.load.image('flame1', 'assets/images/flame1.png');
         this.load.image('saveSpark', 'assets/images/pngegg.png');
+        this.load.image('smoke', 'assets/images/smoke-particle-.png');
 
 
 
@@ -171,7 +172,6 @@ class scene extends Phaser.Scene {
                             }
 
                         },
-
                     });
                     break;
 
@@ -191,6 +191,8 @@ class scene extends Phaser.Scene {
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this);
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
         this.physics.add.collider(this.player.player, this.moved);
+
+
 
 
         // Caméra

@@ -263,7 +263,7 @@
  </objectgroup>
  <objectgroup color="#0291ff" id="14" name="objects">
   <object id="155" name="Save" x="3520" y="2496" width="64" height="64"/>
-  <object id="157" name="CloudP" x="3200" y="2560" width="192" height="64"/>
+  <object id="157" name="CloudP" x="3200" y="2589.33" width="192" height="34.6667"/>
   <object id="158" name="Save" x="4416" y="2368" width="64" height="64"/>
   <object id="201" name="Trous" x="2048" y="3328" width="1472" height="768"/>
   <object id="204" name="Trous" x="3712" y="3200" width="640" height="896"/>
