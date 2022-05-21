@@ -6,19 +6,19 @@ class scene extends Phaser.Scene {
 
     preload() {
         // Background
-
         this.load.image('background', 'assets/images/background.png');
 
-        // Images load avec JSON animation/sheet
+        // Images load avec JSON animation/tilesheet
         this.load.atlas('player', 'assets/images/player.png', 'assets/images/player.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('tiles2', 'assets/tilesets/platformesPack_tilesheet.png');
         this.load.image('tilesHerbe', 'assets/tilesets/HERBES.png');
 
-        //Load des objets
-        this.load.image('pnj','assets/images/Pnj.png');
-        this.load.image('save','assets/images/Save.png');
-        this.load.image('death','assets/images/Death.png');
+
+        //Load assets objets
+        this.load.image('moved', 'assets/images/move.png');
+        this.load.image('cloud','assets/images/clood.png');
+
 
         // Load PARTICULES/FX
         this.load.image('firelight','assets/images/yellow.png');
@@ -28,13 +28,11 @@ class scene extends Phaser.Scene {
 
 
 
-        // Load objets platformes
-        this.load.image('moved', 'assets/images/move.png');
-        this.load.image('cloud','assets/images/clood.png');
-
         // Load Tiled MAP en JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
 
+
+        // Load sounds
         this.load.audio('Theme2', 'assets/sound/audio_hero_Undiscovered-Land_SIPML_T-0314.mp3');
 
 
@@ -43,22 +41,18 @@ class scene extends Phaser.Scene {
 
     create() {
 
-        // We must enable the light system. By default is disabled
-
-        this.lights.enable().setAmbientColor(0x555555);
-
-        // this.spotlight = this.lights.addLight(this.player.player.x, this.player.player.y).setColor(0xF0AF2F).setIntensity(7);
-
-
-        this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
-
-        // Rajoute la map sur phaser + gére taille
+        // BACKGROUND/changement de taille etc
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0)
         backgroundImage.setScale(3, 3); console.log('background')
+
+
+        // MAP TILED+LES DIFFERENTS TILESET
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles',);
         const tileset2 = map.addTilesetImage('HERBES', 'tilesHerbe',);
 
+
+        //ON AJOUTE CHAQUE LAYER DANS TILED
         this.platformsS = map.createLayer('Saves',tileset)
         this.platformsM = map.createLayer('money', tileset)
         this.platforms = map.createLayer('Sol', tileset)
@@ -68,12 +62,12 @@ class scene extends Phaser.Scene {
         this.platformsHF = map.createLayer('HerbesF', tileset2)
         this.platformsR = map.createLayer('rock', tileset)
 
-        // Curseur
+
+        // CURSEURS
         this.cursors = this.input.keyboard.createCursorKeys();
 
 
-        // Rajoute la physique (collisions)
-        this.platforms.setCollisionByExclusion(-1, true);
+        //PARALLAXE
         this.platforms.setDepth(2);
         this.platformsA.setDepth(6);
         this.platformsH.setDepth(4);
@@ -83,6 +77,9 @@ class scene extends Phaser.Scene {
         this.platformsR.setDepth(0);
         this.platformsS.setDepth(9);
 
+
+        //COLLISIONS
+        this.platforms.setCollisionByExclusion(-1, true);
 
         this.colliders = this.physics.add.group({
             allowGravity: false,
@@ -95,6 +92,7 @@ class scene extends Phaser.Scene {
             colliders = this.physics.add.existing(colliders)
             this.colliders.add(colliders)
         })
+
 
 
         // On ajoute tous les OBJECTS de Tiled
@@ -115,7 +113,7 @@ class scene extends Phaser.Scene {
             immovable: true
         });
 
-
+        //OBJECTS
         const objectsLayer = map.getObjectLayer('objects')
         objectsLayer.objects.forEach(objData=> {
             const {x = 0, y = 0, name, width = 0, height = 0} = objData
@@ -127,7 +125,8 @@ class scene extends Phaser.Scene {
                     this.saves.add(save)
 
                     break;
-                }
+                }//FIN-SAVE
+
                 case 'CloudP':
                 {
 
@@ -135,14 +134,16 @@ class scene extends Phaser.Scene {
                     this.cloud.add(cloud)
                     break;
 
-                }
+                }//FIN-CLOUDP
+
                 case 'Trous':
                 {
                     let trous = this.add.rectangle(x,y,width,height).setOrigin(0,0)
                     trous = this.physics.add.existing(trous)
                     this.trous.add(trous)
                     break;
-                }
+                }//FIN-TROUS
+
                 case 'MoveP':
                 {
                     let moved = this.physics.add.sprite(x,y,"moved").setOrigin(0,0)
@@ -174,10 +175,11 @@ class scene extends Phaser.Scene {
                         },
                     });
                     break;
+                }//FIN-MOVEP
 
-                }
-            }
-        })
+
+            }//FIN-SWITCH
+        })//FIN-OBJECT
 
 
 
@@ -186,6 +188,7 @@ class scene extends Phaser.Scene {
         this.currentSaveX = this.player.player.x;
         this.currentSaveY = this.player.player.y;
 
+
         // Interaction du joueur avec les objects
         this.physics.add.overlap(this.player.player, this.saves,this.sauvegarde,null ,this);
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this);
@@ -193,34 +196,19 @@ class scene extends Phaser.Scene {
         this.physics.add.collider(this.player.player, this.moved);
 
 
-
-
         // Caméra
         this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
         this.cameras.main.setDeadzone(80, 80) // on crée une deadzone à la façon mario sur la caméra
 
-        //TEST LIGHT
-
-        // let light2 = this.lights.addLight(1100, 2700, 200);
-        // let ellipse2 = new Phaser.Geom.Ellipse(light2.x, light2.y, 30, 40);
-        // this.time.addEvent({
-        //     delay: 50,
-        //     callback: function ()
-        //     {
-        //         Phaser.Geom.Ellipse.Random(ellipse2, light2);
-        //     },
-        //     callbackScope: this,
-        //     repeat: -1
-        // });
-        // this.lights.enable();
-        // console.log(light2);
-
 
         //SOUNDS
         this.theme = this.sound.add('Theme',{volume: 0.3}).play();
+        this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
         // this.stepsound = this.sound.add('step');
 
     }//CREATE END
+
+
 
     /**
      * fonction exécuter des lors que le joueur touche un objet "save" qui enregistre les variables du player au moment touche
@@ -236,6 +224,7 @@ class scene extends Phaser.Scene {
         this.player.particlesEmit1.startFollow(saves, 32, 32)
         console.log('particles');
     }
+
 
 
     /**
@@ -259,6 +248,9 @@ class scene extends Phaser.Scene {
             repeat: 5,
         });
     }
+
+
+
     /**
      * fonction exécuter des lors que le joueur touche un objet "cloud",
      * celui si à un delay de temps avant d'être invisible et  de ne plus avoir de collision/body
@@ -277,6 +269,8 @@ class scene extends Phaser.Scene {
             })
         })
     }
+
+
 
     update() {
         // déplacement du joueur on les check
