@@ -1,15 +1,8 @@
-class Fx {
-    constructor(scene) {
-        this.scene=scene
-        this.cameras=scene
-        this.particles() // on appel les particules
-
-    }//END-CONSTRUCTOR
+class fx {
 
     particles() {
-
         // PARTICULE FEUX PERSONNAGE
-        let particlesFire = this.scene.add.particles('flame1');
+        let particlesFire = add.particles('flame1');
         this.particlesEmitFire= particlesFire.createEmitter({
             alpha: { start: 0.75, end: 0.01 },
             scale: { start: 0.40, end: 0.1},
@@ -27,7 +20,7 @@ class Fx {
         })
 
         // PARTICULES FUMEE
-        let particlesSmoke = this.scene.add.particles('smoke');
+        let particlesSmoke = add.particles('smoke');
         this.particlesEmitSmoke= particlesSmoke.createEmitter({
             alpha: { start: 1, end: 5 },
             scale: { start: 0.2, end: 0.05},
@@ -43,7 +36,7 @@ class Fx {
         });
 
         // PARTICULE SAUVEGARDE
-        let particlesSave = this.scene.add.particles('saveSpark');
+        let particlesSave = add.particles('saveSpark');
         this.particlesEmitSave= particlesSave.createEmitter({
             scale: { start: 1, end: 0.4},
             rotate: { min: 360, max: -180 },
