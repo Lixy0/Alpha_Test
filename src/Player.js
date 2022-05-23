@@ -1,8 +1,10 @@
 class Player {
 
 
-    constructor(scene, fx = new fx()) {
-        this.fx=fx
+    constructor(scene) {
+
+
+
         this.scene=scene
         this.cameras=scene
         this.player = this.scene.physics.add.sprite(1100, 2700, 'player'); // on créer le joueur et il apparait à cet endroit particulier en x et y
@@ -70,7 +72,9 @@ class Player {
     jump(){
         this.player.setVelocityY(-350);
         this.player.play('jump', true);
-        this.fx.particlesEmitFire.startFollow(this.player,3.5,-65)
+        if(this.particules){
+            this.particules.startFollow(this.player,3.5,-65)
+        }
 
     }
 
@@ -79,7 +83,9 @@ class Player {
         this.player.setFlipX(false);
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
-        this.fx.particlesEmitFire.startFollow(this.player,33,-65)
+        if(this.particules){
+            this.particules.startFollow(this.player,33,-65)
+        }
 
     }
 
@@ -88,7 +94,10 @@ class Player {
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
         this.player.setFlipX(true);
-        this.fx.particlesEmitFire.startFollow(this.player,-33,-65)
+
+        if(this.particules){
+            this.particules.startFollow(this.player,-33,-65)
+        }
 
     }
 
@@ -96,12 +105,16 @@ class Player {
         this.player.setVelocityX(0);
         if (this.player.body.onFloor()) {
             this.player.play('idle',true)
-            this.fx.particlesEmitFire.startFollow(this.player,3.5,-69)
         }
-        if(this.player.flipX===true){
-            this.fx.particlesEmitFire.startFollow(this.player,-3.5,-69)
+        if(this.particules){
+            this.particules.startFollow(this.player) //probleme ici
+        }
+
+        if(this.player.flipX===true || this.particules){
+            this.particules.startFollow(this.player,-3.5,-69)
 
         }
+
     }
 
     /**dead(){

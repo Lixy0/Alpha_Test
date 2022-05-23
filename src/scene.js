@@ -24,7 +24,7 @@ class scene extends Phaser.Scene {
         this.load.image('firelight','assets/images/yellow.png');
         this.load.image('flame1', 'assets/images/flame1.png');
         this.load.image('saveSpark', 'assets/images/pngegg.png');
-        this.load.image('smoke', 'assets/images/smoke-particle-.png');
+        this.load.image('leaf', 'assets/images/leaf.png');
 
 
 
@@ -40,9 +40,12 @@ class scene extends Phaser.Scene {
 
 
     create() {
+        this.lights.enable().setAmbientColor(0xe3e1da);
+        this.spotlight = this.lights.addLight(1100, 2700,600,2).setColor(0xF0AF2F);
+
 
         // BACKGROUND/changement de taille etc
-        const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0)
+        const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0).setPipeline('Light2D');
         backgroundImage.setScale(3, 3); console.log('background')
 
 
@@ -53,14 +56,14 @@ class scene extends Phaser.Scene {
 
 
         //ON AJOUTE CHAQUE LAYER DANS TILED
-        this.platformsS = map.createLayer('Saves',tileset)
-        this.platformsM = map.createLayer('money', tileset)
-        this.platforms = map.createLayer('Sol', tileset)
-        this.platformsA = map.createLayer('arbre', tileset)
-        this.platformsH = map.createLayer('Herbe', tileset2)
-        this.platformsHH = map.createLayer('Herbes', tileset2)
-        this.platformsHF = map.createLayer('HerbesF', tileset2)
-        this.platformsR = map.createLayer('rock', tileset)
+        this.platformsS = map.createLayer('Saves',tileset).setPipeline('Light2D');
+        this.platformsM = map.createLayer('money', tileset).setPipeline('Light2D');
+        this.platforms = map.createLayer('Sol', tileset).setPipeline('Light2D');
+        this.platformsA = map.createLayer('arbre', tileset).setPipeline('Light2D');
+        this.platformsH = map.createLayer('Herbe', tileset2).setPipeline('Light2D');
+        this.platformsHH = map.createLayer('Herbes', tileset2).setPipeline('Light2D');
+        this.platformsHF = map.createLayer('HerbesF', tileset2).setPipeline('Light2D');
+        this.platformsR = map.createLayer('rock', tileset).setPipeline('Light2D');
 
 
         // CURSEURS
@@ -76,7 +79,6 @@ class scene extends Phaser.Scene {
         this.platformsM.setDepth(5);
         this.platformsR.setDepth(0);
         this.platformsS.setDepth(9);
-
 
         //COLLISIONS
         this.platforms.setCollisionByExclusion(-1, true);
@@ -189,6 +191,18 @@ class scene extends Phaser.Scene {
         this.currentSaveY = this.player.player.y;
 
 
+        //ON APPELLE LES PARTICULES STATIC DE FX ET ON LEURS SET UNE POSITION
+       // Fx.particlesSmoke(this,1100, 2700);
+        this.player.particules=Fx.particlesFire(this);
+        this.player.particules.startFollow(this.player.player)
+
+        //creation de la particules save
+        this.savePart=Fx.particlesSave(this);
+
+        //creation de la particules LEAF
+        this.leafPart=Fx.particlesLeafPlat(this);
+
+
         // Interaction du joueur avec les objects
         this.physics.add.overlap(this.player.player, this.saves,this.sauvegarde,null ,this);
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this);
@@ -221,8 +235,10 @@ class scene extends Phaser.Scene {
         this.currentSaveY = player.y - 50
         saves.body.enable = false;
         console.log("SAVED")
-        this.player.particlesEmit1.startFollow(saves, 32, 32)
-        console.log('particles');
+        //on appelle la particule si elle existe elle est créer
+        if(this.savePart){
+            this.savePart.startFollow(saves,32,32)
+        }
     }
 
 
@@ -268,6 +284,11 @@ class scene extends Phaser.Scene {
                 cloud.body.enable = true
             })
         })
+        //on appelle la particule si elle existe elle est créer
+        if(this.leafPart){
+            this.leafPart.startFollow(cloud,98,64)
+            this.leafPart.explode()
+        }
     }
 
 
