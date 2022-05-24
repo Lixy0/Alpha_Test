@@ -22,7 +22,8 @@ class scene extends Phaser.Scene {
 
         // Load PARTICULES/FX
         this.load.image('firelight','assets/images/yellow.png');
-        this.load.image('flame1', 'assets/images/flame1.png');
+        // this.load.image('flame1', 'assets/images/flame1.png');
+        this.load.image('flame1', 'assets/images/fire_395.png');
         this.load.image('saveSpark', 'assets/images/pngegg.png');
         this.load.image('leaf', 'assets/images/leaf.png');
 
