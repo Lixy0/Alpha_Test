@@ -73,7 +73,7 @@ class Player {
         this.player.setVelocityY(-350);
         this.player.play('jump', true);
         if(this.particules){
-            this.particules.startFollow(this.player,3.5,-65)
+            this.particules.startFollow(this.player,3.5,-65) //probleme ici du a right/left
         }
 
     }

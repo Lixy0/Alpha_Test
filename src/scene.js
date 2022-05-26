@@ -41,8 +41,9 @@ class scene extends Phaser.Scene {
 
 
     create() {
-        this.lights.enable().setAmbientColor(0xe3e1da);
-        this.spotlight = this.lights.addLight(1100, 2700,600,2).setColor(0xF0AF2F);
+        this.lights.enable().setAmbientColor(0xa7a7a7);
+        this.spotlight = this.lights.addLight().setRadius(50).setColor(0xF0AF2F)
+
 
 
         // BACKGROUND/changement de taille etc
@@ -72,14 +73,14 @@ class scene extends Phaser.Scene {
 
 
         //PARALLAXE
-        this.platforms.setDepth(2);
-        this.platformsA.setDepth(6);
-        this.platformsH.setDepth(4);
-        this.platformsHH.setDepth(3);
-        this.platformsHF.setDepth(0);
-        this.platformsM.setDepth(5);
-        this.platformsR.setDepth(0);
-        this.platformsS.setDepth(9);
+        this.platforms.setDepth(2).setPipeline('Light2D');
+        this.platformsA.setDepth(6).setPipeline('Light2D');
+        this.platformsH.setDepth(4).setPipeline('Light2D');
+        this.platformsHH.setDepth(3).setPipeline('Light2D');
+        this.platformsHF.setDepth(0).setPipeline('Light2D');
+        this.platformsM.setDepth(5).setPipeline('Light2D');
+        this.platformsR.setDepth(0).setPipeline('Light2D');
+        this.platformsS.setDepth(9).setPipeline('Light2D');
 
         //COLLISIONS
         this.platforms.setCollisionByExclusion(-1, true);
@@ -216,10 +217,10 @@ class scene extends Phaser.Scene {
         this.cameras.main.setDeadzone(80, 80) // on crée une deadzone à la façon mario sur la caméra
 
 
-        //SOUNDS
-        this.theme = this.sound.add('Theme',{volume: 0.3}).play();
-        this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
-        // this.stepsound = this.sound.add('step');
+        // //SOUNDS
+        // this.theme = this.sound.add('Theme',{volume: 0.3}).play();
+        // this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
+        // // this.stepsound = this.sound.add('step');
 
     }//CREATE END
 
@@ -301,17 +302,29 @@ class scene extends Phaser.Scene {
                 this.player.jump()
                 console.log("jump")
                 // this.stepsound.play
+                this.spotlight.x = this.player.player.x+3.5;
+                this.spotlight.y = this.player.player.y-65;
                 break;
+
             case this.cursors.left.isDown:
                 this.player.moveLeft()
+                this.spotlight.x = this.player.player.x-33;
+                this.spotlight.y = this.player.player.y-65;
                 break;
+
             case this.cursors.right.isDown:
                 this.player.moveRight();
+                this.spotlight.x = this.player.player.x+33;
+                this.spotlight.y = this.player.player.y-65;
                 break;
+
             default:
                 this.player.stop();
+                this.spotlight.x = this.player.player.x-3.5;
+                this.spotlight.y = this.player.player.y-69;
 
         }
+
     }//UPDATE END
 
 
