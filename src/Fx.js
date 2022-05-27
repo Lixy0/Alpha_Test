@@ -10,15 +10,15 @@ class Fx {
         console.log("particlesLeafPlat");
         // PARTICULES LEAF
 
-        let particlesLeaf = container.add.particles('leaf');
-        let particlesEmitLeaf= particlesLeaf.createEmitter({
+        let particlesLeafPlat = container.add.particles('leaf');
+        let particlesEmitLeaf= particlesLeafPlat.createEmitter({
             angle: { min: 180, max: 0 },
             lifespan: {min: 100*4, max: 300*4},
             scale: {start: 0.30, end: 0.20},
             rotate: { min: 90, max: -90 },
             speed: 80,
         });
-        particlesLeaf.setDepth(500)
+        particlesLeafPlat.setDepth(500)
         return particlesEmitLeaf;
 
     }
@@ -45,8 +45,8 @@ class Fx {
             frequency: 11,
             speedY: {min: -30, max: -80},
             speedX: {min: -3, max: 8},
-            gravityY: 0,
             radial: false,
+
         });
         particlesFire.setDepth(1)
         return particlesEmitFire;
@@ -71,12 +71,45 @@ class Fx {
             // radial:true,
             speed:25,
 
+
         });
         particlesSave.setDepth(500)
         return particlesEmitSave;
     }
 
+    /**
+     *
+     * @param container
+     * @returns {*|void|Phaser.GameObjects.Particles.ParticleEmitterManager}
+     */
 
+    static particlesLeafWind(container){
+        console.log("particlesLeafWind");
+        // PARTICULES LEAF
+
+        let particlesLeafWind = container.add.particles('leaf');
+        const rectzone = new Phaser.Geom.Rectangle(0,0,1280,720)
+        let particlesEmitLeafWind= particlesLeafWind.createEmitter({
+            emitZone : {type:"random", source : rectzone},
+            angle: { min: 0, max: 0 },
+            frequency:700,
+            scale: 0.30,
+            depth : 10,
+            rotate: { min: -10, max: 360},
+            speedY: {min: 250, max: 300},
+            speedX: {min: -50, max: 1000},
+            accelerationY: {min: -60, max: 80},
+            lifespan: 10000,
+            accelerationX: {min: 500, max: -100},
+            alpha:0.9,
+
+
+
+        });
+        particlesLeafWind.setDepth(2)
+        return particlesEmitLeafWind;
+
+    }
 
 
 

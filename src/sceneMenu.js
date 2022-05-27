@@ -10,6 +10,7 @@ class sceneMenu extends Phaser.Scene {
     this.load.image('start2','assets/images/button2.png');
 
     this.load.image('leaf','assets/images/leaf.png');
+    this.load.image('smoke','assets/images/smoke-particle-.png');
 
     this.load.audio('click', 'assets/sound/sound_ex_machina_Button_Click.mp3');
     this.load.audio('Theme', 'assets/sound/ambience-forest-birds-wind-trees.mp3');
@@ -20,40 +21,30 @@ class sceneMenu extends Phaser.Scene {
         this.theme = this.sound.add('Theme',{volume: 0.3}).play();
         this.audio = this.sound.add('click');
 
-        //PARTICLES
-        var particlesLeaf = this.add.particles('leaf');
-
-        particlesLeaf.createEmitter({
-            x: 0,
-            y: { min: 300, max: 620 },
-            lifespan: 5000,
-            speedX: { min: 150, max: 200},
-            scale: { start: 0.4, end: 0.1 },
-            quantity: 1,
-            rotate: { start: -180, end: 180 },
-            frequency: 1500,
-        });
-
-        particlesLeaf.createEmitter({
-            x: 300,
-            y: { min: 400, max: 550 },
-            lifespan: 5000,
-            speedX: { min: 150, max: 200},
-            scale: { start: 0.2, end: 0.1 },
-            quantity: 1,
-            rotate: { start: -180, end: 180 },
-            frequency: 700,
-        });
-
 
         //on creer le BG
         const menuImage = this.add.image(0, 0, 'menu').setOrigin(0, 0);
         menuImage.setScale(0.7, 0.7);
+        menuImage.setDepth(1)
+
+        const smoke = this.add.image(1280,720, 'smoke').setAlpha(0.3);
+        smoke.setScale(50,8);
+        smoke.setDepth(3)
+
+        const titre = this.add.image(50, 50, 'titre').setOrigin(0,0);
+        titre.setScale(0.7,0.7); console.log('TITRE')
+        titre.setDepth(4)
+
+        //ON APPELLE LES PARTICULES STATIC DE FX ET ON LEURS SET UNE POSITION
+        // Fx.particlesSmoke(this,1100, 2700);
+        this.particulesMenu=Fx.particlesLeafWind(this);
+        this.particulesMenu.setPosition(0,100)
 
         //on creer le button
         let playbutton = this.add.image(660,440,'start');
         playbutton.setScale(1);
         playbutton.setInteractive();
+        playbutton.setDepth(4)
 
         playbutton.on("pointerover",()=>{
             console.log("over")

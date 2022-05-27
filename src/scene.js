@@ -13,6 +13,7 @@ class scene extends Phaser.Scene {
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('tiles2', 'assets/tilesets/platformesPack_tilesheet.png');
         this.load.image('tilesHerbe', 'assets/tilesets/HERBES.png');
+        this.load.image('tilesLD', 'assets/tilesets/platformPack_tilesheet_LD.png');
 
 
         //Load assets objets
@@ -42,7 +43,6 @@ class scene extends Phaser.Scene {
 
     create() {
         this.lights.enable().setAmbientColor(0xa7a7a7);
-        this.spotlight = this.lights.addLight().setRadius(50).setColor(0xF0AF2F)
 
 
 
@@ -55,6 +55,7 @@ class scene extends Phaser.Scene {
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles',);
         const tileset2 = map.addTilesetImage('HERBES', 'tilesHerbe',);
+        const tilesetLD = map.addTilesetImage('platformPack_tilesheet_LD', 'tilesLD',);
 
 
         //ON AJOUTE CHAQUE LAYER DANS TILED
@@ -66,7 +67,7 @@ class scene extends Phaser.Scene {
         this.platformsHH = map.createLayer('Herbes', tileset2).setPipeline('Light2D');
         this.platformsHF = map.createLayer('HerbesF', tileset2).setPipeline('Light2D');
         this.platformsR = map.createLayer('rock', tileset).setPipeline('Light2D');
-
+        this.platLD = map.createLayer('PNJ',tilesetLD).setPipeline('Light2D');
 
         // CURSEURS
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -81,7 +82,7 @@ class scene extends Phaser.Scene {
         this.platformsM.setDepth(5).setPipeline('Light2D');
         this.platformsR.setDepth(0).setPipeline('Light2D');
         this.platformsS.setDepth(9).setPipeline('Light2D');
-
+        this.platLD.setDepth(9).setPipeline('Light2D');
         //COLLISIONS
         this.platforms.setCollisionByExclusion(-1, true);
 
@@ -154,7 +155,7 @@ class scene extends Phaser.Scene {
                     const finalgoal =objData.properties[0].value+moved.y
                     this.moved.add(moved)
                     let velocity = 100
-                    let active = true
+                    let active = false
                     let tw = this.tweens.addCounter({
                         from: 0,
                         to: 100,
@@ -178,6 +179,7 @@ class scene extends Phaser.Scene {
 
                         },
                     });
+
                     break;
                 }//FIN-MOVEP
 
@@ -210,17 +212,25 @@ class scene extends Phaser.Scene {
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this);
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
         this.physics.add.collider(this.player.player, this.moved);
-
+        // this.physics.add.overlap(this.player.player, this.moved,this.waitMove,null, this);
 
         // Caméra
         this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
         this.cameras.main.setDeadzone(80, 80) // on crée une deadzone à la façon mario sur la caméra
 
+        // moveParallax()
+        // {
+        //     //dans update
+        //     this.backgroundImage.tilePositionX = this.cameras.main.scrollX * 0.6;
+        // }
 
-        // //SOUNDS
-        // this.theme = this.sound.add('Theme',{volume: 0.3}).play();
-        // this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
-        // // this.stepsound = this.sound.add('step');
+        //SOUNDS
+        this.theme = this.sound.add('Theme',{volume: 0.3}).play();
+        this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
+        // this.stepsound = this.sound.add('step');
+
+        this.spotlight = this.lights.addLight().setRadius(50).setColor(0xF0AF2F)
+        this.spotlightSave = this.lights.addLight().setRadius(999).setColor(0xF0AF2F)
 
     }//CREATE END
 
@@ -240,7 +250,11 @@ class scene extends Phaser.Scene {
         //on appelle la particule si elle existe elle est créer
         if(this.savePart){
             this.savePart.startFollow(saves,32,32)
+            this.spotlightSave.x = this.saves.x+32;
+            this.spotlightSave.y = this.saves.y+32;
+            console.log("light/save")
         }
+
     }
 
 
@@ -266,7 +280,9 @@ class scene extends Phaser.Scene {
             repeat: 5,
         });
     }
-
+    // waitMove(player, moved) {
+    //     let active =true;
+    // }
 
 
     /**
@@ -296,6 +312,7 @@ class scene extends Phaser.Scene {
 
 
     update() {
+
         // déplacement du joueur on les check
         switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
@@ -323,6 +340,17 @@ class scene extends Phaser.Scene {
                 this.spotlight.x = this.player.player.x-3.5;
                 this.spotlight.y = this.player.player.y-69;
 
+            // case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.velocity.y>-380:
+            //     this.player.jump()
+            //     console.log("DOUBLEjump")
+            //     // this.stepsound.play
+            //     this.spotlight.x = this.player.player.x+3.5;
+            //     this.spotlight.y = this.player.player.y-65;
+            //     break;
+        }
+
+        if(this.player.player.body.velocity.y>-10){
+            this.player.player.setVelocityY(this.player.player.body.velocity.y+10)
         }
 
     }//UPDATE END

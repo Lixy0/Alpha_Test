@@ -8,7 +8,6 @@ class Player {
         this.scene=scene
         this.cameras=scene
         this.player = this.scene.physics.add.sprite(1100, 2700, 'player'); // on créer le joueur et il apparait à cet endroit particulier en x et y
-        this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(false);
         this.player.setDisplaySize(130,160) // crop la taille du joueur
         this.scene.physics.add.collider(this.player, this.scene.colliders); // collisions entre le joueur et dans la scene les colliders créer dans TILED
@@ -70,7 +69,7 @@ class Player {
 
     // DEPLACEMENTS DU JOUEUR
     jump(){
-        this.player.setVelocityY(-350);
+        this.player.setVelocityY(-390);
         this.player.play('jump', true);
         if(this.particules){
             this.particules.startFollow(this.player,3.5,-65) //probleme ici du a right/left
@@ -79,7 +78,7 @@ class Player {
     }
 
     moveRight(){
-        this.player.setVelocityX(295);
+        this.player.setVelocityX(298);
         this.player.setFlipX(false);
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
@@ -90,7 +89,7 @@ class Player {
     }
 
     moveLeft(){
-        this.player.setVelocityX(-295);
+        this.player.setVelocityX(-298);
         if (this.player.body.onFloor()) {
             this.player.play('walk', true)}
         this.player.setFlipX(true);
@@ -114,7 +113,11 @@ class Player {
             this.particules.startFollow(this.player,-3.5,-69)
 
         }
-
+    }
+    fall(){
+        if (this.player.velocityY>10){
+            this.player.play('idle',true)
+        }
     }
 
     /**dead(){
