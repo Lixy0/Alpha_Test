@@ -87,18 +87,7 @@ class scene extends Phaser.Scene {
         this.platformsS.setDepth(9).setPipeline('Light2D');
         this.platLD.setDepth(9).setPipeline('Light2D');
 
-        this.BG1 = this.add.image(1100, 2000, 'BG1').setOrigin(0,0).setDepth(0.6);
-        this.BG2 = this.add.image(1100, 2000, 'BG2').setOrigin(0,0).setDepth(0.5);
-        this.BG3 = this.add.image(1100, 1500, 'BG3').setOrigin(0,0).setDepth(0.4);
-        this.BG4 = this.add.image(1100, 1500, 'BG4').setOrigin(0,0).setDepth(0.3);
-        this.BG5 = this.add.image(1100, 1500, 'BG5').setOrigin(0,0).setDepth(0.2);
 
-        //PARALLAXE BACKGROUND
-        this.BG1.scrollFactorX= (0.2)
-        this.BG2.scrollFactorX= (0.4)
-        this.BG3.scrollFactorX= (0.6)
-        this.BG4.scrollFactorX= (0.8)
-        this.BG5.scrollFactorX= (1)
 
 
         //COLLISIONS
@@ -251,6 +240,18 @@ class scene extends Phaser.Scene {
         this.spotlight = this.lights.addLight().setRadius(30).setColor(0xF0AF2F)
         this.spotlightSave = this.lights.addLight().setRadius(999).setColor(0xF0AF2F)
 
+        // this.BG1 = this.add.image(1100, 2000, 'BG1').setOrigin(0,0).setDepth(0.6);
+        // this.BG2 = this.add.image(1100, 2000, 'BG2').setOrigin(0,0).setDepth(0.5);
+        // this.BG3 = this.add.image(1100, 1500, 'BG3').setOrigin(0,0).setDepth(0.4);
+        // this.BG4 = this.add.image(1100, 1500, 'BG4').setOrigin(0,0).setDepth(0.3);
+        // this.BG5 = this.add.image(1100, 1500, 'BG5').setOrigin(0,0).setDepth(0.2);
+        //
+        // //PARALLAXE BACKGROUND
+        // this.BG1.scrollFactorX= (0.2)
+        // this.BG2.scrollFactorX= (0.4)
+        // this.BG3.scrollFactorX= (0.6)
+        // this.BG4.scrollFactorX= (0.8)
+        // this.BG5.scrollFactorX= (1)
     }//CREATE END
 
 
