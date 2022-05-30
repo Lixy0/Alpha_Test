@@ -11,7 +11,6 @@ class scene extends Phaser.Scene {
         // Images load avec JSON animation/tilesheet
         this.load.atlas('player', 'assets/images/player.png', 'assets/images/player.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
-        this.load.image('tiles2', 'assets/tilesets/platformesPack_tilesheet.png');
         this.load.image('tilesHerbe', 'assets/tilesets/HERBES.png');
         this.load.image('tilesLD', 'assets/tilesets/platformPack_tilesheet_LD.png');
 
@@ -27,6 +26,14 @@ class scene extends Phaser.Scene {
         this.load.image('flame1', 'assets/images/fire_395.png');
         this.load.image('saveSpark', 'assets/images/pngegg.png');
         this.load.image('leaf', 'assets/images/leaf.png');
+
+        //parallaxe background
+        this.load.image('BG1',"assets/images/BG1.png");
+        this.load.image('BG2',"assets/images/BG2.png");
+        this.load.image('BG3',"assets/images/BG3png");
+        this.load.image('BG4',"assets/images/BG4.png");
+        this.load.image('BG5',"assets/images/BG5.png");
+        this.load.image('BGG',"assets/images/BGG.png");
 
 
 
@@ -47,8 +54,8 @@ class scene extends Phaser.Scene {
 
 
         // BACKGROUND/changement de taille etc
-        const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0).setPipeline('Light2D');
-        backgroundImage.setScale(3, 3); console.log('background')
+        const BGG = this.add.image(900, 1500, 'BGG').setOrigin(0,0);
+        BGG.setScale(6, 6); console.log('BGG')
 
 
         // MAP TILED+LES DIFFERENTS TILESET
@@ -60,32 +67,42 @@ class scene extends Phaser.Scene {
 
         //ON AJOUTE CHAQUE LAYER DANS TILED
         this.platformsS = map.createLayer('Saves',tileset).setPipeline('Light2D');
-        this.platformsM = map.createLayer('money', tileset).setPipeline('Light2D');
         this.platforms = map.createLayer('Sol', tileset).setPipeline('Light2D');
         this.platformsA = map.createLayer('arbre', tileset).setPipeline('Light2D');
         this.platformsH = map.createLayer('Herbe', tileset2).setPipeline('Light2D');
-        this.platformsHH = map.createLayer('Herbes', tileset2).setPipeline('Light2D');
-        this.platformsHF = map.createLayer('HerbesF', tileset2).setPipeline('Light2D');
         this.platformsR = map.createLayer('rock', tileset).setPipeline('Light2D');
         this.platLD = map.createLayer('PNJ',tilesetLD).setPipeline('Light2D');
+        this.platBACK = map.createLayer('BACK',tilesetLD).setPipeline('Light2D');
 
         // CURSEURS
         this.cursors = this.input.keyboard.createCursorKeys();
+
 
 
         //PARALLAXE
         this.platforms.setDepth(2).setPipeline('Light2D');
         this.platformsA.setDepth(6).setPipeline('Light2D');
         this.platformsH.setDepth(4).setPipeline('Light2D');
-        this.platformsHH.setDepth(3).setPipeline('Light2D');
-        this.platformsHF.setDepth(0).setPipeline('Light2D');
-        this.platformsM.setDepth(5).setPipeline('Light2D');
         this.platformsR.setDepth(0).setPipeline('Light2D');
         this.platformsS.setDepth(9).setPipeline('Light2D');
         this.platLD.setDepth(9).setPipeline('Light2D');
+
+        this.BG1 = this.add.image(1100, 2000, 'BG1').setOrigin(0,0).setDepth(0.6);
+        this.BG2 = this.add.image(1100, 2000, 'BG2').setOrigin(0,0).setDepth(0.5);
+        this.BG3 = this.add.image(1100, 1500, 'BG3').setOrigin(0,0).setDepth(0.4);
+        this.BG4 = this.add.image(1100, 1500, 'BG4').setOrigin(0,0).setDepth(0.3);
+        this.BG5 = this.add.image(1100, 1500, 'BG5').setOrigin(0,0).setDepth(0.2);
+
+        //PARALLAXE BACKGROUND
+        this.BG1.scrollFactorX= (0.2)
+        this.BG2.scrollFactorX= (0.4)
+        this.BG3.scrollFactorX= (0.6)
+        this.BG4.scrollFactorX= (0.8)
+        this.BG5.scrollFactorX= (1)
+
+
         //COLLISIONS
         this.platforms.setCollisionByExclusion(-1, true);
-
         this.colliders = this.physics.add.group({
             allowGravity: false,
             immovable: true
@@ -107,16 +124,19 @@ class scene extends Phaser.Scene {
         });
         this.cloud = this.physics.add.group({
             allowGravity: false,
-            immovable: true
+            immovable: true,
+            setDepth : 2,
         });
         this.trous = this.physics.add.group({
             allowGravity: false,
             immovable: true
+
         });
         this.moved = this.physics.add.group({
             allowGravity: false,
-            immovable: true
+            immovable: true,
         });
+
 
         //OBJECTS
         const objectsLayer = map.getObjectLayer('objects')
@@ -183,7 +203,6 @@ class scene extends Phaser.Scene {
                     break;
                 }//FIN-MOVEP
 
-
             }//FIN-SWITCH
         })//FIN-OBJECT
 
@@ -211,7 +230,7 @@ class scene extends Phaser.Scene {
         this.physics.add.overlap(this.player.player, this.saves,this.sauvegarde,null ,this);
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this);
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
-        this.physics.add.collider(this.player.player, this.moved);
+        this.physics.add.collider(this.player.player,this.moved);
         // this.physics.add.overlap(this.player.player, this.moved,this.waitMove,null, this);
 
         // Caméra
@@ -229,7 +248,7 @@ class scene extends Phaser.Scene {
         this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
         // this.stepsound = this.sound.add('step');
 
-        this.spotlight = this.lights.addLight().setRadius(50).setColor(0xF0AF2F)
+        this.spotlight = this.lights.addLight().setRadius(30).setColor(0xF0AF2F)
         this.spotlightSave = this.lights.addLight().setRadius(999).setColor(0xF0AF2F)
 
     }//CREATE END
@@ -256,6 +275,7 @@ class scene extends Phaser.Scene {
         }
 
     }
+
 
 
 
