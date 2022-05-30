@@ -18,6 +18,8 @@ class scene extends Phaser.Scene {
         //Load assets objets
         this.load.image('moved', 'assets/images/move.png');
         this.load.image('cloud','assets/images/clood.png');
+        this.load.image('pnjSprite','assets/images/Pnj.png');
+        this.load.image('textboxSprite','assets/images/textBox.png');
 
 
         // Load PARTICULES/FX
@@ -30,7 +32,7 @@ class scene extends Phaser.Scene {
         //parallaxe background
         this.load.image('BG1',"assets/images/BG1.png");
         this.load.image('BG2',"assets/images/BG2.png");
-        this.load.image('BG3',"assets/images/BG3png");
+        this.load.image('BG3',"assets/images/BG3.png");
         this.load.image('BG4',"assets/images/BG4.png");
         this.load.image('BG5',"assets/images/BG5.png");
         this.load.image('BGG',"assets/images/BGG.png");
@@ -126,6 +128,11 @@ class scene extends Phaser.Scene {
             immovable: true,
         });
 
+        this.pnjtalk = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+
+        });
 
         //OBJECTS
         const objectsLayer = map.getObjectLayer('objects')
@@ -144,7 +151,7 @@ class scene extends Phaser.Scene {
                 case 'CloudP':
                 {
 
-                    let cloud = this.add.sprite(x,y,"cloud").setOrigin(0,0)
+                    let cloud = this.add.sprite(x,y,"cloud").setOrigin(0,0).setDepth(999)
                     this.cloud.add(cloud)
                     break;
 
@@ -160,7 +167,7 @@ class scene extends Phaser.Scene {
 
                 case 'MoveP':
                 {
-                    let moved = this.physics.add.sprite(x,y,"moved").setOrigin(0,0)
+                    let moved = this.physics.add.sprite(x,y,"moved").setOrigin(0,0).setDepth(999)
                     const finalgoal =objData.properties[0].value+moved.y
                     this.moved.add(moved)
                     let velocity = 100
@@ -192,8 +199,18 @@ class scene extends Phaser.Scene {
                     break;
                 }//FIN-MOVEP
 
+                case 'PnjT':
+                {
+                    let pnjtalk = this.add.sprite(x,y,"pnjSprite").setOrigin(0,0).setDepth(999)
+                    pnjtalk = this.physics.add.existing(pnjtalk)
+                    this.pnjtalk.add(pnjtalk)
+                    break;
+
+                }//FIN-TROUS
+
             }//FIN-SWITCH
         })//FIN-OBJECT
+
 
 
 
@@ -219,18 +236,14 @@ class scene extends Phaser.Scene {
         this.physics.add.overlap(this.player.player, this.saves,this.sauvegarde,null ,this);
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this);
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
-        this.physics.add.collider(this.player.player,this.moved);
-        // this.physics.add.overlap(this.player.player, this.moved,this.waitMove,null, this);
+        this.physics.add.collider(this.player.player, this.moved);
+        this.physics.add.overlap(this.player.player, this.pnjtalk,this.pnjtalking,null ,this);
+
+
 
         // Caméra
         this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
         this.cameras.main.setDeadzone(80, 80) // on crée une deadzone à la façon mario sur la caméra
-
-        // moveParallax()
-        // {
-        //     //dans update
-        //     this.backgroundImage.tilePositionX = this.cameras.main.scrollX * 0.6;
-        // }
 
         //SOUNDS
         this.theme = this.sound.add('Theme',{volume: 0.3}).play();
@@ -239,6 +252,13 @@ class scene extends Phaser.Scene {
 
         this.spotlight = this.lights.addLight().setRadius(30).setColor(0xF0AF2F)
         this.spotlightSave = this.lights.addLight().setRadius(999).setColor(0xF0AF2F)
+
+        this.input.keyboard.on('keyup', (key)=>{
+            console.log(key)
+            if(key.key==="a"){
+            }
+
+        }, this);
 
         // this.BG1 = this.add.image(1100, 2000, 'BG1').setOrigin(0,0).setDepth(0.6);
         // this.BG2 = this.add.image(1100, 2000, 'BG2').setOrigin(0,0).setDepth(0.5);
@@ -278,7 +298,14 @@ class scene extends Phaser.Scene {
     }
 
 
+    pnjtalking(player, pnjtalk){
+        this.currentPnjX = pnjtalk.x
+        this.currentPnjY = pnjtalk.y
+        console.log("Pnj/Joueur overlap")
+            this.add.image(this.currentPnjX, this.currentPnjY-100,"textboxSprite").setDepth(999)
+            // this.player.player.setVelocityX(0);
 
+    }
 
     /**
      * fonction exécuter des lors que le joueur touche un objet "trous"
@@ -356,10 +383,15 @@ class scene extends Phaser.Scene {
                 this.spotlight.y = this.player.player.y-65;
                 break;
 
+
             default:
                 this.player.stop();
                 this.spotlight.x = this.player.player.x-3.5;
                 this.spotlight.y = this.player.player.y-69;
+
+                // if (this.pnjtalking&&this.cursors.shiftKey.isDown){
+                //     console.log("a")
+                // }
 
             // case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.velocity.y>-380:
             //     this.player.jump()
