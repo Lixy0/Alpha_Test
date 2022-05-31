@@ -8,6 +8,7 @@ class menustart extends Phaser.Scene {
     this.load.image('titre','assets/images/titre.png');
     this.load.image('start','assets/images/button.png');
     this.load.image('start2','assets/images/button2.png');
+    this.load.image('startIC','assets/images/buttoncine.png');
 
     this.load.image('leaf','assets/images/leaf.png');
     this.load.image('smoke','assets/images/smoke-particle-.png');
@@ -63,6 +64,29 @@ class menustart extends Phaser.Scene {
             this.scene.start("playGame")
         })
 
+
+    //on creer le button
+    let introcinebutton = this.add.image(300,600,'startIC');
+    introcinebutton.setScale(1);
+    introcinebutton.setInteractive();
+    introcinebutton.setDepth(4)
+
+    introcinebutton.on("pointerover",()=>{
+    console.log("over")
+    introcinebutton.setTexture('startIC')
+})
+
+introcinebutton.on("pointerout",()=>{
+    console.log("out")
+    introcinebutton.setTexture('startIC')
+})
+
+introcinebutton.on("pointerup",()=>{
+    console.log("up")
+    introcinebutton.setTexture('startIC')
+
+    this.scene.start("cineintroGame")
+})
     };
 
 }

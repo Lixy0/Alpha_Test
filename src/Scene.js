@@ -139,6 +139,18 @@ class scene extends Phaser.Scene {
 
         });
 
+        this.eljumpor = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+
+        });
+
+        this.eltrampoline = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+
+        });
+
         //OBJECTS
         const objectsLayer = map.getObjectLayer('objects')
         objectsLayer.objects.forEach(objData=> {
@@ -206,12 +218,33 @@ class scene extends Phaser.Scene {
 
                 case 'PnjT':
                 {
+
                     let pnjtalk = this.add.sprite(x,y,"pnjSprite").setOrigin(0,0).setDepth(999)
                     pnjtalk = this.physics.add.existing(pnjtalk)
                     this.pnjtalk.add(pnjtalk)
                     break;
 
                 }//FIN-TROUS
+
+                case 'JumpWall':
+                {
+                    let eljumpor = this.add.rectangle(x,y,width,height).setOrigin(0,0)
+                    this.eljumpor.add(eljumpor)
+
+
+                    // this.stepsound.play
+                    // this.spotlight.x = this.player.player.x+3.5;
+                    // this.spotlight.y = this.player.player.y-65;
+                    break;
+                }//FIN-jumpwall
+
+                case 'Trampolos':
+                {
+                    let eltrampoline = this.add.rectangle(x,y,width,height).setOrigin(0,0)
+                    this.eltrampoline.add(eltrampoline)
+
+                    break;
+                }//FIN-trampoline
 
             }//FIN-SWITCH
         })//FIN-OBJECT
@@ -244,7 +277,8 @@ class scene extends Phaser.Scene {
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
         this.physics.add.collider(this.player.player, this.moved);
         this.physics.add.overlap(this.player.player, this.pnjtalk,this.pnjtalking,null ,this);
-
+        this.physics.add.collider(this.player.player, this.eljumpor,this.eljumporedelpapa,null ,this);
+        this.physics.add.collider(this.player.player, this.eltrampoline,this.eltrampolinedelpapa,null ,this);
 
 
         // Caméra
@@ -259,12 +293,7 @@ class scene extends Phaser.Scene {
         // this.spotlight = this.lights.addLight().setRadius(30).setColor(0xF0AF2F)
         // this.spotlightSave = this.lights.addLight().setRadius(999).setColor(0xF0AF2F)
 
-        this.input.keyboard.on('keyup', (key)=>{
-            console.log(key)
-            if(key.key==="a"){
-            }
 
-        }, this);
 
         // this.BG1 = this.add.image(1100, 2000, 'BG1').setOrigin(0,0).setDepth(0.6);
         // this.BG2 = this.add.image(1100, 2000, 'BG2').setOrigin(0,0).setDepth(0.5);
@@ -302,13 +331,40 @@ class scene extends Phaser.Scene {
 
     }
 
+    eljumporedelpapa(player,eljumpor) {
+        if (this.cursors.space.isDown || this.cursors.up.isDown && this.player.player.body.velocity.y > -380) {
+            this.player.jump()
+
+            console.log("DOUBLEjump")
+
+        }
+
+    }
+    eltrampolinedelpapa(player,eltrampoline) {
+        if (this.cursors.space.isDown || this.cursors.up.isDown && this.player.player.body.velocity.y > -380) {
+            this.player.trampoline()
+
+            console.log("DOUBLEjump")
+
+        }
+
+    }
 
     pnjtalking(player, pnjtalk){
         this.currentPnjX = pnjtalk.x
         this.currentPnjY = pnjtalk.y
-        console.log("Pnj/Joueur overlap")
-            this.add.image(this.currentPnjX, this.currentPnjY-100,"textboxSprite").setDepth(999)
-            // this.player.player.setVelocityX(0);
+        this.input.keyboard.on('keyup', (key)=>{
+            console.log(key)
+            if(key.key==="Control"){
+                let test = this.add.image(this.currentPnjX, this.currentPnjY-100,"textboxSprite").setDepth(999)
+                console.log("Pnj/Joueur overlap+ touche")
+                this.time.delayedCall(2000, () => {
+                    test.visible = false
+                    console.log("BYeBYe")
+                })
+            }
+
+        }, this);
 
     }
 
@@ -398,13 +454,7 @@ class scene extends Phaser.Scene {
                 //     console.log("a")
                 // }
 
-            // case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.velocity.y>-380:
-            //     this.player.jump()
-            //     console.log("DOUBLEjump")
-            //     // this.stepsound.play
-            //     this.spotlight.x = this.player.player.x+3.5;
-            //     this.spotlight.y = this.player.player.y-65;
-            //     break;
+
         }
 
         if(this.player.player.body.velocity.y>-10){

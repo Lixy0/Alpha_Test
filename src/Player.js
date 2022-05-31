@@ -69,7 +69,17 @@ class Player {
 
     // DEPLACEMENTS DU JOUEUR
     jump(){
-        this.player.setVelocityY(-390);
+        this.player.setVelocityY(-390)
+        this.player.play('jump', true);
+        if(this.particules){
+            this.particules.startFollow(this.player,3.5,-65) //probleme ici du a right/left
+        }
+
+    }
+
+    trampoline(){
+        this.player.setVelocityY(-60)
+        this.player.setBounceY(0.7)
         this.player.play('jump', true);
         if(this.particules){
             this.particules.startFollow(this.player,3.5,-65) //probleme ici du a right/left
