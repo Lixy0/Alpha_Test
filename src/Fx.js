@@ -52,6 +52,39 @@ class Fx {
         return particlesEmitFire;
     }
 
+
+    /**
+     *
+     * @param container
+     * @returns {Phaser.GameObjects.Particles.ParticleEmitter}
+     */
+    static particlesFireWhite(container) {
+        console.log("particlesFireWhite");
+        // PARTICULE FEUX PERSONNAGE
+
+        let particlesFireWhite = container.add.particles('flame1');
+        let particlesEmitFireWhite = particlesFireWhite.createEmitter({
+            tint: 0xffffff,
+            blendMode: Phaser.BlendModes.ADD,
+            angle: {min: 0, max: 90},
+            frequency:200,
+            scale: 6,
+            rotate: { min: -360, max: 360},
+            speedY: {min: 50, max: 100},
+            speedX: {min: -50, max: 1000},
+            accelerationY: {min: -60, max: 80},
+            lifespan: 10000,
+            accelerationX: {min: 500, max: -100},
+            alpha:0.02,
+
+        });
+        particlesFireWhite.setX(908)
+        particlesFireWhite.setY(2700)
+
+        particlesFireWhite.setDepth(1)
+        return particlesEmitFireWhite;
+    }
+
     /**
      *
      * @param container

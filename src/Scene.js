@@ -13,7 +13,7 @@ class scene extends Phaser.Scene {
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('tilesHerbe', 'assets/tilesets/HERBES.png');
         this.load.image('tilesLD', 'assets/tilesets/platformPack_tilesheet_LD.png');
-
+        this.load.image('test', 'assets/tilesets/test1.png');
 
         //Load assets objets
         this.load.image('moved', 'assets/images/move.png');
@@ -51,7 +51,7 @@ class scene extends Phaser.Scene {
 
 
     create() {
-        this.lights.enable().setAmbientColor(0xa7a7a7);
+        // this.lights.enable().setAmbientColor(0xa7a7a7);
 
 
 
@@ -65,16 +65,19 @@ class scene extends Phaser.Scene {
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles',);
         const tileset2 = map.addTilesetImage('HERBES', 'tilesHerbe',);
         const tilesetLD = map.addTilesetImage('platformPack_tilesheet_LD', 'tilesLD',);
+        const test = map.addTilesetImage('test1', 'test',);
 
 
         //ON AJOUTE CHAQUE LAYER DANS TILED
-        this.platformsS = map.createLayer('Saves',tileset).setPipeline('Light2D');
-        this.platforms = map.createLayer('Sol', tileset).setPipeline('Light2D');
-        this.platformsA = map.createLayer('arbre', tileset).setPipeline('Light2D');
-        this.platformsH = map.createLayer('Herbe', tileset2).setPipeline('Light2D');
-        this.platformsR = map.createLayer('rock', tileset).setPipeline('Light2D');
-        this.platLD = map.createLayer('PNJ',tilesetLD).setPipeline('Light2D');
-        this.platBACK = map.createLayer('BACK',tilesetLD).setPipeline('Light2D');
+        this.platformsS = map.createLayer('Saves',tileset)
+        this.platforms = map.createLayer('Sol', tileset)
+        this.platformsA = map.createLayer('arbre', tileset)
+        this.platformsH = map.createLayer('Herbe', tileset2)
+        this.platformsR = map.createLayer('rock', tileset)
+        this.platLD = map.createLayer('PNJ',tilesetLD)
+        this.platBACK = map.createLayer('BACK',tilesetLD)
+        this.plattest = map.createLayer('test',test)
+        this.platbacktest = map.createLayer('testback',test)
 
         // CURSEURS
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -82,12 +85,14 @@ class scene extends Phaser.Scene {
 
 
         //PARALLAXE
-        this.platforms.setDepth(2).setPipeline('Light2D');
-        this.platformsA.setDepth(6).setPipeline('Light2D');
-        this.platformsH.setDepth(4).setPipeline('Light2D');
-        this.platformsR.setDepth(0).setPipeline('Light2D');
-        this.platformsS.setDepth(9).setPipeline('Light2D');
-        this.platLD.setDepth(9).setPipeline('Light2D');
+        this.platforms.setDepth(2)
+        this.platformsA.setDepth(6)
+        this.platformsH.setDepth(4)
+        this.platformsR.setDepth(0)
+        this.platformsS.setDepth(9)
+        this.platLD.setDepth(9)
+        this.plattest.setDepth(999)
+        this.platbacktest.setDepth(0.6)
 
 
 
@@ -230,6 +235,7 @@ class scene extends Phaser.Scene {
 
         //creation de la particules LEAF
         this.leafPart=Fx.particlesLeafPlat(this);
+        Fx.particlesFireWhite(this);
 
 
         // Interaction du joueur avec les objects
@@ -250,8 +256,8 @@ class scene extends Phaser.Scene {
         this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
         // this.stepsound = this.sound.add('step');
 
-        this.spotlight = this.lights.addLight().setRadius(30).setColor(0xF0AF2F)
-        this.spotlightSave = this.lights.addLight().setRadius(999).setColor(0xF0AF2F)
+        // this.spotlight = this.lights.addLight().setRadius(30).setColor(0xF0AF2F)
+        // this.spotlightSave = this.lights.addLight().setRadius(999).setColor(0xF0AF2F)
 
         this.input.keyboard.on('keyup', (key)=>{
             console.log(key)
@@ -275,7 +281,6 @@ class scene extends Phaser.Scene {
     }//CREATE END
 
 
-
     /**
      * fonction exécuter des lors que le joueur touche un objet "save" qui enregistre les variables du player au moment touche
      * @param player
@@ -290,8 +295,8 @@ class scene extends Phaser.Scene {
         //on appelle la particule si elle existe elle est créer
         if(this.savePart){
             this.savePart.startFollow(saves,32,32)
-            this.spotlightSave.x = this.saves.x+32;
-            this.spotlightSave.y = this.saves.y+32;
+            // this.spotlightSave.x = this.saves.x+32;
+            // this.spotlightSave.y = this.saves.y+32;
             console.log("light/save")
         }
 
@@ -367,27 +372,27 @@ class scene extends Phaser.Scene {
                 this.player.jump()
                 console.log("jump")
                 // this.stepsound.play
-                this.spotlight.x = this.player.player.x+3.5;
-                this.spotlight.y = this.player.player.y-65;
+                // this.spotlight.x = this.player.player.x+3.5;
+                // this.spotlight.y = this.player.player.y-65;
                 break;
 
             case this.cursors.left.isDown:
                 this.player.moveLeft()
-                this.spotlight.x = this.player.player.x-33;
-                this.spotlight.y = this.player.player.y-65;
+                // this.spotlight.x = this.player.player.x-33;
+                // this.spotlight.y = this.player.player.y-65;
                 break;
 
             case this.cursors.right.isDown:
                 this.player.moveRight();
-                this.spotlight.x = this.player.player.x+33;
-                this.spotlight.y = this.player.player.y-65;
+                // this.spotlight.x = this.player.player.x+33;
+                // this.spotlight.y = this.player.player.y-65;
                 break;
 
 
             default:
                 this.player.stop();
-                this.spotlight.x = this.player.player.x-3.5;
-                this.spotlight.y = this.player.player.y-69;
+                // this.spotlight.x = this.player.player.x-3.5;
+                // this.spotlight.y = this.player.player.y-69;
 
                 // if (this.pnjtalking&&this.cursors.shiftKey.isDown){
                 //     console.log("a")
