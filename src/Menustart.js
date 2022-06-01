@@ -4,14 +4,17 @@ class menustart extends Phaser.Scene {
         super("menuGame");
     }
     preload(){
-    this.load.image('menu','assets/images/atsmo.png');
-    this.load.image('titre','assets/images/titre.png');
-    this.load.image('start','assets/images/button.png');
-    this.load.image('start2','assets/images/button2.png');
-    this.load.image('startIC','assets/images/buttoncine.png');
 
-    this.load.image('leaf','assets/images/leaf.png');
-    this.load.image('smoke','assets/images/smoke-particle-.png');
+    this.load.image("Fond","assets/images/BGBG.png");
+    this.load.image('menu','assets/UI/atsmo.png');
+    this.load.image('titre','assets/UI/titre.png');
+    this.load.image('start','assets/UI/button.png');
+    this.load.image('start2','assets/UI/button2.png');
+    this.load.image('startIC','assets/UI/buttoncine.png');
+    this.load.image("ButtonOption","assets/particules/yellow.png");
+
+    this.load.image('leaf','assets/particules/leaf.png');
+    this.load.image('smoke','assets/particules/smoke-particle-.png');
 
     this.load.audio('click', 'assets/sound/sound_ex_machina_Button_Click.mp3');
     this.load.audio('Theme', 'assets/sound/ambience-forest-birds-wind-trees.mp3');
@@ -20,8 +23,7 @@ class menustart extends Phaser.Scene {
     create(){
         //SOUNDS
         this.theme = this.sound.add('Theme',{volume: 0.3}).play();
-        this.audio = this.sound.add('click');
-
+        // this.audio = this.sound.add('click');
 
         //on creer le BG
         const menuImage = this.add.image(0, 0, 'menu').setOrigin(0, 0);
@@ -36,57 +38,119 @@ class menustart extends Phaser.Scene {
         titre.setScale(0.7,0.7); console.log('TITRE')
         titre.setDepth(4)
 
+        //on creer le sprite des bouttons
+        const buttonStartSprite = this.add.image(380, 300, 'start')
+            .setOrigin(0, 0)
+            .setDepth(999)
+            .setAlpha(0.8)
+
+        const buttonStartCineSprite = this.add.image(380, 420, 'startIC')
+            .setOrigin(0, 0)
+            .setDepth(999)
+            .setAlpha(0.8)
+
+
+        const buttonOptionSprite = this.add.image(1150, 600, 'ButtonOption')
+            .setOrigin(0, 0)
+            .setDepth(999)
+            .setAlpha(0.8)
+
+
+        // this.buttonCreditsSprite = this.add.image(890, 700, 'Credits')
+        //     .setOrigin(0, 0)
+        //     .setScale(1)
+        //     .setAlpha(0.7);
+
+        // this.buttonQuitSprite = this.add.image(930, 850, 'Quit')
+        //     .setOrigin(0, 0)
+        //     .setScale(1)
+        //     .setAlpha(0.7);
+
+
+        this.optionCadre = this.add.image(350,150, 'Fond').setOrigin(0, 0).setVisible(false).setScale(0.2, 0.4).setDepth(999);
+
+        // const line1 =this.add.image(900, 450, 'Line')
+        //     .setOrigin(0, 0)
+        //     .setScale(1)
+        //     .setVisible(false)
+
+
+
         //ON APPELLE LES PARTICULES STATIC DE FX ET ON LEURS SET UNE POSITION
         // Fx.particlesSmoke(this,1100, 2700);
         this.particulesMenu=Fx.particlesLeafWind(this);
         this.particulesMenu.setPosition(0,100)
 
-        //on creer le button
-        let playbutton = this.add.image(660,440,'start');
-        playbutton.setScale(1);
-        playbutton.setInteractive();
-        playbutton.setDepth(4)
+        //on creer le button START
+        this.buttonStart = this.add.rectangle(buttonStartSprite.x, buttonStartSprite.y,576,62,0xfffff,0)
+            .setOrigin(0,0)
+            .setScale(1)
+            .setDepth(4)
+            .setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, ()=> {
+                console.log("up")
+                this.scene.start("playGame")
+                this.sound.play('click',{volume:0.2});
 
-        playbutton.on("pointerover",()=>{
-            console.log("over")
-           playbutton.setTexture('start2')
-        })
+            })
+            .on('pointerover',function(){
+                console.log("over")
+                buttonStartSprite.setAlpha(1);
 
-        playbutton.on("pointerout",()=>{
-            console.log("out")
-            playbutton.setTexture('start')
-        })
+            })
+            .on('pointerout',function(){
+                console.log("out")
+                buttonStartSprite.setAlpha(0.8);
 
-        playbutton.on("pointerup",()=>{
-            console.log("up")
-            playbutton.setTexture('start2')
-
-            this.scene.start("playGame")
-        })
+            })
 
 
-    //on creer le button
-    let introcinebutton = this.add.image(300,600,'startIC');
-    introcinebutton.setScale(1);
-    introcinebutton.setInteractive();
-    introcinebutton.setDepth(4)
+        //on creer le button START avec CINEMATIQUE
+        this.buttonStartCine = this.add.rectangle(buttonStartCineSprite.x, buttonStartCineSprite.y,350,100,0xffffff,0)
+            .setOrigin(0,0)
+            .setScale(1)
+            .setDepth(4)
+            .setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, ()=> {
+                console.log("up")
+                this.scene.start("cineintroGame")
+                this.sound.play('click',{volume:0.2});
 
-    introcinebutton.on("pointerover",()=>{
-    console.log("over")
-    introcinebutton.setTexture('startIC')
-})
+            })
+            .on('pointerover',function(){
+                console.log("over")
+                buttonStartCineSprite.setAlpha(1)
+            })
+            .on('pointerout',function(){
+                console.log("out")
+                buttonStartCineSprite.setAlpha(0.8)
+            })
 
-introcinebutton.on("pointerout",()=>{
-    console.log("out")
-    introcinebutton.setTexture('startIC')
-})
 
-introcinebutton.on("pointerup",()=>{
-    console.log("up")
-    introcinebutton.setTexture('startIC')
 
-    this.scene.start("cineintroGame")
-})
-    };
+        //on creer le button OPTION
+        this.buttonOption = this.add.rectangle(buttonOptionSprite.x, buttonOptionSprite.y,350,100,0xffffff,0)
+            .setOrigin(0,0)
+            .setScale(1)
+            .setDepth(4)
+            .setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, ()=> {
+                console.log("up")
+                this.sound.play('click',{volume:0.2});
+
+            })
+            .on('pointerover',function(){
+                console.log("over")
+                buttonOptionSprite.setAlpha(1)
+            })
+            .on('pointerout',function(){
+                console.log("out")
+                buttonOptionSprite.setAlpha(0.8)
+            })
+
+
+
+
+    }//END CREATE
 
 }

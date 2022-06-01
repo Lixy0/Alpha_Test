@@ -59,10 +59,31 @@ class Player {
         });
         /**this.scene.anims.create({
             key: 'dead',
-            frames: [{key: 'player', frame: 'robo_player_0'}],
-            frameRate: 10,
-        });*/
+            frames: this.scene.anims.generateFrameNames('player', {
+                prefix: '...',
+                suffix:'.png',
+                start: 1,
+                end: 3,
+                zeroPad:2,
+            }),
+            frameRate: 8,
+            repeat: 0
 
+        });
+
+        /**this.scene.anims.create({
+            key: 'falling',
+            frames: this.scene.anims.generateFrameNames('player', {
+                prefix: '...',
+                suffix:'.png',
+                start: 1,
+                end: 3,
+                zeroPad:2,
+            }),
+            frameRate: 8,
+            repeat: 0
+
+        }); **/
 
     }//END-CONSTRUCTOR
 

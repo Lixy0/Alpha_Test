@@ -16,18 +16,10 @@ class scene extends Phaser.Scene {
         this.load.image('test', 'assets/tilesets/test1.png');
 
         //Load assets objets
-        this.load.image('moved', 'assets/images/move.png');
-        this.load.image('cloud','assets/images/clood.png');
-        this.load.image('pnjSprite','assets/images/Pnj.png');
-        this.load.image('textboxSprite','assets/images/textBox.png');
-
-
-        // Load PARTICULES/FX
-        this.load.image('firelight','assets/images/yellow.png');
-        // this.load.image('flame1', 'assets/images/flame1.png');
-        this.load.image('flame1', 'assets/images/fire_395.png');
-        this.load.image('saveSpark', 'assets/images/pngegg.png');
-        this.load.image('leaf', 'assets/images/leaf.png');
+        this.load.image('moved', 'assets/objects/move.png');
+        this.load.image('cloud','assets/objects/clood.png');
+        this.load.image('pnjSprite','assets/objects/Pnj.png');
+        this.load.image('textboxSprite','assets/objects/textBox.png');
 
         //parallaxe background
         this.load.image('BG1',"assets/images/BG1.png");
@@ -37,15 +29,17 @@ class scene extends Phaser.Scene {
         this.load.image('BG5',"assets/images/BG5.png");
         this.load.image('BGG',"assets/images/BGG.png");
 
-
+        //Load Particules/Fx
+        // this.load.image('flame1', 'assets/particules/flame1.png');
+        this.load.image('flame1', 'assets/particules/fire_395.png');
+        this.load.image('saveSpark','assets/particules/pngegg.png');
+        this.load.image('leaf', 'assets/particules/leaf.png');
 
         // Load Tiled MAP en JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
 
-
         // Load sounds
         this.load.audio('Theme2', 'assets/sound/audio_hero_Undiscovered-Land_SIPML_T-0314.mp3');
-
 
     }//PRELOAD END
 
@@ -79,7 +73,7 @@ class scene extends Phaser.Scene {
         this.plattest = map.createLayer('test',test)
         this.platbacktest = map.createLayer('testback',test)
 
-        // CURSEURS
+        // CURSOR (clavier)
         this.cursors = this.input.keyboard.createCursorKeys();
 
 
@@ -113,6 +107,7 @@ class scene extends Phaser.Scene {
 
 
 
+
         // On ajoute tous les OBJECTS de Tiled
         this.saves = this.physics.add.group({
             allowGravity: false,
@@ -140,12 +135,6 @@ class scene extends Phaser.Scene {
         });
 
         this.eljumpor = this.physics.add.group({
-            allowGravity: false,
-            immovable: true,
-
-        });
-
-        this.eltrampoline = this.physics.add.group({
             allowGravity: false,
             immovable: true,
 
@@ -238,13 +227,6 @@ class scene extends Phaser.Scene {
                     break;
                 }//FIN-jumpwall
 
-                case 'Trampolos':
-                {
-                    let eltrampoline = this.add.rectangle(x,y,width,height).setOrigin(0,0)
-                    this.eltrampoline.add(eltrampoline)
-
-                    break;
-                }//FIN-trampoline
 
             }//FIN-SWITCH
         })//FIN-OBJECT
@@ -278,7 +260,6 @@ class scene extends Phaser.Scene {
         this.physics.add.collider(this.player.player, this.moved);
         this.physics.add.overlap(this.player.player, this.pnjtalk,this.pnjtalking,null ,this);
         this.physics.add.collider(this.player.player, this.eljumpor,this.eljumporedelpapa,null ,this);
-        this.physics.add.collider(this.player.player, this.eltrampoline,this.eltrampolinedelpapa,null ,this);
 
 
         // Caméra
@@ -340,15 +321,7 @@ class scene extends Phaser.Scene {
         }
 
     }
-    eltrampolinedelpapa(player,eltrampoline) {
-        if (this.cursors.space.isDown || this.cursors.up.isDown && this.player.player.body.velocity.y > -380) {
-            this.player.trampoline()
 
-            console.log("DOUBLEjump")
-
-        }
-
-    }
 
     pnjtalking(player, pnjtalk){
         this.currentPnjX = pnjtalk.x
