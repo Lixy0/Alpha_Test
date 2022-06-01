@@ -56,7 +56,7 @@ class menustart extends Phaser.Scene {
 
         const buttonStartCineSprite = this.add.image(380, 420, 'startIC')
             .setOrigin(0, 0)
-            .setDepth(999)
+            .setDepth(9999)
             .setAlpha(0.8)
 
 
@@ -129,7 +129,6 @@ class menustart extends Phaser.Scene {
         this.buttonStartCine = this.add.rectangle(buttonStartCineSprite.x, buttonStartCineSprite.y,576,62,0xffffff,0)
             .setOrigin(0,0)
             .setScale(1)
-            .setDepth(4)
             .setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, ()=> {
                 console.log("up")

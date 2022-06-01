@@ -5,7 +5,7 @@ class cinematicintro extends Phaser.Scene {
     preload(){
 
         this.load.video('Intro', 'assets/video/test.mp4','loadeddata', false, true);
-        this.load.image('Skip', 'assets/images/testbutton.png');
+        this.load.image('Skip', 'assets/UI/testbutton.png');
         // this.load.audio('MainTheme', 'assets/sounds/LevelMusic.mp3');
 
     }
@@ -16,7 +16,7 @@ class cinematicintro extends Phaser.Scene {
         this.video = this.add.video(0, 0, 'Intro'); //ajout video/cinematique
         this.video.setScale(2, 2);
         this.video.play();
-        this.video.setDepth(2)
+        this.video.setDepth(1)
 
 
         // this.mainTheme = this.sound.add('MainTheme',{volume: 0.3});
@@ -27,7 +27,7 @@ class cinematicintro extends Phaser.Scene {
         let skipbutton = this.add.image(660,440,'Skip');
         skipbutton.setScale(1);
         skipbutton.setInteractive();
-        skipbutton.setDepth(4)
+        skipbutton.setDepth(9999)
 
         skipbutton.on("pointerover",()=>{
             console.log("over")
