@@ -48,7 +48,6 @@ class scene extends Phaser.Scene {
         // this.lights.enable().setAmbientColor(0xa7a7a7);
 
 
-
         // BACKGROUND/changement de taille etc
         const BGG = this.add.image(900, 1500, 'BGG').setOrigin(0,0);
         BGG.setScale(6, 6); console.log('BGG')
@@ -178,32 +177,38 @@ class scene extends Phaser.Scene {
                     this.moved.add(moved)
                     let velocity = 100
                     let active = false
-                    let tw = this.tweens.addCounter({
+                    this.testt = false
+                    this.tw = this.tweens.addCounter({
                         from: 0,
                         to: 100,
                         duration: 100,
                         repeat: -1,
-                        yoyo: true,
+
+                        yoyo: false,
                         onUpdate: tween=>{
-                            if(active) {
-                                moved.setVelocityY(velocity)
-                                if(moved.y>=finalgoal)
+                            if(this.test1 === true){
+                                if(active) {
+                                    moved.setVelocityY(velocity)
+                                    if(moved.y>=finalgoal)
+                                    {
+                                        active=false
+
+                                    }
+                                }
+                                else if(!active)
+                                    moved.setVelocityY(-velocity)
+                                if(moved.y<y)
                                 {
-                                    active=false
+                                    active=true
                                 }
                             }
-                            else if(!active)
-                                moved.setVelocityY(-velocity)
-                            if(moved.y<y)
-                            {
-                                active=true
-                            }
+
 
                         },
                     });
-
                     break;
                 }//FIN-MOVEP
+
 
                 case 'PnjT':
                 {
@@ -240,6 +245,7 @@ class scene extends Phaser.Scene {
         this.currentSaveY = this.player.player.y;
 
 
+
         //ON APPELLE LES PARTICULES STATIC DE FX ET ON LEURS SET UNE POSITION
        // Fx.particlesSmoke(this,1100, 2700);
         this.player.particules=Fx.particlesFire(this);
@@ -257,9 +263,9 @@ class scene extends Phaser.Scene {
         this.physics.add.overlap(this.player.player, this.saves,this.sauvegarde,null ,this);
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this);
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
-        this.physics.add.collider(this.player.player, this.moved);
         this.physics.add.overlap(this.player.player, this.pnjtalk,this.pnjtalking,null ,this);
         this.physics.add.collider(this.player.player, this.eljumpor,this.eljumporedelpapa,null ,this);
+        this.physics.add.collider(this.player.player,this.moved,this.siletrucbouge,null,this);
 
 
         // Caméra
@@ -309,6 +315,12 @@ class scene extends Phaser.Scene {
             // this.spotlightSave.y = this.saves.y+32;
             console.log("light/save")
         }
+
+    }
+
+    siletrucbouge(player,moved){
+            this.testt = true
+            // this.velocity = 180
 
     }
 
@@ -433,6 +445,7 @@ class scene extends Phaser.Scene {
         if(this.player.player.body.velocity.y>-10){
             this.player.player.setVelocityY(this.player.player.body.velocity.y+10)
         }
+
 
     }//UPDATE END
 

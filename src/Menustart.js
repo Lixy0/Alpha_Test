@@ -11,9 +11,13 @@ class menustart extends Phaser.Scene {
     this.load.image('start','assets/UI/button.png');
     this.load.image('start2','assets/UI/button2.png');
     this.load.image('startIC','assets/UI/buttoncine.png');
-    this.load.image("ButtonOption","assets/particules/yellow.png");
 
-    this.load.image('leaf','assets/particules/leaf.png');
+    this.load.image("ButtonOption","assets/particules/yellow.png");
+    this.load.image("OptionClose","assets/UI/close.JPG");
+    this.load.image("volumeOn","assets/UI/volume_On.png");
+    this.load.image("volumeOff","assets/UI/volume_Off.png");
+
+        this.load.image('leaf','assets/particules/leaf.png');
     this.load.image('smoke','assets/particules/smoke-particle-.png');
 
     this.load.audio('click', 'assets/sound/sound_ex_machina_Button_Click.mp3');
@@ -21,8 +25,14 @@ class menustart extends Phaser.Scene {
 
     };
     create(){
-        //SOUNDS
-        this.theme = this.sound.add('Theme',{volume: 0.3}).play();
+
+        this.theme = this.sound.add('Theme');
+        // this.theme.setVolume(0.9);
+        this.theme.volume = 1;
+        // this.testson=1;
+
+        this.theme.play();
+
         // this.audio = this.sound.add('click');
 
         //on creer le BG
@@ -50,24 +60,34 @@ class menustart extends Phaser.Scene {
             .setAlpha(0.8)
 
 
-        const buttonOptionSprite = this.add.image(1150, 600, 'ButtonOption')
+        const buttonOptionSprite = this.add.image(600, 600, 'ButtonOption')
             .setOrigin(0, 0)
             .setDepth(999)
             .setAlpha(0.8)
 
+        const buttonOptionCloseSprite = this.add.image(900, 500, 'OptionClose').setVisible(false)
+            .setOrigin(0, 0)
+            .setDepth(9999)
+            .setAlpha(0.8)
+
+        const buttonOptionOnSprite = this.add.image(600, 300, 'volumeOn').setVisible(false)
+            .setOrigin(0, 0)
+            .setDepth(9999)
+            .setAlpha(0.8)
+
+        const buttonOptionOffSprite = this.add.image(600, 400, 'volumeOff').setVisible(false)
+            .setOrigin(0, 0)
+            .setDepth(9999)
+            .setAlpha(0.8)
 
         // this.buttonCreditsSprite = this.add.image(890, 700, 'Credits')
         //     .setOrigin(0, 0)
         //     .setScale(1)
         //     .setAlpha(0.7);
 
-        // this.buttonQuitSprite = this.add.image(930, 850, 'Quit')
-        //     .setOrigin(0, 0)
-        //     .setScale(1)
-        //     .setAlpha(0.7);
 
 
-        this.optionCadre = this.add.image(350,150, 'Fond').setOrigin(0, 0).setVisible(false).setScale(0.2, 0.4).setDepth(999);
+        const optionCadre = this.add.image(350,150, 'Fond').setOrigin(0, 0).setVisible(false).setScale(0.2, 0.4).setDepth(999);
 
         // const line1 =this.add.image(900, 450, 'Line')
         //     .setOrigin(0, 0)
@@ -106,7 +126,7 @@ class menustart extends Phaser.Scene {
 
 
         //on creer le button START avec CINEMATIQUE
-        this.buttonStartCine = this.add.rectangle(buttonStartCineSprite.x, buttonStartCineSprite.y,350,100,0xffffff,0)
+        this.buttonStartCine = this.add.rectangle(buttonStartCineSprite.x, buttonStartCineSprite.y,576,62,0xffffff,0)
             .setOrigin(0,0)
             .setScale(1)
             .setDepth(4)
@@ -126,16 +146,90 @@ class menustart extends Phaser.Scene {
                 buttonStartCineSprite.setAlpha(0.8)
             })
 
+        //on creer le button START avec CINEMATIQUE
+        this.buttonOptionClose = this.add.rectangle(buttonOptionCloseSprite.x, buttonOptionCloseSprite.y,350,100,0xffffff,0)
+            .setOrigin(0,0)
+            .setScale(1)
+            .setDepth(4)
+            .disableInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, ()=> {
+                console.log("up")
+                this.scene.start("menuGame")
+                this.sound.play('click',{volume:0.2});
+
+            })
+            .on('pointerover',function(){
+                console.log("over")
+                buttonOptionCloseSprite.setAlpha(1)
+            })
+            .on('pointerout',function(){
+                console.log("out")
+                buttonOptionCloseSprite.setAlpha(0.8)
+            })
+
+        //on creer le button START avec CINEMATIQUE
+        this.buttonOptionOn = this.add.rectangle(buttonOptionOnSprite.x, buttonOptionOnSprite.y,350,100,0xffffff,0)
+            .setOrigin(0,0)
+            .setScale(1)
+            .disableInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, ()=> {
+                console.log("VOLUME ON")
+                // this.theme.volume=++0.1;
+
+            })
+            .on('pointerover',function(){
+                console.log("over")
+                buttonOptionOnSprite.setAlpha(1)
+            })
+            .on('pointerout',function(){
+                console.log("out")
+                buttonOptionOnSprite.setAlpha(0.8)
+            })
+
+        this.buttonOptionOff = this.add.rectangle(buttonOptionOffSprite.x, buttonOptionOffSprite.y,350,100,0xffffff,0)
+            .setOrigin(0,0)
+            .setScale(1)
+            .disableInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, ()=> {
+                console.log("VOLUME OFF")
+                this.theme.volume=0;
+                // this.game.sound.stopAll();
+
+
+            })
+            .on('pointerover',function(){
+                console.log("over")
+                buttonOptionOffSprite.setAlpha(1)
+            })
+            .on('pointerout',function(){
+                console.log("out")
+                buttonOptionOffSprite.setAlpha(0.8)
+            })
 
 
         //on creer le button OPTION
-        this.buttonOption = this.add.rectangle(buttonOptionSprite.x, buttonOptionSprite.y,350,100,0xffffff,0)
+        this.buttonOption = this.add.rectangle(buttonOptionSprite.x, buttonOptionSprite.y,80,80,0xffffff,0)
             .setOrigin(0,0)
             .setScale(1)
             .setDepth(4)
             .setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, ()=> {
                 console.log("up")
+
+                optionCadre.setVisible(true)
+                buttonOptionCloseSprite.setVisible(true)
+                buttonOptionOnSprite.setVisible(true)
+                buttonOptionOffSprite.setVisible(true)
+
+                //on disable le fait de pouvoir appuyer sur les autres boutons du menu
+                this.buttonStartCine.disableInteractive();
+                this.buttonStart.disableInteractive();
+                this.buttonOption.disableInteractive();
+                //on active ce qu'il y a comme bouttons sur option
+                this.buttonOptionClose.setInteractive();
+                this.buttonOptionOn.setInteractive();
+                this.buttonOptionOff.setInteractive();
+
                 this.sound.play('click',{volume:0.2});
 
             })
@@ -150,7 +244,10 @@ class menustart extends Phaser.Scene {
 
 
 
-
     }//END CREATE
+
+    update(){
+        this.theme.volume
+    }
 
 }
