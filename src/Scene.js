@@ -23,8 +23,8 @@ class scene extends Phaser.Scene {
 
         //parallaxe background
         this.load.image('BG1',"assets/images/BG1.png");
-        this.load.image('BG2',"assets/images/BG2.png");
-        this.load.image('BG3',"assets/images/BG3.png");
+        this.load.image('BG2',"assets/im(ages/BG2.png");
+        this.load.image('BG3',"assets/im)ages/BG3.png");
         this.load.image('BG4',"assets/images/BG4.png");
         this.load.image('BG5',"assets/images/BG5.png");
         this.load.image('BGG',"assets/images/BGG.png");
@@ -40,13 +40,19 @@ class scene extends Phaser.Scene {
 
         // Load sounds
         this.load.audio('Theme2', 'assets/sound/audio_hero_Undiscovered-Land_SIPML_T-0314.mp3');
+        this.load.audio('Step',"assets/sound/TEST_SOUND.mp3",{
+            instances: 1
+        });
+
 
     }//PRELOAD END
 
 
+
     create() {
         // this.lights.enable().setAmbientColor(0xa7a7a7);
-
+        // this.stepSound.volume = 0.8;
+        this.sound.add('Step');
 
         // BACKGROUND/changement de taille etc
         const BGG = this.add.image(900, 1500, 'BGG').setOrigin(0,0);
@@ -186,7 +192,7 @@ class scene extends Phaser.Scene {
 
                         yoyo: false,
                         onUpdate: tween=>{
-                            if(this.test1 === true){
+                            if(this.testt === true){
                                 if(active) {
                                     moved.setVelocityY(velocity)
                                     if(moved.y>=finalgoal)
@@ -272,10 +278,10 @@ class scene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
         this.cameras.main.setDeadzone(80, 80) // on crée une deadzone à la façon mario sur la caméra
 
-        //SOUNDS
-        this.theme = this.sound.add('Theme',{volume: 0.3}).play();
-        this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
-        // this.stepsound = this.sound.add('step');
+        // //SOUNDS
+        // this.theme = this.sound.add('Theme',{volume: 0.3}).play();
+        // this.theme2 = this.sound.add('Theme2',{volume: 0.1}).play();
+        // // this.stepsound = this.sound.add('step');
 
         // this.spotlight = this.lights.addLight().setRadius(30).setColor(0xF0AF2F)
         // this.spotlightSave = this.lights.addLight().setRadius(999).setColor(0xF0AF2F)
@@ -339,7 +345,7 @@ class scene extends Phaser.Scene {
         this.currentPnjX = pnjtalk.x
         this.currentPnjY = pnjtalk.y
         this.input.keyboard.on('keyup', (key)=>{
-            console.log(key)
+            // console.log(key)
             if(key.key==="Control"){
                 let test = this.add.image(this.currentPnjX, this.currentPnjY-100,"textboxSprite").setDepth(999)
                 console.log("Pnj/Joueur overlap+ touche")
@@ -407,12 +413,12 @@ class scene extends Phaser.Scene {
 
     update() {
 
+
         // déplacement du joueur on les check
         switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
                 this.player.jump()
                 console.log("jump")
-                // this.stepsound.play
                 // this.spotlight.x = this.player.player.x+3.5;
                 // this.spotlight.y = this.player.player.y-65;
                 break;
@@ -421,6 +427,7 @@ class scene extends Phaser.Scene {
                 this.player.moveLeft()
                 // this.spotlight.x = this.player.player.x-33;
                 // this.spotlight.y = this.player.player.y-65;
+
                 break;
 
             case this.cursors.right.isDown:

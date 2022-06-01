@@ -26,8 +26,9 @@ class Player {
                 end: 10,
                 zeroPad:2,
             }),
-            frameRate: 18,
+            frameRate: 15,
             repeat: -1
+
 
         });
         this.scene.anims.create({
@@ -39,7 +40,7 @@ class Player {
                 end: 12,
                 zeroPad:2,
             }),
-            frameRate: 6,
+            frameRate: 4,
             repeat: -1
 
         });
@@ -54,7 +55,8 @@ class Player {
                 zeroPad:2,
             }),
             frameRate: 8,
-            repeat: 0
+            repeat: 0,
+
 
         });
         /**this.scene.anims.create({
@@ -84,6 +86,14 @@ class Player {
             repeat: 0
 
         }); **/
+
+        this.player.on('animationrepeat', function () {
+            if( this.scene.anims.frameRate === 18) {
+                this.sound.play('Step');
+                this.volume(1);
+                console.log("It's playing")
+            }
+        });
 
     }//END-CONSTRUCTOR
 
@@ -116,6 +126,11 @@ class Player {
         if(this.particules){
             this.particules.startFollow(this.player,33,-65)
         }
+        // if (this.player.play('walk'===true)){
+        //     this.sound.play('Step');
+        //     console.log("It's playing")
+        // }
+
 
     }
 

@@ -17,7 +17,7 @@ class menustart extends Phaser.Scene {
     this.load.image("volumeOn","assets/UI/volume_On.png");
     this.load.image("volumeOff","assets/UI/volume_Off.png");
 
-        this.load.image('leaf','assets/particules/leaf.png');
+    this.load.image('leaf','assets/particules/leaf.png');
     this.load.image('smoke','assets/particules/smoke-particle-.png');
 
     this.load.audio('click', 'assets/sound/sound_ex_machina_Button_Click.mp3');
@@ -26,12 +26,12 @@ class menustart extends Phaser.Scene {
     };
     create(){
 
-        this.theme = this.sound.add('Theme');
+        // this.theme = this.sound.add('Theme');
         // this.theme.setVolume(0.9);
-        this.theme.volume = 1;
+        // this.theme.volume = 1;
         // this.testson=1;
 
-        this.theme.play();
+        // this.theme.play();
 
         // this.audio = this.sound.add('click');
 
@@ -246,8 +246,8 @@ class menustart extends Phaser.Scene {
 
     }//END CREATE
 
-    update(){
-        this.theme.volume
-    }
+    // update(){
+    //     this.theme.volume
+    // }
 
 }
