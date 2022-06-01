@@ -1086,7 +1086,7 @@
                 {
                  "height":64,
                  "id":208,
-                 "name":"MoveP1",
+                 "name":"MoveP",
                  "properties":[
                         {
                          "name":"finalgoal",
@@ -1098,7 +1098,7 @@
                  "visible":true,
                  "width":192,
                  "x":6272,
-                 "y":2816
+                 "y":2272
                 }, 
                 {
                  "height":64,
@@ -1136,7 +1136,7 @@
                 {
                  "height":64,
                  "id":325,
-                 "name":"MoveP3",
+                 "name":"MoveP",
                  "properties":[
                         {
                          "name":"finalgoal",
@@ -1274,7 +1274,7 @@
                 {
                  "height":64,
                  "id":362,
-                 "name":"MoveP2",
+                 "name":"MoveP",
                  "properties":[
                         {
                          "name":"finalgoal",
@@ -1489,7 +1489,7 @@
                 {
                  "height":64,
                  "id":460,
-                 "name":"MoveP4",
+                 "name":"MoveP",
                  "properties":[
                         {
                          "name":"finalgoal",
@@ -1506,7 +1506,7 @@
                 {
                  "height":64,
                  "id":461,
-                 "name":"MoveP5",
+                 "name":"MoveP",
                  "properties":[
                         {
                          "name":"finalgoal",
