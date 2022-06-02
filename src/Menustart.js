@@ -19,7 +19,9 @@ class menustart extends Phaser.Scene {
     this.load.image('leaf','assets/particules/leaf.png');
     this.load.image('smoke','assets/particules/smoke-particle-.png');
     this.load.image('flame1', 'assets/particules/fire_395.png');
-    this.load.image('TEST', 'assets/particules/TEST.png');
+    this.load.image('flameblack', 'assets/particules/black.png');
+
+        this.load.image('TEST', 'assets/particules/TEST.png');
 
     this.load.audio('click', 'assets/sound/sound_ex_machina_Button_Click.mp3');
     this.load.audio('Theme', 'assets/sound/ambience-forest-birds-wind-trees.mp3');
@@ -66,8 +68,8 @@ class menustart extends Phaser.Scene {
             .setDepth(9999)
             .setAlpha(0.8)
 
-
-        const buttonOptionSprite = this.add.image(600, 600, 'ButtonOption')
+//c'est pas option mais quit
+        const buttonOptionSprite = this.add.image(575, 600, 'ButtonOption')
             .setOrigin(0, 0)
             .setDepth(9999)
             .setAlpha(0.6)
@@ -109,7 +111,10 @@ class menustart extends Phaser.Scene {
         this.particulesMenu.setPosition(0,100)
 
         this.particulesMenu2=Fx.particlesSmokeMenu(this);
-        this.particulesMenu2.setPosition(0,100)
+        // this.particulesMenu2.setPosition(0,100)
+
+        // this.particulesMenu3=Fx.particlesFireMenu(this);
+        // // this.particulesMenu3.setPosition(0,100)
 
         //on creer le button START
         this.buttonStart = this.add.rectangle(buttonStartSprite.x, buttonStartSprite.y,573,115,0xfffff,0)

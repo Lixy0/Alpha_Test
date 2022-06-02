@@ -51,7 +51,37 @@ class Fx {
         particlesFire.setDepth(1)
         return particlesEmitFire;
     }
-
+    // /**
+    //  *
+    //  * @param container
+    //  * @returns {*}
+    //  */
+    // static particlesFireMenu(container) {
+    //     console.log("particlesFire");
+    //     // PARTICULE FEUX PERSONNAGE
+    //
+    //     let particlesFireMenu = container.add.particles('flameblack');
+    //     let particlesEmitFireMenu = particlesFireMenu.createEmitter({
+    //         x:780,
+    //         y:230,
+    //         tint:0x000000,
+    //         alpha: {start: 0.75, end: 0.01},
+    //         scale: {start: 0.40, end: 0.1},
+    //         accelerationX: 50,
+    //         accelerationY: 10,
+    //         rotate: {min: 180, max: -180},
+    //         lifespan: {min: 600, max: 400 * 2},
+    //         blendMode: Phaser.BlendModes.ADD,
+    //         angle: {min: 0, max: 90},
+    //         frequency: 10,
+    //         speedY: {min: -10, max: -60},
+    //         speedX: {min: 30, max: 80},
+    //         radial: false,
+    //
+    //     });
+    //     particlesFireMenu.setDepth(1)
+    //     return particlesEmitFireMenu;
+    // }
 
     /**
      *
