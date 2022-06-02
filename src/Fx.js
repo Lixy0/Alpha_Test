@@ -88,6 +88,36 @@ class Fx {
     /**
      *
      * @param container
+     * @returns {Phaser.GameObjects.Particles.ParticleEmitter}
+     */
+    static particlesSmokeMenu(container) {
+        console.log("smoke menu");
+
+        let particlesSmokeMenu = container.add.particles('TEST');
+        const rectzone2 = new Phaser.Geom.Rectangle(0,0,1280,310)
+        let particlesEmitSmokeMenu = particlesSmokeMenu.createEmitter({
+            emitZone : {type:"random", source : rectzone2},
+            blendMode: Phaser.BlendModes.ADD,
+            angle: {min: 0, max: 90},
+            frequency:5,
+            scale: {min:10,max:13},
+            rotate: { min: -180, max: 360},
+            speedX: {min: -500, max: 1000},
+            // accelerationY: {min: -1, max: -2},
+            lifespan: 9000,
+            accelerationX: {min: 500, max: -100},
+            alpha:0.45,
+
+        });
+        particlesSmokeMenu.setX(908)
+        particlesSmokeMenu.setY(2700)
+
+        particlesSmokeMenu.setDepth(3)
+        return particlesEmitSmokeMenu;
+    }
+    /**
+     *
+     * @param container
      * @returns {*}
      */
     static particlesSave(container){
@@ -125,7 +155,7 @@ class Fx {
         let particlesEmitLeafWind= particlesLeafWind.createEmitter({
             emitZone : {type:"random", source : rectzone},
             angle: { min: 0, max: 0 },
-            frequency:700,
+            frequency:200,
             scale: 0.30,
             depth : 10,
             rotate: { min: -10, max: 360},
