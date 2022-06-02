@@ -25,14 +25,15 @@ class menustart extends Phaser.Scene {
 
     this.load.audio('click', 'assets/sound/sound_ex_machina_Button_Click.mp3');
     this.load.audio('Theme', 'assets/sound/ambience-forest-birds-wind-trees.mp3');
+    this.load.audio('Theme2', 'assets/sound/audio_hero_Undiscovered-Land_SIPML_T-0314.mp3');
 
     };
     create(){
 
-        // this.theme = this.sound.add('Theme');
-        // this.theme.setVolume(0.9);
-        // this.theme.volume = 1;
-        // this.testson=1;
+        this.theme = this.sound.add('Theme');
+        this.theme.setVolume(0.2);
+
+
 
         // this.theme.play();
 

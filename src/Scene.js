@@ -54,6 +54,7 @@ class scene extends Phaser.Scene {
         this.load.audio('Step',"assets/sound/TEST_SOUND.mp3",{
             instances: 1
         });
+        this.load.audio('Theme', 'assets/sound/ambience-forest-birds-wind-trees.mp3');
 
 
     }//PRELOAD END
@@ -64,6 +65,14 @@ class scene extends Phaser.Scene {
         // this.lights.enable().setAmbientColor(0xa7a7a7);
         // this.stepSound.volume = 0.8;
         this.sound.add('Step');
+
+        this.theme = this.sound.add('Theme');
+        this.theme.setVolume(0.2);
+        // this.theme.loop=true;
+
+        this.theme2 = this.sound.add('Theme2');
+        this.theme2.setVolume(0.4);
+        // this.theme2.loop=true;
 
         // BACKGROUND/changement de taille etc
         const BGG = this.add.image(900, 1500, 'BGG').setOrigin(0,0);
