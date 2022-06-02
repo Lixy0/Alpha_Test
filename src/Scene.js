@@ -68,11 +68,14 @@ class scene extends Phaser.Scene {
 
         this.theme = this.sound.add('Theme');
         this.theme.setVolume(0.2);
-        // this.theme.loop=true;
+        this.theme.play();
+        this.theme.loop=true;
 
         this.theme2 = this.sound.add('Theme2');
-        this.theme2.setVolume(0.4);
-        // this.theme2.loop=true;
+        this.theme2.setVolume(0.6);
+        this.theme2.loop=true;
+        this.theme2.play();
+
 
         // BACKGROUND/changement de taille etc
         const BGG = this.add.image(900, 1500, 'BGG').setOrigin(0,0);
@@ -88,7 +91,6 @@ class scene extends Phaser.Scene {
 
 
         //ON AJOUTE CHAQUE LAYER DANS TILED
-        this.platformsS = map.createLayer('Saves',tileset)
         this.platforms = map.createLayer('Sol', tileset)
         this.platformsA = map.createLayer('arbre', tileset)
         this.platformsH = map.createLayer('Herbe', tileset2)
@@ -108,9 +110,8 @@ class scene extends Phaser.Scene {
         this.platformsA.setDepth(6)
         this.platformsH.setDepth(4)
         this.platformsR.setDepth(0)
-        // this.platformsS.setDepth(9)
         this.platLD.setDepth(9)
-        this.plattest.setDepth(999)
+        this.plattest.setDepth(10)
         this.platbacktest.setDepth(0.6)
 
         // this.breachT = this.add.image(4000,2000,'breach').setVisible(true);

@@ -31,7 +31,9 @@ class menustart extends Phaser.Scene {
     create(){
 
         this.theme = this.sound.add('Theme');
-        this.theme.setVolume(0.2);
+        this.theme.setVolume(0.5);
+        this.theme.play();
+        console.log(this.theme,"theme")
 
 
 
