@@ -19,7 +19,15 @@ class scene extends Phaser.Scene {
         this.load.image('moved', 'assets/objects/move.png');
         this.load.image('cloud','assets/objects/clood.png');
         this.load.image('pnjSprite','assets/objects/Pnj.png');
+        this.load.image('pnjSprite2','assets/objects/Pnj2.png');
+        this.load.image('pnjSprite3','assets/objects/Pnj3.png');
+        this.load.image('pnjSprite4','assets/objects/Pnj4.png');
+        this.load.image('breach',"assets/objects/breach.png");
+
         this.load.image('textboxSprite','assets/objects/textBox.png');
+        this.load.image('textboxSprite2','assets/objects/textBox2.png');
+        this.load.image('textboxSprite3','assets/objects/textBox3.png');
+        this.load.image('textboxSprite4','assets/objects/textBox4.png');
 
         //parallaxe background
         this.load.image('BG1',"assets/images/BG1.png");
@@ -91,12 +99,16 @@ class scene extends Phaser.Scene {
         this.platformsA.setDepth(6)
         this.platformsH.setDepth(4)
         this.platformsR.setDepth(0)
-        this.platformsS.setDepth(9)
+        // this.platformsS.setDepth(9)
         this.platLD.setDepth(9)
         this.plattest.setDepth(999)
         this.platbacktest.setDepth(0.6)
 
-
+        // this.breachT = this.add.image(4000,2000,'breach').setVisible(true);
+        // this.breachT2 = this.add.image(3776,2112,'breach').setVisible(true);
+        // this.breachT3 = this.add.image(3776,2112,'breach').setVisible(true);
+        // this.breachT4 = this.add.image(3776,2112,'breach').setVisible(true);
+        // this.breachT5 = this.add.image(3776,2112,'breach').setVisible(true);
 
 
         //COLLISIONS
@@ -112,7 +124,6 @@ class scene extends Phaser.Scene {
             colliders = this.physics.add.existing(colliders)
             this.colliders.add(colliders)
         })
-
 
 
 
@@ -141,19 +152,153 @@ class scene extends Phaser.Scene {
             immovable: true,
 
         });
+        this.pnjtalk2 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
 
+        });
+        this.pnjtalk3 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+
+        });
+        this.pnjtalk4 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+
+        });
         this.eljumpor = this.physics.add.group({
             allowGravity: false,
             immovable: true,
 
         });
 
+        this.targetF = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+
+        });
+        this.targetF2 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+
+        });
+        this.targetF3 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+
+        });
+        this.targetF4 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+
+        });
+        this.targetF5 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+
+        });
+
+        // this.breachT = this.physics.add.group({
+        //     allowGravity: false,
+        //     immovable: true,
+        //
+        // });
+        // this.breachT2 = this.physics.add.group({
+        //     allowGravity: false,
+        //     immovable: true,
+        //
+        // });
+        // this.breachT3 = this.physics.add.group({
+        //     allowGravity: false,
+        //     immovable: true,
+        //
+        // });
+        // this.breachT4 = this.physics.add.group({
+        //     allowGravity: false,
+        //     immovable: true,
+        //
+        // });
+        // this.breachT5 = this.physics.add.group({
+        //     allowGravity: false,
+        //     immovable: true,
+        //
+        // });
         //OBJECTS
         const objectsLayer = map.getObjectLayer('objects')
         objectsLayer.objects.forEach(objData=> {
             const {x = 0, y = 0, name, width = 0, height = 0} = objData
 
             switch (name) {
+                case 'TargetZone1': {
+                    let targetF = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
+                    targetF = this.physics.add.existing(targetF)
+                    this.targetF.add(targetF)
+
+                    break;
+                }//FIN-Target
+                case 'TargetZone2': {
+                    let targetF2 = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
+                    targetF2 = this.physics.add.existing(targetF2)
+                    this.targetF2.add(targetF2)
+
+                    break;
+                }//FIN-Target
+                case 'TargetZone3': {
+                    let targetF3 = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
+                    targetF3 = this.physics.add.existing(targetF3)
+                    this.targetF3.add(targetF3)
+
+                    break;
+                }//FIN-Target
+                case 'TargetZone4': {
+                    let targetF4 = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
+                    targetF4 = this.physics.add.existing(targetF4)
+                    this.targetF4.add(targetF4)
+
+                    break;
+                }//FIN-Target
+                case 'TargetZone5': {
+                    let targetF5 = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
+                    targetF5 = this.physics.add.existing(targetF5)
+                    this.targetF5.add(targetF5)
+
+                    break;
+                }//FIN-Target
+
+
+                // case 'Breach1': {
+                //     let breachT = this.add.sprite(x,y,"breach").setOrigin(0,0).setDepth(999)
+                //     this.breachT.add(this.breachT)
+                //
+                //     break;
+                // }//FIN-Target
+                // case 'Breach2': {
+                //     let breachT2 = this.add.sprite(x,y,"breach").setOrigin(0,0).setDepth(999)
+                //     this.breachT2.add(breachT2)
+                //
+                //     break;
+                // }//FIN-Target
+                // case 'Breach3': {
+                //     let breachT3 = this.add.sprite(x,y,"breach").setOrigin(0,0).setDepth(999)
+                //     this.breachT3.add(breachT3)
+                //
+                //     break;
+                // }//FIN-Target
+                // case 'Breach4': {
+                //     let breachT4 = this.add.sprite(x,y,"breach").setOrigin(0,0).setDepth(999)
+                //     this.breachT4.add(breachT4)
+                //
+                //     break;
+                // }//FIN-Target
+                // case 'Breach5': {
+                //     let breachT5 = this.add.sprite(x,y,"breach").setOrigin(0,0).setDepth(999)
+                //     this.breachT5.add(breachT5)
+                //
+                //     break;
+                // }//FIN-Target
+
+
                 case 'Save': {
                     let save = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
                     save = this.physics.add.existing(save)
@@ -222,12 +367,39 @@ class scene extends Phaser.Scene {
                 case 'PnjT':
                 {
 
-                    let pnjtalk = this.add.sprite(x,y,"pnjSprite").setOrigin(0,0).setDepth(999)
+                    let pnjtalk = this.add.sprite(x,y,"pnjSprite").setOrigin(0,0).setDepth(80)
                     pnjtalk = this.physics.add.existing(pnjtalk)
                     this.pnjtalk.add(pnjtalk)
                     break;
 
-                }//FIN-TROUS
+                }//FIN-PNJ
+                case 'PnjT2':
+                {
+
+                    let pnjtalk2 = this.add.sprite(x,y,"pnjSprite2").setOrigin(0,0).setDepth(80)
+                    pnjtalk2 = this.physics.add.existing(pnjtalk2)
+                    this.pnjtalk2.add(pnjtalk2)
+                    break;
+
+                }//FIN-PNJ
+                case 'PnjT3':
+                {
+
+                    let pnjtalk3 = this.add.sprite(x,y,"pnjSprite3").setOrigin(0,0).setDepth(80)
+                    pnjtalk3 = this.physics.add.existing(pnjtalk3)
+                    this.pnjtalk3.add(pnjtalk3)
+                    break;
+
+                }//FIN-PNJ
+                case 'PnjT4':
+                {
+
+                    let pnjtalk4 = this.add.sprite(x,y,"pnjSprite4").setOrigin(0,0).setDepth(80)
+                    pnjtalk4 = this.physics.add.existing(pnjtalk4)
+                    this.pnjtalk4.add(pnjtalk4)
+                    break;
+
+                }//FIN-PNJ
 
                 case 'JumpWall':
                 {
@@ -267,15 +439,26 @@ class scene extends Phaser.Scene {
         this.leafPart=Fx.particlesLeafPlat(this);
         Fx.particlesFireWhite(this);
 
+        this.leafPartFal=Fx.particlesLeafFal(this);
+        Fx.particlesLeafFal(this);
 
         // Interaction du joueur avec les objects
         this.physics.add.overlap(this.player.player, this.saves,this.sauvegarde,null ,this);
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this);
         this.physics.add.collider(this.player.player, this.cloud,this.cloudLife,null, this);
-        this.physics.add.overlap(this.player.player, this.pnjtalk,this.pnjtalking,null ,this);
         this.physics.add.collider(this.player.player, this.eljumpor,this.eljumporedelpapa,null ,this);
         this.physics.add.collider(this.player.player,this.moved,this.siletrucbouge,null,this);
 
+        this.physics.add.overlap(this.player.player, this.pnjtalk,this.pnjtalking,null ,this);
+        this.physics.add.overlap(this.player.player, this.pnjtalk2,this.pnjtalking2,null ,this);
+        this.physics.add.overlap(this.player.player, this.pnjtalk3,this.pnjtalking3,null ,this);
+        this.physics.add.overlap(this.player.player, this.pnjtalk4,this.pnjtalking4,null ,this);
+
+        this.physics.add.overlap(this.player.player, this.targetF,this.targetFal,null ,this);
+        // this.physics.add.overlap(this.player.player, this.targetF2,this.targetFal2,null ,this);
+        // this.physics.add.overlap(this.player.player, this.targetF3,this.targetFal3,null ,this);
+        // this.physics.add.overlap(this.player.player, this.targetF4,this.targetFal4,null ,this);
+        // this.physics.add.overlap(this.player.player, this.targetF5,this.targetFal5,null ,this);
 
         // Caméra
         this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
@@ -343,16 +526,84 @@ class scene extends Phaser.Scene {
 
     }
 
+    targetFal(player,targetF){
+        this.leafPartFal.startFollow(targetF,0,0)
+        this.input.keyboard.on('keyup', (key)=>{
+            // console.log(key)
+            if(key.key==="Control"){
+                this.leafPartFal.explode()
+                // this.targetFal.destroy()
+                console.log("BYeBYe")
+            }
 
+        }, this)
+    }
+
+    targetFal2(player,targetF2){
+        this.leafPartFal.startFollow(targetF2,0,0)
+
+        this.input.keyboard.on('keyup', (key)=>{
+            // console.log(key)
+            if(key.key==="Control"){
+                this.leafPartFal.explode()
+                // this.targetFal2.destroy()
+                console.log("BYeBYe")
+
+            }
+
+        }, this)
+    }
+    targetFal3(player,targetF3){
+        this.leafPartFal.startFollow(targetF3,0,0)
+
+        this.input.keyboard.on('keyup', (key)=>{
+            // console.log(key)
+            if(key.key==="Control"){
+                this.leafPartFal.explode()
+                // this.targetFal3.destroy()
+                console.log("BYeBYe")
+
+            }
+
+        }, this)
+    }
+    targetFal4(player,targetF4){
+        this.leafPartFal.startFollow(targetF4,0,0)
+
+        this.input.keyboard.on('keyup', (key)=>{
+            // console.log(key)
+            if(key.key==="Control"){
+                this.leafPartFal.explode()
+                // this.targetFal4.destroy()
+                console.log("BYeBYe")
+
+            }
+
+        }, this)
+    }
+    targetFal5(player,targetF5){
+        this.leafPartFal.startFollow(targetF5,0,0)
+
+        this.input.keyboard.on('keyup', (key)=>{
+            // console.log(key)
+            if(key.key==="Control"){
+                this.leafPartFal.explode()
+                // this.targetFal5.destroy()
+                console.log("BYeBYe")
+
+            }
+
+        }, this)
+    }
     pnjtalking(player, pnjtalk){
         this.currentPnjX = pnjtalk.x
         this.currentPnjY = pnjtalk.y
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
             if(key.key==="Control"){
-                let test = this.add.image(this.currentPnjX, this.currentPnjY-100,"textboxSprite").setDepth(999)
+                let test = this.add.image(this.currentPnjX, this.currentPnjY-100,"textboxSprite").setDepth(5)
                 console.log("Pnj/Joueur overlap+ touche")
-                this.time.delayedCall(2000, () => {
+                this.time.delayedCall(3000, () => {
                     test.visible = false
                     console.log("BYeBYe")
                 })
@@ -361,7 +612,57 @@ class scene extends Phaser.Scene {
         }, this);
 
     }
+    pnjtalking2(player, pnjtalk2){
+        this.currentPnjX2 = pnjtalk2.x
+        this.currentPnjY2 = pnjtalk2.y
+        this.input.keyboard.on('keyup', (key)=>{
+            // console.log(key)
+            if(key.key==="Control"){
+                let test2 = this.add.image(this.currentPnjX2, this.currentPnjY2-100,"textboxSprite2").setDepth(999)
+                console.log("Pnj2/Joueur overlap+ touche")
+                this.time.delayedCall(5000, () => {
+                    test2.visible = false
+                    console.log("BYeBYe")
+                })
+            }
 
+        }, this);
+
+    }
+    pnjtalking3(player, pnjtalk3){
+        this.currentPnjX3 = pnjtalk3.x
+        this.currentPnjY3 = pnjtalk3.y
+        this.input.keyboard.on('keyup', (key)=>{
+            // console.log(key)
+            if(key.key==="Control"){
+                let test3 = this.add.image(this.currentPnjX3, this.currentPnjY3-100,"textboxSprite3").setDepth(9999)
+                console.log("Pnj3/Joueur overlap+ touche")
+                this.time.delayedCall(6000, () => {
+                    test3.visible = false
+                    console.log("BYeBYe")
+                })
+            }
+
+        }, this);
+
+    }
+    pnjtalking4(player, pnjtalk4){
+        this.currentPnjX4 = pnjtalk4.x
+        this.currentPnjY4 = pnjtalk4.y
+        this.input.keyboard.on('keyup', (key)=>{
+            // console.log(key)
+            if(key.key==="Control"){
+                let test4 = this.add.image(this.currentPnjX4, this.currentPnjY4-100,"textboxSprite4").setDepth(5)
+                console.log("Pnj4/Joueur overlap+ touche")
+                this.time.delayedCall(6000, () => {
+                    test4.visible = false
+                    console.log("BYeBYe")
+                })
+            }
+
+        }, this);
+
+    }
     /**
      * fonction exécuter des lors que le joueur touche un objet "trous"
      * @param player

@@ -23,6 +23,24 @@ class Fx {
 
     }
 
+    static particlesLeafFal(container){
+        console.log("particlesLeafPlat");
+        // PARTICULES LEAF
+
+        let particlesLeafFal = container.add.particles('leaf');
+        let particlesEmitLeafFal= particlesLeafFal.createEmitter({
+            angle: { min: 180, max: 0 },
+            tint: {start: 0x00ff00, end: 0x8aff8a},
+            alpha : {start :1, end : 0.6},
+            lifespan: {min: 100*4, max: 300*4},
+            scale: {start: 0.30, end: 0.20},
+            rotate: { min: 90, max: -90 },
+            speed: 100,
+        });
+        particlesLeafFal.setDepth(500)
+        return particlesEmitLeafFal;
+
+    }
     /**
      *
      * @param container
