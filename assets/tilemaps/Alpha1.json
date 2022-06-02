@@ -410,7 +410,7 @@
                  "y":1344
                 }, 
                 {
-                 "height":39.3333666666667,
+                 "height":39.3334,
                  "id":314,
                  "name":"",
                  "rotation":0,
@@ -418,7 +418,7 @@
                  "visible":true,
                  "width":128,
                  "x":8384,
-                 "y":1304.66333333333
+                 "y":1304.66
                 }, 
                 {
                  "height":64,
@@ -440,7 +440,7 @@
                  "visible":true,
                  "width":768,
                  "x":8704,
-                 "y":1154
+                 "y":1131
                 }, 
                 {
                  "height":128,
@@ -968,7 +968,7 @@
                  "visible":true,
                  "width":702.75,
                  "x":10176,
-                 "y":1290.6875
+                 "y":1290.69
                 }],
          "opacity":1,
          "tintcolor":"#4810ff",
@@ -1406,7 +1406,7 @@
                  "visible":true,
                  "width":192,
                  "x":8318,
-                 "y":998
+                 "y":1005
                 }, 
                 {
                  "height":64,
@@ -1438,19 +1438,19 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":7322.54545454545,
-                 "y":1610.42424242424
+                 "x":7322.55,
+                 "y":1610.42
                 }, 
                 {
-                 "height":63.7045454545455,
+                 "height":63.7045,
                  "id":485,
                  "name":"JumpWall",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":30.878787878788,
-                 "x":8699.30303030303,
-                 "y":1152.10227272727
+                 "width":30.8788,
+                 "x":8699.3,
+                 "y":1152.1
                 }, 
                 {
                  "height":424,
@@ -1583,7 +1583,7 @@
  "nextobjectid":501,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.2",
  "tileheight":64,
  "tilesets":[
         {
@@ -1657,6 +1657,6 @@
         }],
  "tilewidth":64,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":312
 }
