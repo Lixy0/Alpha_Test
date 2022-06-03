@@ -10,7 +10,7 @@ class Fx {
         console.log("particlesLeafPlat");
         // PARTICULES LEAF
 
-        let particlesLeafPlat = container.add.particles('leaf');
+        let particlesLeafPlat = container.add.particles('leaf2');
         let particlesEmitLeaf= particlesLeafPlat.createEmitter({
             angle: { min: 180, max: 0 },
             lifespan: {min: 100*4, max: 300*4},
@@ -26,18 +26,18 @@ class Fx {
     static particlesLeafFal(container){
         console.log("particlesLeafPlat");
         // PARTICULES LEAF
-
-        let particlesLeafFal = container.add.particles('leaf');
+        let particlesLeafFal = container.add.particles('flame1');
         let particlesEmitLeafFal= particlesLeafFal.createEmitter({
-            angle: { min: 180, max: 0 },
-            tint: {start: 0x00ff00, end: 0x8aff8a},
-            alpha : {start :1, end : 0.6},
+            tint: 0x00FF00,
+            alpha: {start: 0.1, end: 0.01},
+            scale: {start: 2, end: 1},
+            rotate: {min: 360, max: -360},
             lifespan: {min: 100*4, max: 300*4},
-            scale: {start: 0.30, end: 0.20},
-            rotate: { min: 90, max: -90 },
-            speed: 100,
+            blendMode: Phaser.BlendModes.ADD,
+            frequency: 30,
+            speed : 90,
         });
-        particlesLeafFal.setDepth(500)
+        particlesLeafFal.setDepth(9999)
         return particlesEmitLeafFal;
 
     }
@@ -131,6 +131,32 @@ class Fx {
 
         particlesFireWhite.setDepth(1)
         return particlesEmitFireWhite;
+    }
+
+    static particlesCloud(container) {
+        console.log("particlesCloud");
+        // PARTICULE FEUX PERSONNAGE
+
+        let particlesCloud = container.add.particles('TEST');
+        let particlesEmitCloud = particlesCloud.createEmitter({
+            tint: 0xffffff,
+            alpha: {start: 0.1, end: 0.01},
+            scale: {start: 0.2, end: 0.08},
+            // accelerationY: -90,
+            rotate: {min: 180, max: -180},
+            lifespan: {min: 600, max: 400 * 2},
+            blendMode: Phaser.BlendModes.ADD,
+            angle: {min: 0, max: 360},
+            frequency: 11,
+            speedY: {min: -30, max: -80},
+            speedX: {min: -3, max: 8},
+            radial: false,
+
+        });
+
+
+        particlesCloud.setDepth(7)
+        return particlesEmitCloud;
     }
 
     /**

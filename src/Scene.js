@@ -14,6 +14,7 @@ class scene extends Phaser.Scene {
         this.load.image('tilesHerbe', 'assets/tilesets/HERBES.png');
         this.load.image('tilesLD', 'assets/tilesets/platformPack_tilesheet_LD.png');
         this.load.image('test', 'assets/tilesets/test1.png');
+        this.load.image('test2', 'assets/tilesets/test2.png');
 
         //Load assets objets
         this.load.image('moved', 'assets/objects/move.png');
@@ -45,6 +46,7 @@ class scene extends Phaser.Scene {
         this.load.image('flame1', 'assets/particules/fire_395.png');
         this.load.image('saveSpark','assets/particules/pngegg.png');
         this.load.image('leaf', 'assets/particules/leaf.png');
+        this.load.image('leaf2', 'assets/particules/leaf2.png');
 
         // Load Tiled MAP en JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
@@ -79,25 +81,26 @@ class scene extends Phaser.Scene {
 
         // BACKGROUND/changement de taille etc
         const BGG = this.add.image(900, 1500, 'BGG').setOrigin(0,0);
-        BGG.setScale(6, 6); console.log('BGG')
+        BGG.setScale(6*9, 6*9); console.log('BGG')
 
 
         // MAP TILED+LES DIFFERENTS TILESET
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles',);
-        const tileset2 = map.addTilesetImage('HERBES', 'tilesHerbe',);
         const tilesetLD = map.addTilesetImage('platformPack_tilesheet_LD', 'tilesLD',);
         const test = map.addTilesetImage('test1', 'test',);
+        const test2 = map.addTilesetImage('test2', 'test2',);
 
 
         //ON AJOUTE CHAQUE LAYER DANS TILED
-        this.platforms = map.createLayer('Sol', tileset)
-        this.platformsA = map.createLayer('arbre', tileset)
-        this.platformsH = map.createLayer('Herbe', tileset2)
-        this.platformsR = map.createLayer('rock', tileset)
-        this.platLD = map.createLayer('PNJ',tilesetLD)
-        this.platBACK = map.createLayer('BACK',tilesetLD)
+        this.platformsH = map.createLayer('Herbe', test2)
+        this.plattest2 = map.createLayer('test2',test2)
         this.plattest = map.createLayer('test',test)
+        this.platformSol = map.createLayer('Sol', tileset)
+        this.platLD = map.createLayer('PNJ',tilesetLD)
+        this.platformsA = map.createLayer('arbre', tileset)
+        this.platformsR = map.createLayer('rock', test2)
+        this.platformsR2 = map.createLayer('rock2', tileset)
         this.platbacktest = map.createLayer('testback',test)
 
         // CURSOR (clavier)
@@ -106,13 +109,15 @@ class scene extends Phaser.Scene {
 
 
         //PARALLAXE
-        this.platforms.setDepth(2)
-        this.platformsA.setDepth(6)
-        this.platformsH.setDepth(4)
-        this.platformsR.setDepth(0)
-        this.platLD.setDepth(9)
+        this.platformsH.setDepth(12)
+        this.plattest2.setDepth(11)
         this.plattest.setDepth(10)
-        this.platbacktest.setDepth(0.6)
+        this.platformSol.setDepth(9)
+        this.platLD.setDepth(7)
+        this.platformsA.setDepth(5)
+        this.platformsR.setDepth(0.6)
+        this.platformsR2.setDepth(0.5)
+        this.platbacktest.setDepth(0.4)
 
         // this.breachT = this.add.image(4000,2000,'breach').setVisible(true);
         // this.breachT2 = this.add.image(3776,2112,'breach').setVisible(true);
@@ -122,7 +127,7 @@ class scene extends Phaser.Scene {
 
 
         //COLLISIONS
-        this.platforms.setCollisionByExclusion(-1, true);
+        // this.platformSol.setCollisionByExclusion(-1, true);
         this.colliders = this.physics.add.group({
             allowGravity: false,
             immovable: true
@@ -135,17 +140,32 @@ class scene extends Phaser.Scene {
             this.colliders.add(colliders)
         })
 
+        //creation de la particules save
+        this.savePart=Fx.particlesSave(this);
+
+        //creation de la particules LEAF
+        this.leafPart=Fx.particlesLeafPlat(this);
+        Fx.particlesFireWhite(this);
+
+        this.leafPartFal=Fx.particlesLeafFal(this);
+        Fx.particlesLeafFal(this);
+
+        this.partCloud=Fx.particlesCloud(this);
+        Fx.particlesCloud(this);
+
 
 
         // On ajoute tous les OBJECTS de Tiled
         this.saves = this.physics.add.group({
             allowGravity: false,
-            immovable: true
+            immovable: true,
+            setDepth : 8,
+
         });
         this.cloud = this.physics.add.group({
             allowGravity: false,
             immovable: true,
-            setDepth : 2,
+            setDepth : 12,
         });
         this.trous = this.physics.add.group({
             allowGravity: false,
@@ -155,27 +175,32 @@ class scene extends Phaser.Scene {
         this.moved = this.physics.add.group({
             allowGravity: false,
             immovable: true,
+            setDepth : 8,
         });
 
         this.pnjtalk = this.physics.add.group({
             allowGravity: false,
             immovable: true,
+            setDepth : 8,
+
 
         });
         this.pnjtalk2 = this.physics.add.group({
             allowGravity: false,
             immovable: true,
+            setDepth : 8,
+
 
         });
         this.pnjtalk3 = this.physics.add.group({
             allowGravity: false,
             immovable: true,
-
+            setDepth : 8,
         });
         this.pnjtalk4 = this.physics.add.group({
             allowGravity: false,
             immovable: true,
-
+            setDepth : 8,
         });
         this.eljumpor = this.physics.add.group({
             allowGravity: false,
@@ -339,7 +364,7 @@ class scene extends Phaser.Scene {
                     let moved = this.physics.add.sprite(x,y,"moved").setOrigin(0,0).setDepth(999)
                     const finalgoal =objData.properties[0].value+moved.y
                     this.moved.add(moved)
-                    let velocity = 100
+                    let velocity = 120
                     let active = false
                     this.testt = false
                     this.tw = this.tweens.addCounter({
@@ -351,6 +376,7 @@ class scene extends Phaser.Scene {
                         yoyo: false,
                         onUpdate: tween=>{
                             if(this.testt === true){
+
                                 if(active) {
                                     moved.setVelocityY(velocity)
                                     if(moved.y>=finalgoal)
@@ -442,15 +468,6 @@ class scene extends Phaser.Scene {
         this.player.particules=Fx.particlesFire(this);
         this.player.particules.startFollow(this.player.player)
 
-        //creation de la particules save
-        this.savePart=Fx.particlesSave(this);
-
-        //creation de la particules LEAF
-        this.leafPart=Fx.particlesLeafPlat(this);
-        Fx.particlesFireWhite(this);
-
-        this.leafPartFal=Fx.particlesLeafFal(this);
-        Fx.particlesLeafFal(this);
 
         // Interaction du joueur avec les objects
         this.physics.add.overlap(this.player.player, this.saves,this.sauvegarde,null ,this);
@@ -521,6 +538,9 @@ class scene extends Phaser.Scene {
     }
 
     siletrucbouge(player,moved){
+        if(this.partCloud) {
+            this.partCloud.startFollow(moved,96,32)
+        }
             this.testt = true
             // this.velocity = 180
 
@@ -537,7 +557,7 @@ class scene extends Phaser.Scene {
     }
 
     targetFal(player,targetF){
-        this.leafPartFal.startFollow(targetF,0,0)
+        this.leafPartFal.startFollow(targetF,96,32)
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
             if(key.key==="Control"){
@@ -550,7 +570,7 @@ class scene extends Phaser.Scene {
     }
 
     targetFal2(player,targetF2){
-        this.leafPartFal.startFollow(targetF2,0,0)
+        this.leafPartFal.startFollow(targetF2,96,32)
 
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
@@ -564,7 +584,7 @@ class scene extends Phaser.Scene {
         }, this)
     }
     targetFal3(player,targetF3){
-        this.leafPartFal.startFollow(targetF3,0,0)
+        this.leafPartFal.startFollow(targetF3,96,32)
 
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
@@ -578,7 +598,7 @@ class scene extends Phaser.Scene {
         }, this)
     }
     targetFal4(player,targetF4){
-        this.leafPartFal.startFollow(targetF4,0,0)
+        this.leafPartFal.startFollow(targetF4,96,32)
 
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
@@ -592,7 +612,7 @@ class scene extends Phaser.Scene {
         }, this)
     }
     targetFal5(player,targetF5){
-        this.leafPartFal.startFollow(targetF5,0,0)
+        this.leafPartFal.startFollow(targetF5,96,32)
 
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
@@ -611,7 +631,7 @@ class scene extends Phaser.Scene {
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
             if(key.key==="Control"){
-                let test = this.add.image(this.currentPnjX, this.currentPnjY-100,"textboxSprite").setDepth(5)
+                let test = this.add.image(this.currentPnjX, this.currentPnjY-100,"textboxSprite").setDepth(8)
                 console.log("Pnj/Joueur overlap+ touche")
                 this.time.delayedCall(3000, () => {
                     test.visible = false
@@ -628,7 +648,7 @@ class scene extends Phaser.Scene {
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
             if(key.key==="Control"){
-                let test2 = this.add.image(this.currentPnjX2, this.currentPnjY2-100,"textboxSprite2").setDepth(999)
+                let test2 = this.add.image(this.currentPnjX2, this.currentPnjY2-100,"textboxSprite2").setDepth(8)
                 console.log("Pnj2/Joueur overlap+ touche")
                 this.time.delayedCall(5000, () => {
                     test2.visible = false
@@ -645,7 +665,7 @@ class scene extends Phaser.Scene {
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
             if(key.key==="Control"){
-                let test3 = this.add.image(this.currentPnjX3, this.currentPnjY3-100,"textboxSprite3").setDepth(9999)
+                let test3 = this.add.image(this.currentPnjX3, this.currentPnjY3-100,"textboxSprite3").setDepth(8)
                 console.log("Pnj3/Joueur overlap+ touche")
                 this.time.delayedCall(6000, () => {
                     test3.visible = false
@@ -662,7 +682,7 @@ class scene extends Phaser.Scene {
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
             if(key.key==="Control"){
-                let test4 = this.add.image(this.currentPnjX4, this.currentPnjY4-100,"textboxSprite4").setDepth(5)
+                let test4 = this.add.image(this.currentPnjX4, this.currentPnjY4-100,"textboxSprite4").setDepth(8)
                 console.log("Pnj4/Joueur overlap+ touche")
                 this.time.delayedCall(6000, () => {
                     test4.visible = false
