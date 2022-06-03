@@ -110,7 +110,7 @@ class scene extends Phaser.Scene {
         // CURSOR (clavier)
         this.cursors = this.input.keyboard.createCursorKeys();
 
-
+        var overlapTriggered = false;
 
         //PARALLAXE
         this.platformsH.setDepth(12)
@@ -479,6 +479,7 @@ class scene extends Phaser.Scene {
         this.physics.add.overlap(this.player.player, this.targetF5,this.targetFal5,null ,this);
         this.physics.add.overlap(this.player.player, this.targetF6,this.targetFal6,null ,this);
 
+
         // Caméra
         this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
         this.cameras.main.setDeadzone(80, 80) // on crée une deadzone à la façon mario sur la caméra
@@ -549,6 +550,7 @@ class scene extends Phaser.Scene {
     }
 
     targetFal(player,targetF){
+
         this.leafPartFal.startFollow(targetF,96,32)
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
@@ -556,6 +558,7 @@ class scene extends Phaser.Scene {
                 this.piu.play();
                 this.leafPartFal.explode()
                 // this.targetFal.destroy()
+
                 console.log("BYeBYe")
             }
 
