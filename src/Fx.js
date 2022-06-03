@@ -214,6 +214,30 @@ class Fx {
         return particlesEmitSave;
     }
 
+    static particlesSam(container){
+        console.log("particlesSave");
+        // PARTICULE SAUVEGARDE
+
+        let particlesSam = container.add.particles('saveSpark');
+        let particlesEmitSam= particlesSam.createEmitter({
+            lifespan: {min: 10000, max: 200 * 2},
+            scale: { start: 3, end: 1},
+            alpha : {start:1,end:0.2},
+            rotate: { min: 360, max: -180 },
+            frequency:90,
+            // lifespan: { min: 0.1, max: 10  },
+            blendMode: Phaser.BlendModes.ADD,
+            // radial:true,
+            speed:80,
+
+            x :420,
+            y:1769,
+
+
+        });
+        particlesSam.setDepth(0.1)
+        return particlesEmitSam;
+    }
     /**
      *
      * @param container

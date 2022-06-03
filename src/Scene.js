@@ -15,6 +15,7 @@ class scene extends Phaser.Scene {
         this.load.image('tilesLD', 'assets/tilesets/platformPack_tilesheet_LD.png');
         this.load.image('test', 'assets/tilesets/test1.png');
         this.load.image('test2', 'assets/tilesets/test2.png');
+        this.load.image('BGBG', 'assets/images/BGBG.png');
 
         //Load assets objets
         this.load.image('moved', 'assets/objects/move.png');
@@ -84,8 +85,8 @@ class scene extends Phaser.Scene {
         this.piu.setVolume(0.08);
 
         // BACKGROUND/changement de taille etc
-        const BGG = this.add.image(900, 1500, 'BGG').setOrigin(0,0);
-        BGG.setScale(6*9, 6*9); console.log('BGG')
+        // const BGG = this.add.image(900, 1500, 'BGG').setOrigin(0,0);
+        // BGG.setScale(6*9, 6*9); console.log('BGG')
 
 
         // MAP TILED+LES DIFFERENTS TILESET
@@ -94,6 +95,7 @@ class scene extends Phaser.Scene {
         const tilesetLD = map.addTilesetImage('platformPack_tilesheet_LD', 'tilesLD',);
         const test = map.addTilesetImage('test1', 'test',);
         const test2 = map.addTilesetImage('test2', 'test2',);
+        const background = map.addTilesetImage('BGBG', 'BGBG',);
 
 
         //ON AJOUTE CHAQUE LAYER DANS TILED
@@ -106,7 +108,7 @@ class scene extends Phaser.Scene {
         this.platformsR = map.createLayer('rock', test2)
         this.platformsR2 = map.createLayer('rock2', tileset)
         this.platbacktest = map.createLayer('testback',test)
-
+        this.platbackGROUND = map.createLayer('back',background)
         // CURSOR (clavier)
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -122,6 +124,7 @@ class scene extends Phaser.Scene {
         this.platformsR.setDepth(0.6)
         this.platformsR2.setDepth(0.5)
         this.platbacktest.setDepth(0.4)
+        this.platbackGROUND.setDepth(0.1)
 
         // this.breachT = this.add.image(4000,2000,'breach').setVisible(true);
         // this.breachT2 = this.add.image(3776,2112,'breach').setVisible(true);
@@ -146,6 +149,8 @@ class scene extends Phaser.Scene {
 
         //creation de la particules save
         this.savePart=Fx.particlesSave(this);
+
+
 
         //creation de la particules LEAF
         this.leafPart=Fx.particlesLeafPlat(this);
@@ -336,6 +341,7 @@ class scene extends Phaser.Scene {
                     break;
                 }//FIN-TROUS
 
+
                 case 'MoveP':
                 {
                     let moved = this.physics.add.sprite(x,y,"moved").setOrigin(0,0).setDepth(999)
@@ -458,7 +464,9 @@ class scene extends Phaser.Scene {
         this.player.particules=Fx.particlesFire(this);
         this.player.particules.startFollow(this.player.player)
 
-
+        this.samsam=Fx.particlesSam(this);
+        Fx.particlesSam(this);
+        console.log('sam')
         // Interaction du joueur avec les objects
         this.physics.add.overlap(this.player.player, this.saves,this.sauvegarde,null ,this);
         this.physics.add.overlap(this.player.player, this.trous,this.playerHit,null ,this);

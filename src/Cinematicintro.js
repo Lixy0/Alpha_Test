@@ -4,8 +4,8 @@ class cinematicintro extends Phaser.Scene {
     }
     preload(){
 
-        this.load.video('Intro', 'assets/video/test.mp4','loadeddata', false, true);
-        this.load.image('Skip', 'assets/UI/testbutton.png');
+        this.load.video('Intro', 'assets/video/cinematique.mp4','loadeddata', false, true);
+        this.load.image('Skip','assets/UI/start1.png');
         // this.load.audio('MainTheme', 'assets/sounds/LevelMusic.mp3');
 
     }
@@ -13,10 +13,10 @@ class cinematicintro extends Phaser.Scene {
     create() {
         console.log("bonjour")
 
-        this.video = this.add.video(0, 0, 'Intro'); //ajout video/cinematique
-        this.video.setScale(2, 2);
+        this.video = this.add.video(640, 360, 'Intro'); //ajout video/cinematique
+        this.video.setScale(1.5,1.5);
         this.video.play();
-        this.video.setDepth(1)
+        this.video.setDepth(1);
 
 
         // this.mainTheme = this.sound.add('MainTheme',{volume: 0.3});
@@ -24,23 +24,30 @@ class cinematicintro extends Phaser.Scene {
         // this.mainTheme.play();
 
         //on creer le button
-        let skipbutton = this.add.image(660,440,'Skip');
-        skipbutton.setScale(1);
+        let skipbutton = this.add.image(660,600,'Skip');
+        skipbutton.setScale(0.8);
         skipbutton.setInteractive();
         skipbutton.setDepth(9999)
+        skipbutton.setAlpha(0.15)
 
         skipbutton.on("pointerover",()=>{
             console.log("over")
+            skipbutton.setAlpha(0.8)
+
             skipbutton.setTexture('Skip')
         })
 
         skipbutton.on("pointerout",()=>{
             console.log("out")
             skipbutton.setTexture('Skip')
+            skipbutton.setAlpha(0.2)
+
         })
 
         skipbutton.on("pointerup",()=>{
-            console.log("up")
+            console.log("un animateur mort")
+            skipbutton.setAlpha(0.8)
+
             skipbutton.setTexture('Skip')
 
             this.scene.start("playGame")
