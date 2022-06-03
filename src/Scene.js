@@ -58,6 +58,7 @@ class scene extends Phaser.Scene {
             instances: 1
         });
         this.load.audio('Theme', 'assets/sound/ambience-forest-birds-wind-trees.mp3');
+        this.load.audio('piu', 'assets/sound/piou.mp3');
 
 
     }//PRELOAD END
@@ -70,15 +71,17 @@ class scene extends Phaser.Scene {
         this.sound.add('Step');
 
         this.theme = this.sound.add('Theme');
-        this.theme.setVolume(0.2);
+        this.theme.setVolume(0.13);
         this.theme.play();
         this.theme.loop=true;
 
         this.theme2 = this.sound.add('Theme2');
-        this.theme2.setVolume(0.6);
+        this.theme2.setVolume(0.18);
         this.theme2.loop=true;
         this.theme2.play();
 
+        this.piu = this.sound.add('piu');
+        this.piu.setVolume(0.08);
 
         // BACKGROUND/changement de taille etc
         const BGG = this.add.image(900, 1500, 'BGG').setOrigin(0,0);
@@ -149,6 +152,16 @@ class scene extends Phaser.Scene {
         Fx.particlesFireWhite(this);
 
         this.leafPartFal=Fx.particlesLeafFal(this);
+        Fx.particlesLeafFal(this);
+        this.leafPartFal2=Fx.particlesLeafFal(this);
+        Fx.particlesLeafFal(this);
+        this.leafPartFal3=Fx.particlesLeafFal(this);
+        Fx.particlesLeafFal(this);
+        this.leafPartFal4=Fx.particlesLeafFal(this);
+        Fx.particlesLeafFal(this);
+        this.leafPartFal5=Fx.particlesLeafFal(this);
+        Fx.particlesLeafFal(this);
+        this.leafPartFal6=Fx.particlesLeafFal(this);
         Fx.particlesLeafFal(this);
 
         this.partCloud=Fx.particlesCloud(this);
@@ -241,32 +254,13 @@ class scene extends Phaser.Scene {
             immovable: true,
 
         });
+        this.targetF6 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
 
-        // this.breachT = this.physics.add.group({
-        //     allowGravity: false,
-        //     immovable: true,
-        //
-        // });
-        // this.breachT2 = this.physics.add.group({
-        //     allowGravity: false,
-        //     immovable: true,
-        //
-        // });
-        // this.breachT3 = this.physics.add.group({
-        //     allowGravity: false,
-        //     immovable: true,
-        //
-        // });
-        // this.breachT4 = this.physics.add.group({
-        //     allowGravity: false,
-        //     immovable: true,
-        //
-        // });
-        // this.breachT5 = this.physics.add.group({
-        //     allowGravity: false,
-        //     immovable: true,
-        //
-        // });
+        });
+
+
         //OBJECTS
         const objectsLayer = map.getObjectLayer('objects')
         objectsLayer.objects.forEach(objData=> {
@@ -308,38 +302,13 @@ class scene extends Phaser.Scene {
 
                     break;
                 }//FIN-Target
+                case 'TargetZone6': {
+                    let targetF6 = this.add.rectangle(x, y, width, height).setOrigin(0, 0)
+                    targetF6 = this.physics.add.existing(targetF6)
+                    this.targetF6.add(targetF6)
 
-
-                // case 'Breach1': {
-                //     let breachT = this.add.sprite(x,y,"breach").setOrigin(0,0).setDepth(999)
-                //     this.breachT.add(this.breachT)
-                //
-                //     break;
-                // }//FIN-Target
-                // case 'Breach2': {
-                //     let breachT2 = this.add.sprite(x,y,"breach").setOrigin(0,0).setDepth(999)
-                //     this.breachT2.add(breachT2)
-                //
-                //     break;
-                // }//FIN-Target
-                // case 'Breach3': {
-                //     let breachT3 = this.add.sprite(x,y,"breach").setOrigin(0,0).setDepth(999)
-                //     this.breachT3.add(breachT3)
-                //
-                //     break;
-                // }//FIN-Target
-                // case 'Breach4': {
-                //     let breachT4 = this.add.sprite(x,y,"breach").setOrigin(0,0).setDepth(999)
-                //     this.breachT4.add(breachT4)
-                //
-                //     break;
-                // }//FIN-Target
-                // case 'Breach5': {
-                //     let breachT5 = this.add.sprite(x,y,"breach").setOrigin(0,0).setDepth(999)
-                //     this.breachT5.add(breachT5)
-                //
-                //     break;
-                // }//FIN-Target
+                    break;
+                }//FIN-Target
 
 
                 case 'Save': {
@@ -504,10 +473,11 @@ class scene extends Phaser.Scene {
         this.physics.add.overlap(this.player.player, this.pnjtalk5,this.pnjtalking5,null ,this);
 
         this.physics.add.overlap(this.player.player, this.targetF,this.targetFal,null ,this);
-        // this.physics.add.overlap(this.player.player, this.targetF2,this.targetFal2,null ,this);
-        // this.physics.add.overlap(this.player.player, this.targetF3,this.targetFal3,null ,this);
-        // this.physics.add.overlap(this.player.player, this.targetF4,this.targetFal4,null ,this);
-        // this.physics.add.overlap(this.player.player, this.targetF5,this.targetFal5,null ,this);
+        this.physics.add.overlap(this.player.player, this.targetF2,this.targetFal2,null ,this);
+        this.physics.add.overlap(this.player.player, this.targetF3,this.targetFal3,null ,this);
+        this.physics.add.overlap(this.player.player, this.targetF4,this.targetFal4,null ,this);
+        this.physics.add.overlap(this.player.player, this.targetF5,this.targetFal5,null ,this);
+        this.physics.add.overlap(this.player.player, this.targetF6,this.targetFal6,null ,this);
 
         // Caméra
         this.cameras.main.startFollow(this.player.player,true); // la caméra suis le joueur et on dit true pour eviter un bug de texture
@@ -582,7 +552,8 @@ class scene extends Phaser.Scene {
         this.leafPartFal.startFollow(targetF,96,32)
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
-            if(key.key==="Control"){
+            if(key.key==="Shift"){
+                this.piu.play();
                 this.leafPartFal.explode()
                 // this.targetFal.destroy()
                 console.log("BYeBYe")
@@ -592,12 +563,14 @@ class scene extends Phaser.Scene {
     }
 
     targetFal2(player,targetF2){
-        this.leafPartFal.startFollow(targetF2,96,32)
+        this.leafPartFal2.startFollow(targetF2,96,32)
 
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
-            if(key.key==="Control"){
-                this.leafPartFal.explode()
+            if(key.key==="Shift"){
+                this.piu.play();
+
+                this.leafPartFal2.explode()
                 // this.targetFal2.destroy()
                 console.log("BYeBYe")
 
@@ -606,12 +579,14 @@ class scene extends Phaser.Scene {
         }, this)
     }
     targetFal3(player,targetF3){
-        this.leafPartFal.startFollow(targetF3,96,32)
+        this.leafPartFal3.startFollow(targetF3,96,32)
 
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
-            if(key.key==="Control"){
-                this.leafPartFal.explode()
+            if(key.key==="Shift"){
+                this.piu.play();
+
+                this.leafPartFal3.explode()
                 // this.targetFal3.destroy()
                 console.log("BYeBYe")
 
@@ -620,12 +595,14 @@ class scene extends Phaser.Scene {
         }, this)
     }
     targetFal4(player,targetF4){
-        this.leafPartFal.startFollow(targetF4,96,32)
+        this.leafPartFal4.startFollow(targetF4,96,32)
 
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
-            if(key.key==="Control"){
-                this.leafPartFal.explode()
+            if(key.key==="Shift"){
+                this.piu.play();
+
+                this.leafPartFal4.explode()
                 // this.targetFal4.destroy()
                 console.log("BYeBYe")
 
@@ -634,12 +611,14 @@ class scene extends Phaser.Scene {
         }, this)
     }
     targetFal5(player,targetF5){
-        this.leafPartFal.startFollow(targetF5,96,32)
+        this.leafPartFal5.startFollow(targetF5,96,32)
 
         this.input.keyboard.on('keyup', (key)=>{
             // console.log(key)
-            if(key.key==="Control"){
-                this.leafPartFal.explode()
+            if(key.key==="Shift"){
+                this.piu.play();
+
+                this.leafPartFal5.explode()
                 // this.targetFal5.destroy()
                 console.log("BYeBYe")
 
@@ -647,6 +626,26 @@ class scene extends Phaser.Scene {
 
         }, this)
     }
+
+    targetFal6(player,targetF6){
+        this.leafPartFal6.startFollow(targetF6,192,192)
+        this.leafPartFal6.startFollow(targetF6,64,192)
+
+        this.input.keyboard.on('keyup', (key)=>{
+            // console.log(key)
+            if(key.key==="Shift"){
+                this.piu.play();
+
+                this.leafPartFal6.explode()
+                // this.targetFal5.destroy()
+                console.log("BYeBYe")
+                this.scene.start("wonGame")
+
+            }
+
+        }, this)
+    }
+
     pnjtalking(player, pnjtalk){
         this.currentPnjX = pnjtalk.x
         this.currentPnjY = pnjtalk.y
@@ -655,7 +654,7 @@ class scene extends Phaser.Scene {
             if(key.key==="Control"){
                 let test = this.add.image(this.currentPnjX, this.currentPnjY-100,"textboxSprite").setDepth(8)
                 console.log("Pnj/Joueur overlap+ touche")
-                this.time.delayedCall(3000, () => {
+                this.time.delayedCall(5000, () => {
                     test.visible = false
                     console.log("BYeBYe")
                 })

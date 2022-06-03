@@ -23,7 +23,7 @@ const config = {
             fps:140,
         },
     },
-    scene: [menustart,cinematicintro,scene]
+    scene: [menustart,cinematicintro,scene,wonScene]
 };
 
 const game = new Phaser.Game(config);
