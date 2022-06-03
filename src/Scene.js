@@ -23,12 +23,13 @@ class scene extends Phaser.Scene {
         this.load.image('pnjSprite2','assets/objects/Pnj2.png');
         this.load.image('pnjSprite3','assets/objects/Pnj3.png');
         this.load.image('pnjSprite4','assets/objects/Pnj4.png');
-        this.load.image('breach',"assets/objects/breach.png");
+        this.load.image('pnjSprite5','assets/objects/Pnj5.png');
 
         this.load.image('textboxSprite','assets/objects/textBox.png');
         this.load.image('textboxSprite2','assets/objects/textBox2.png');
         this.load.image('textboxSprite3','assets/objects/textBox3.png');
         this.load.image('textboxSprite4','assets/objects/textBox4.png');
+        this.load.image('textboxSprite5','assets/objects/textBox5.png');
 
         //parallaxe background
         this.load.image('BG1',"assets/images/BG1.png");
@@ -202,6 +203,13 @@ class scene extends Phaser.Scene {
             immovable: true,
             setDepth : 8,
         });
+
+        this.pnjtalk5 = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+            setDepth : 8,
+        });
+
         this.eljumpor = this.physics.add.group({
             allowGravity: false,
             immovable: true,
@@ -403,7 +411,7 @@ class scene extends Phaser.Scene {
                 case 'PnjT':
                 {
 
-                    let pnjtalk = this.add.sprite(x,y,"pnjSprite").setOrigin(0,0).setDepth(80)
+                    let pnjtalk = this.add.sprite(x,y,"pnjSprite").setOrigin(0,0).setDepth(8)
                     pnjtalk = this.physics.add.existing(pnjtalk)
                     this.pnjtalk.add(pnjtalk)
                     break;
@@ -412,7 +420,7 @@ class scene extends Phaser.Scene {
                 case 'PnjT2':
                 {
 
-                    let pnjtalk2 = this.add.sprite(x,y,"pnjSprite2").setOrigin(0,0).setDepth(80)
+                    let pnjtalk2 = this.add.sprite(x,y,"pnjSprite2").setOrigin(0,0).setDepth(8)
                     pnjtalk2 = this.physics.add.existing(pnjtalk2)
                     this.pnjtalk2.add(pnjtalk2)
                     break;
@@ -421,7 +429,7 @@ class scene extends Phaser.Scene {
                 case 'PnjT3':
                 {
 
-                    let pnjtalk3 = this.add.sprite(x,y,"pnjSprite3").setOrigin(0,0).setDepth(80)
+                    let pnjtalk3 = this.add.sprite(x,y,"pnjSprite3").setOrigin(0,0).setDepth(8)
                     pnjtalk3 = this.physics.add.existing(pnjtalk3)
                     this.pnjtalk3.add(pnjtalk3)
                     break;
@@ -430,10 +438,23 @@ class scene extends Phaser.Scene {
                 case 'PnjT4':
                 {
 
-                    let pnjtalk4 = this.add.sprite(x,y,"pnjSprite4").setOrigin(0,0).setDepth(80)
+                    let pnjtalk4 = this.add.sprite(x,y,"pnjSprite4").setOrigin(0,0).setDepth(8)
                     pnjtalk4 = this.physics.add.existing(pnjtalk4)
                     this.pnjtalk4.add(pnjtalk4)
                     break;
+
+                }//FIN-PNJ
+
+                case 'PnjT5':
+                {
+
+                    let pnjtalk5 = this.add.sprite(x,y,"pnjSprite5").setOrigin(0,0).setDepth(8)
+                    pnjtalk5 = this.physics.add.existing(pnjtalk5)
+                    this.pnjtalk5.add(pnjtalk5)
+                    console.log("555")
+
+                    break;
+
 
                 }//FIN-PNJ
 
@@ -480,6 +501,7 @@ class scene extends Phaser.Scene {
         this.physics.add.overlap(this.player.player, this.pnjtalk2,this.pnjtalking2,null ,this);
         this.physics.add.overlap(this.player.player, this.pnjtalk3,this.pnjtalking3,null ,this);
         this.physics.add.overlap(this.player.player, this.pnjtalk4,this.pnjtalking4,null ,this);
+        this.physics.add.overlap(this.player.player, this.pnjtalk5,this.pnjtalking5,null ,this);
 
         this.physics.add.overlap(this.player.player, this.targetF,this.targetFal,null ,this);
         // this.physics.add.overlap(this.player.player, this.targetF2,this.targetFal2,null ,this);
@@ -687,6 +709,22 @@ class scene extends Phaser.Scene {
                 this.time.delayedCall(6000, () => {
                     test4.visible = false
                     console.log("BYeBYe")
+                })
+            }
+
+        }, this);
+
+    }
+    pnjtalking5(player, pnjtalk5){
+        this.currentPnjX5 = pnjtalk5.x
+        this.currentPnjY5 = pnjtalk5.y
+        this.input.keyboard.on('keyup', (key)=>{
+            // console.log(key)
+            if(key.key==="Control"){
+                let test5 = this.add.image(this.currentPnjX5, this.currentPnjY5-100,"textboxSprite5").setDepth(8)
+                console.log("Pnj4/Joueur overlap+ touche")
+                this.time.delayedCall(6000, () => {
+                    test5.visible = false
                 })
             }
 
