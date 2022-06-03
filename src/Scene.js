@@ -451,7 +451,7 @@ class scene extends Phaser.Scene {
                     let pnjtalk5 = this.add.sprite(x,y,"pnjSprite5").setOrigin(0,0).setDepth(8)
                     pnjtalk5 = this.physics.add.existing(pnjtalk5)
                     this.pnjtalk5.add(pnjtalk5)
-                    console.log("555")
+                    console.log("hey wht")
 
                     break;
 
